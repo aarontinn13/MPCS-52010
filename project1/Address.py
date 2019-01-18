@@ -20,7 +20,7 @@ class Address():
 
         pass
 
-
+'''
 x = Address(128)
 print(x.address)
 #print(bin(128))
@@ -44,3 +44,4 @@ c = list(range(2*n*sz, 3*n*sz, sz))
 print(a)
 for i in range(n):
     print(bin(a[i]))
+'''
