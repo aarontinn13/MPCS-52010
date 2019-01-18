@@ -1,4 +1,4 @@
-class Ram():
+class RAM():
 
     def __init__(self, size, blocks):
         self.size = size
