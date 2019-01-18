@@ -6,8 +6,3 @@ class DataBlock():
         '''
         self.size = size
         self.data = [None]*size
-'''
-x = Block()
-print(x.size)
-print(x.data)
-'''

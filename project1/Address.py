@@ -17,10 +17,10 @@ class Address():
 
     def getOffset(self):
         #determined by how big the blocks are log(64B,2)
-
         pass
 
-'''
+
+
 x = Address(128)
 print(x.address)
 #print(bin(128))
@@ -43,5 +43,4 @@ c = list(range(2*n*sz, 3*n*sz, sz))
 
 print(a)
 for i in range(n):
-    print(bin(a[i]))
-'''
+    print(bin(a[i]).partition('b')[2])

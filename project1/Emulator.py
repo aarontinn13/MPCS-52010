@@ -7,6 +7,7 @@ import argparse
 from math import log
 from sys import exit
 
+'''CHANGE ALGORITHM BACK TO MXM-BLOCK (Currently daxpy)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'''
 # -c size of the cache (65,536)
 # -b size of a block (64)
 # -n n-way associativity (2)
@@ -22,7 +23,7 @@ parser.add_argument('-c', action='store', default=65536, type=int, dest='cache_s
 parser.add_argument('-b', action='store', default=64, type=int, dest='block_size', help='size of a block (default: 64 Bytes)')
 parser.add_argument('-n', action='store', default=2, type=int, dest='n_way', help='n-way associativity (default: 2 blocks/set)')
 parser.add_argument('-r', action='store', default='LRU', type=str, dest='replacement', help='replacement policy [FIFO, LRU] (default: LRU)')
-parser.add_argument('-a', action='store', default='mxm-block', type=str, dest='algorithm', help='algorithm to test [daxpy, mxm, mxm-block] (default: mxm-block)')
+parser.add_argument('-a', action='store', default='daxpy', type=str, dest='algorithm', help='algorithm to test [daxpy, mxm, mxm-block] (default: mxm-block)')
 parser.add_argument('-d', action='store', default=480, type=int, dest='dimension', help='dimension of the matrix (default: 480 floats)')
 parser.add_argument('-p', action='store_true', default=False, dest='print_',help='enables printing of the value')
 parser.add_argument('-f', action='store', default=32, type=int, dest='blocking_factor',help='blocking factor of mxm-block (default: 32)')
@@ -70,23 +71,23 @@ else:
 
 if algorithm == 'daxpy':
 
-    #construct arrays of Addresses of length(dimension)
+    #construct Address arrays of length = dimension
     a = list(range(0, dimension*float_size, float_size))
     b = list(range(dimension*float_size, 2*dimension*float_size, float_size))
     c = list(range(2*dimension*float_size, 3*dimension*float_size, float_size))
 
-    #create RAM
-    ram = RAM()
-    address = Address()
-    cache = Cache()
-    cpu = CPU()
-    datablock = DataBlock(results.block_size)
+    RAM_size = 3*dimension*float_size      #total Bytes of RAM
 
+    print(a)
+    print(b)
+    print(c)
+    print(RAM_size)
 
+    #initialize the CPU
+    cpu = CPU(cache_size, RAM_size, block_size, n_way, replacement)
 
-
-
-
-
-
+    for i in range(dimension):
+        cpu.storeDouble(a[i], i)
+        cpu.storeDouble(b[i], 2*i)
+        cpu.storeDouble(c[i], 0)
 
