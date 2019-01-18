@@ -14,13 +14,9 @@ class CPU():
         pass
 
 
-
     def storeDouble(self, address, value):
         '''stores values into RAM'''
         temp = Address(address)
-
-
-
 
 
 
