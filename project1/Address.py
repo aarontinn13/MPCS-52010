@@ -18,7 +18,7 @@ class Address():
     def getOffset(self):
         #determined by how big the blocks are log(64B,2)
 
-
+        pass
 
 
 x = Address(128)
