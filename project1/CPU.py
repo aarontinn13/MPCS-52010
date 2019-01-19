@@ -10,6 +10,7 @@ class CPU():
         self.ram = RAM(size=RAM_size, block_size=block_size)
         self.cache = Cache(size=cache_size, block_size=block_size, n=associativity, replacement=replacement)
 
+
     def loadDouble(self, address):
         '''attempts to load values from cache, else checks RAM'''
         pass
@@ -19,11 +20,14 @@ class CPU():
         '''stores values into RAM'''
 
         ram = self.ram
+
+        address = Address(address, self.ram.size)
+
         ram.set_block(address, value)
+
 
     def addDouble(self, num1, num2):
         pass
 
     def multDouble(self, num1, num2):
         pass
-

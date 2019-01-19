@@ -99,3 +99,6 @@ if algorithm == 'daxpy':
         register3 = cpu.loadDouble(b[i])
         register4 = cpu.addDouble(register2, register3)
         cpu.storeDouble(address=c[i], value=register4)
+
+    for i in cpu.ram.data:
+        print(i)

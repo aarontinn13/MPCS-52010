@@ -2,8 +2,9 @@ from math import log
 
 class Address():
 
-    def __init__(self, address, block_size=64):
+    def __init__(self, address, RAM_size):
 
+        self.bits = len(bin(RAM_size).partition('b')[2])    #number of bits
         self.address = bin(address).partition('b')[2]
 
     def getTag(self):
