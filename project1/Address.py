@@ -2,23 +2,41 @@ from math import log
 
 class Address():
 
-    def __init__(self, address, RAM_size):
+    def __init__(self, RAM_size, associativity, block_size):
 
-        self.bits = len(bin(RAM_size).partition('b')[2])    #number of bits
-        self.address = bin(address).partition('b')[2]
+        self.bits = len(bin(RAM_size).partition('b')[2])
+        self.associativity = associativity
+        self.block_size = block_size
 
-    def getTag(self):
-        tag = len(self.address)
+
+    def getTag(self, address):
         pass
 
-    def getIndex(self):
+    def getIndex(self, address):
         #determined by how many sets there are
-
         pass
 
-    def getOffset(self):
+    def getOffset(self, address):
         #determined by how big the blocks are log(64B,2)
-        pass
+
+
+
+x = Address(11520, 1, 64)
+
+print(x.bits)
+print(x.address)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 '''

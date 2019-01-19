@@ -5,14 +5,16 @@ from Cache import Cache
 class CPU():
 
     def __init__(self, cache_size, RAM_size, block_size, associativity, replacement):
-        #cpu.ram
-        #cpu.cache
-        self.ram = RAM(size=RAM_size, block_size=block_size)
-        self.cache = Cache(size=cache_size, block_size=block_size, n=associativity, replacement=replacement)
 
+        self.ram = RAM(size=RAM_size, block_size=block_size, associativity=associativity)
+        self.cache = Cache(size=cache_size, block_size=block_size, n=associativity, replacement=replacement)
+        self.address = Address()
+        self.RAM_size = RAM_size
+        self.associativity = associativity
+        self.block_size = block_size
 
     def loadDouble(self, address):
-        '''attempts to load values from cache, else checks RAM'''
+        '''attempts to load values from cache, else loads from RAM'''
         pass
 
 
@@ -20,9 +22,9 @@ class CPU():
         '''stores values into RAM'''
 
         ram = self.ram
-
-        address = Address(address, self.ram.size)
-
+        temp = Address(self.RAM_size, self.associativity, self.block_size)
+        index = temp.getIndex(address)
+        offset = temp.getOffset(address)
         ram.set_block(address, value)
 
 

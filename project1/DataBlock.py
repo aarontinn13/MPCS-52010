@@ -1,11 +1,11 @@
 class DataBlock():
 
-    def __init__(self):
+    def __init__(self, index):
         '''
         :param size: integer bytes with doubles being 8 bytes
         '''
         self.data = []
-
+        self.index = index
 
 
 
