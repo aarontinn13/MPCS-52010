@@ -8,10 +8,11 @@ class CPU():
 
         self.ram = RAM(size=RAM_size, block_size=block_size, associativity=associativity)
         self.cache = Cache(size=cache_size, block_size=block_size, n=associativity, replacement=replacement)
-        self.address = Address()
+        self.address = Address(self.RAM_size, self.cache_size, self.associativity, self.block_size)
         self.RAM_size = RAM_size
         self.associativity = associativity
         self.block_size = block_size
+        self.cache_size = cache_size
 
     def loadDouble(self, address):
         '''attempts to load values from cache, else loads from RAM'''
@@ -22,7 +23,7 @@ class CPU():
         '''stores values into RAM'''
 
         ram = self.ram
-        temp = Address(self.RAM_size, self.associativity, self.block_size)
+        temp = self.address
         index = temp.getIndex(address)
         offset = temp.getOffset(address)
         ram.set_block(address, value)
