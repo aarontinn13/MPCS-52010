@@ -78,16 +78,24 @@ if algorithm == 'daxpy':
 
     RAM_size = 3*dimension*float_size      #total Bytes of RAM
 
-    print(a)
-    print(b)
-    print(c)
-    print(RAM_size)
+    #print(a)
+    #print(b)
+    #print(c)
+    #print(RAM_size)
 
     #initialize the CPU
-    cpu = CPU(cache_size, RAM_size, block_size, n_way, replacement)
+    cpu = CPU(cache_size=cache_size, RAM_size=RAM_size, block_size=block_size, associativity=n_way, replacement=replacement)
 
     for i in range(dimension):
-        cpu.storeDouble(a[i], i)
-        cpu.storeDouble(b[i], 2*i)
-        cpu.storeDouble(c[i], 0)
+        cpu.storeDouble(address=a[i], value=i)
+        cpu.storeDouble(address=b[i], value=2*i)
+        cpu.storeDouble(address=c[i], value=0)
 
+    register0 = d_value
+
+    for i in range(dimension):
+        register1 = cpu.loadDouble(a[i])
+        register2 = cpu.multDouble(register0, register1)
+        register3 = cpu.loadDouble(b[i])
+        register4 = cpu.addDouble(register2, register3)
+        cpu.storeDouble(address=c[i], value=register4)

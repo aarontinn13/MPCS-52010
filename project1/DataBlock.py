@@ -1,6 +1,6 @@
 class DataBlock():
 
-    def __init__(self, size=64):
+    def __init__(self, size):
         '''
         :param size: integer bytes with doubles being 8 bytes
         '''
