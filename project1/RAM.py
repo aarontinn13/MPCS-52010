@@ -12,7 +12,3 @@ class RAM():
 
     def set_block(self):
         pass
-
-
-
-    print('YEAGARGSGERSGERSGRSGRG')
