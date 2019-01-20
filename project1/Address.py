@@ -1,4 +1,4 @@
-from math import log
+from math import log, ceil
 
 class Address():
 
@@ -31,25 +31,33 @@ class Address():
         address = bin(address).partition('b')[2]
         return str(address).zfill(int(self.bits))
 
+    def convertByte(self, byte):
+        '''given a byte index, will convert back to integer'''
+        byte = '0b'+byte
+        return int(byte,2)
+
+
+#TEST
+'''
+ramsize = 1024
+cachesize = 512
+blocksize = 8
 bytesize = 8
-blocksize = 64
-floatsinblock = blocksize//bytesize
-ramsize = 256
-cachesize = 128
-associativity = 1
+associativity = 1   #this many blocks per set
 
 x = Address(RAM_size=ramsize, cache_size=cachesize, block_size=blocksize, associativity=associativity)
 
+print()
 print('ram size: {} bytes'.format(ramsize))
 print('cache size: {} bytes'.format(cachesize))
 print('block size: {} bytes'.format(x.block_size))
 print('byte size: {} bytes'.format(bytesize))
-print('blocks in RAM: {}'.format(ramsize/blocksize))
-print('blocks in cache: {}'.format(int(cachesize/blocksize)))
+print('blocks in RAM: {}'.format(ceil(ramsize/blocksize)))
+print('blocks in cache: {}'.format(ceil(cachesize/blocksize)))
 print('sets in the cache: {}'.format(cachesize//blocksize//associativity))
-print('offset size: {}'.format(x.offset_size))
-print('index size: {}'.format(x.index_size))
 print('tag size: {}'.format(x.tag_size))
+print('index size: {}'.format(x.index_size))
+print('offset size: {}'.format(x.offset_size))
 print('total bits for address: {}'.format(x.bits))
 
 #test the index
@@ -58,7 +66,9 @@ z=0
 for i, j in enumerate(range(0,ramsize, bytesize)):
 
     if j%blocksize == 0:
-        print('******************','block',z)
+        print('\n-----------------------------------block {}-----------------------------------\n'.format(z))
         z += 1
 
-    print('{}|\ttag: {}, index:{}, offset: {}, full address: {}'.format(i, x.getTag(j), x.getIndex(j), x.getOffset(j), x.getFullAddress(j)))
+    print('{}|tag: {}, index:{}, offset: {}, byte address: {}, address {}'
+          .format(i, x.getTag(j), x.getIndex(j), x.getOffset(j), x.getFullAddress(j), j))
+'''

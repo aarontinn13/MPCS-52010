@@ -76,7 +76,7 @@ if algorithm == 'daxpy':
     b = list(range(dimension*float_size, 2*dimension*float_size, float_size))
     c = list(range(2*dimension*float_size, 3*dimension*float_size, float_size))
 
-    RAM_size = 3*dimension*float_size      #total Bytes of RAM
+    RAM_size = 3*dimension*float_size      #totprint(index, offset//8)al Bytes of RAM
 
     #print(a)
     #print(b)
@@ -84,9 +84,15 @@ if algorithm == 'daxpy':
     #print(RAM_size)
 
     #initialize the CPU
-    cpu = CPU(cache_size=cache_size, RAM_size=RAM_size, block_size=block_size, associativity=n_way, replacement=replacement)
+    cpu = CPU(RAM_size=RAM_size, cache_size=cache_size, block_size=block_size, associativity=n_way, replacement=replacement)
+
+
+
+
+
 
     for i in range(dimension):
+        
         cpu.storeDouble(address=a[i], value=i)
         cpu.storeDouble(address=b[i], value=2*i)
         cpu.storeDouble(address=c[i], value=0)
@@ -98,10 +104,10 @@ if algorithm == 'daxpy':
         register2 = cpu.multDouble(register0, register1)
         register3 = cpu.loadDouble(b[i])
         register4 = cpu.addDouble(register2, register3)
-        cpu.storeDouble(address=c[i], value=register4)
-'''
-    print(RAM_size)
-    print(block_size)
-    for i,j in enumerate(cpu.ram.data):
-        print(i,j)
-'''
+        #cpu.storeDouble(address=c[i], value=register4)
+
+
+    #print(RAM_size)
+    #print(block_size)
+    #for i,j in enumerate(cpu.ram.data):
+        #print(i,j)

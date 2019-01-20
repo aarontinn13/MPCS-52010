@@ -15,5 +15,14 @@ class RAM():
     def get_block(self, address):
         pass
 
-    def set_block(self, address, value):
-        pass
+    def set_block(self, index, value):
+
+        self.data[index].append(value)
+        print(self.data)
+
+
+
+
+
+
+
