@@ -2,73 +2,63 @@ from math import log
 
 class Address():
 
-    def __init__(self, RAM_size, cache_size, associativity, block_size):
+    def __init__(self, RAM_size, cache_size, block_size, associativity):
 
-        self.bits = len(bin(RAM_size).partition('b')[2])                    # number of bits maximum
-        self.associativity = associativity                                  # associativity
-        self.block_size = block_size                                        # block size
-        self.offset_size = log(self.block_size, 2)                          # size of the offset bits
-        self.index_size = log(((cache_size/block_size)/associativity),2)    # size of the index bits
+        self.bits = len(bin(RAM_size).partition('b')[2])                          # number of bits maximum
+        self.associativity = associativity                                        # associativity
+        self.block_size = block_size                                              # block size
+        self.offset_size = int(log(self.block_size, 2))                           # number of bits in the offset
+        self.index_size = int(log(((cache_size/block_size)/associativity), 2))    # number of bits in the index
+        self.tag_size = self.bits - self.index_size - self.offset_size            # number of bits in the tag
 
     def getTag(self, address):
-        pass
+        offset = bin(address).partition('b')[2]
+        return str(offset).zfill(int(self.bits))[:-self.offset_size-self.index_size]
 
     def getIndex(self, address):
-        index = bin(address).partition('b')[2]
-        return str(index).zfill(int(self.index_size))
+        offset = bin(address).partition('b')[2]
+
+        return str(offset).zfill(int(self.bits))[-self.offset_size-self.index_size:-self.offset_size]
 
     def getOffset(self, address):
         offset = bin(address).partition('b')[2]
-        return str(offset).zfill(int(self.offset_size))
+        return str(offset).zfill(int(self.bits))[-self.offset_size:]
 
-    def getFullAddress(self,address):
+    def getFullAddress(self, address):
         address = bin(address).partition('b')[2]
         return str(address).zfill(int(self.bits))
+bytesize = 1
+ramsize = 256
+cachesize = 128
+blocksize = 64
+associativity = 2
 
-x = Address(11520, 65536, 1, 64)
+x = Address(RAM_size=ramsize, cache_size=cachesize, block_size=blocksize, associativity=associativity)
 
-print(x.bits)
-print(x.getOffset(8))
-print(x.getFullAddress(11520))
-print(x.block_size)
-print(x.offset_size)
-
-#for i in range(0,480*8,8):
- #   print(x.getOffset(i))
-
-
-
-
-
-
-
-
-
-
+print('ram size: {} bytes\n'.format(ramsize))
+print('cache size: {} bytes\n'.format(cachesize))
+print('total bits for address: {}\n'.format(x.bits))
+print('block size: {} bytes\n'.format(x.block_size))
+print('sets in the cache: {}\n'.format(cachesize//blocksize//associativity))
+print('offset size: {}\n'.format(x.offset_size))
+print('index size: {}\n'.format(x.index_size))
+print('tag size: {}\n'.format(x.tag_size))
 
 
 '''
-x = Address(128)
-print(x.address)
-#print(bin(128))
-#print(hex(128))
-
-#print(bin(3840))
-#print(hex(3840))
-
-#print(bin(8))
-#print(hex(3840))
-
-
-# Assume 8 bytes per Double
-sz = 8
-# Construct arrays of Addresses for length = 100 problem
-n = 100
-a = list(range( 0, n*sz, sz))
-b = list(range( n*sz, 2*n*sz, sz))
-c = list(range(2*n*sz, 3*n*sz, sz))
-
-print(a)
-for i in range(n):
-    print(bin(a[i]).partition('b')[2])
+#test the offset
+for i,j in enumerate(range(0,480*8,8)):
+    if i%8 == 0:
+        print('******************')
+    print(i, x.getOffset(j))
 '''
+#test the index
+
+z=0
+for i, j in enumerate(range(0,ramsize, bytesize)):
+
+    if i%blocksize == 0:
+        print('******************','block',z)
+        z += 1
+
+    print('{}|   tag: {}, index:{}, offset: {}, full address: {}'.format(i, x.getTag(j), x.getIndex(j), x.getOffset(j), x.getFullAddress(j)))

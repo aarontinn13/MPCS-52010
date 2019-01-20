@@ -8,7 +8,7 @@ class CPU():
 
         self.ram = RAM(size=RAM_size, block_size=block_size, associativity=associativity)
         self.cache = Cache(size=cache_size, block_size=block_size, n=associativity, replacement=replacement)
-        self.address = Address(self.RAM_size, self.cache_size, self.associativity, self.block_size)
+        self.address = Address(self.RAM_size, self.cache_size, self.block_size, self.associativity)
         self.RAM_size = RAM_size
         self.associativity = associativity
         self.block_size = block_size
