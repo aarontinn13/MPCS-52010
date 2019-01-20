@@ -17,48 +17,48 @@ class Address():
 
     def getIndex(self, address):
         offset = bin(address).partition('b')[2]
-
+        if self.index_size == 0:
+            return None
         return str(offset).zfill(int(self.bits))[-self.offset_size-self.index_size:-self.offset_size]
 
     def getOffset(self, address):
         offset = bin(address).partition('b')[2]
+        if self.offset_size == 0:
+            return None
         return str(offset).zfill(int(self.bits))[-self.offset_size:]
 
     def getFullAddress(self, address):
         address = bin(address).partition('b')[2]
         return str(address).zfill(int(self.bits))
-bytesize = 1
+
+bytesize = 8
+blocksize = 64
+floatsinblock = blocksize//bytesize
 ramsize = 256
 cachesize = 128
-blocksize = 64
-associativity = 2
+associativity = 1
 
 x = Address(RAM_size=ramsize, cache_size=cachesize, block_size=blocksize, associativity=associativity)
 
-print('ram size: {} bytes\n'.format(ramsize))
-print('cache size: {} bytes\n'.format(cachesize))
-print('total bits for address: {}\n'.format(x.bits))
-print('block size: {} bytes\n'.format(x.block_size))
-print('sets in the cache: {}\n'.format(cachesize//blocksize//associativity))
-print('offset size: {}\n'.format(x.offset_size))
-print('index size: {}\n'.format(x.index_size))
-print('tag size: {}\n'.format(x.tag_size))
+print('ram size: {} bytes'.format(ramsize))
+print('cache size: {} bytes'.format(cachesize))
+print('block size: {} bytes'.format(x.block_size))
+print('byte size: {} bytes'.format(bytesize))
+print('blocks in RAM: {}'.format(ramsize/blocksize))
+print('blocks in cache: {}'.format(int(cachesize/blocksize)))
+print('sets in the cache: {}'.format(cachesize//blocksize//associativity))
+print('offset size: {}'.format(x.offset_size))
+print('index size: {}'.format(x.index_size))
+print('tag size: {}'.format(x.tag_size))
+print('total bits for address: {}'.format(x.bits))
 
-
-'''
-#test the offset
-for i,j in enumerate(range(0,480*8,8)):
-    if i%8 == 0:
-        print('******************')
-    print(i, x.getOffset(j))
-'''
 #test the index
 
 z=0
 for i, j in enumerate(range(0,ramsize, bytesize)):
 
-    if i%blocksize == 0:
+    if j%blocksize == 0:
         print('******************','block',z)
         z += 1
 
-    print('{}|   tag: {}, index:{}, offset: {}, full address: {}'.format(i, x.getTag(j), x.getIndex(j), x.getOffset(j), x.getFullAddress(j)))
+    print('{}|\ttag: {}, index:{}, offset: {}, full address: {}'.format(i, x.getTag(j), x.getIndex(j), x.getOffset(j), x.getFullAddress(j)))
