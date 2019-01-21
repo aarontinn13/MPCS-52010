@@ -18,9 +18,10 @@ class CPU():
         '''attempts to load values from cache, else loads from RAM'''
 
         cache = self.cache
-        if cache.getBlock(address):         #if the block is in the cache
-             return cache.getDouble(address)
-
+        if cache.getBlock(address):                                         #if the block is in the cache
+            return cache.getDouble(address)
+        else:                                                               #block is not in the cache, so we must write inside
+            cache.setBlock(address)
 
 
 
@@ -45,17 +46,3 @@ class CPU():
 
     def multDouble(self, num1, num2):
         return num1 * num2
-
-
-
-
-
-
-
-
-
-'''
-cpu = CPU(RAM_size=1024, cache_size=512, block_size=8, associativity=1, replacement='LRU')
-
-cpu.storeDouble(480*8,5)
-'''

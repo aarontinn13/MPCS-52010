@@ -1,10 +1,5 @@
-from Address import Address
-from Cache import Cache
 from CPU import CPU
-from DataBlock import DataBlock
-from RAM import RAM
 import argparse
-from math import log
 from sys import exit
 
 '''CHANGE ALGORITHM BACK TO MXM-BLOCK (Currently daxpy) CHANGE CACHE TO 65536!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'''
@@ -93,7 +88,7 @@ if algorithm == 'daxpy':
         cpu.storeDouble(address=b[i], value=2*i)
         cpu.storeDouble(address=c[i], value=0)
 
-    print(cpu.ram.data)
+    #print(cpu.ram.data)
     register0 = d_value
 
     for i in range(dimension):

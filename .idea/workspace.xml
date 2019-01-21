@@ -8,6 +8,7 @@
       <change beforePath="$PROJECT_DIR$/project1/Cache.py" afterPath="$PROJECT_DIR$/project1/Cache.py" />
       <change beforePath="$PROJECT_DIR$/project1/Emulator.py" afterPath="$PROJECT_DIR$/project1/Emulator.py" />
       <change beforePath="$PROJECT_DIR$/project1/RAM.py" afterPath="$PROJECT_DIR$/project1/RAM.py" />
+      <change beforePath="$PROJECT_DIR$/project1/messaround.py" afterPath="$PROJECT_DIR$/project1/messaround.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,8 +22,8 @@
       <file leaf-file-name="Address.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/project1/Address.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" column="45" lean-forward="false" selection-start-line="21" selection-start-column="45" selection-end-line="21" selection-end-column="45" />
+            <state relative-caret-position="663">
+              <caret line="39" column="32" lean-forward="false" selection-start-line="39" selection-start-column="32" selection-end-line="39" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -31,8 +32,8 @@
       <file leaf-file-name="CPU.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/project1/CPU.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+            <state relative-caret-position="544">
+              <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
               <folding>
                 <element signature="e#0#27#0" expanded="true" />
               </folding>
@@ -43,8 +44,8 @@
       <file leaf-file-name="Cache.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/project1/Cache.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="453">
-              <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+            <state relative-caret-position="765">
+              <caret line="57" column="40" lean-forward="false" selection-start-line="57" selection-start-column="40" selection-end-line="57" selection-end-column="40" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -55,11 +56,19 @@
       <file leaf-file-name="RAM.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/project1/RAM.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#27#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="272">
+              <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="messaround.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/project1/messaround.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="14" lean-forward="true" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -67,10 +76,10 @@
       <file leaf-file-name="Emulator.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/project1/Emulator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-635">
-              <caret line="25" column="56" lean-forward="false" selection-start-line="25" selection-start-column="56" selection-end-line="25" selection-end-column="56" />
+            <state relative-caret-position="705">
+              <caret line="98" column="9" lean-forward="false" selection-start-line="98" selection-start-column="9" selection-end-line="98" selection-end-column="9" />
               <folding>
-                <element signature="e#0#27#0" expanded="true" />
+                <element signature="e#0#19#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -88,8 +97,8 @@
         <option value="$PROJECT_DIR$/project1/messaround.py" />
         <option value="$PROJECT_DIR$/project1/Emulator.py" />
         <option value="$PROJECT_DIR$/project1/RAM.py" />
-        <option value="$PROJECT_DIR$/project1/Address.py" />
         <option value="$PROJECT_DIR$/project1/CPU.py" />
+        <option value="$PROJECT_DIR$/project1/Address.py" />
         <option value="$PROJECT_DIR$/project1/Cache.py" />
       </list>
     </option>
@@ -252,10 +261,10 @@
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.Address" />
-        <item index="1" class="java.lang.String" itemvalue="Python.Emulator" />
-        <item index="2" class="java.lang.String" itemvalue="Python.RAM" />
-        <item index="3" class="java.lang.String" itemvalue="Python.CPU" />
-        <item index="4" class="java.lang.String" itemvalue="Python.messaround" />
+        <item index="1" class="java.lang.String" itemvalue="Python.messaround" />
+        <item index="2" class="java.lang.String" itemvalue="Python.Emulator" />
+        <item index="3" class="java.lang.String" itemvalue="Python.RAM" />
+        <item index="4" class="java.lang.String" itemvalue="Python.CPU" />
       </list>
     </recent_temporary>
   </component>
@@ -282,7 +291,7 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.100481026" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32924336" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3132015" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28220204" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -304,7 +313,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32924336" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.40459648" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.10422234" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -325,12 +334,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/project1/Emulator.py</url>
-          <line>25</line>
+          <line>20</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/project1/Emulator.py</url>
-          <line>21</line>
+          <line>16</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
@@ -370,7 +379,7 @@
         <state relative-caret-position="1802">
           <caret line="106" column="55" lean-forward="true" selection-start-line="106" selection-start-column="55" selection-end-line="106" selection-end-column="55" />
           <folding>
-            <element signature="e#0#27#0" expanded="true" />
+            <element signature="e#0#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -397,9 +406,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="20" column="23" lean-forward="false" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -433,9 +440,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="12" column="89" lean-forward="false" selection-start-line="12" selection-start-column="89" selection-end-line="12" selection-end-column="89" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -452,7 +457,7 @@
         <state relative-caret-position="1717">
           <caret line="101" column="3" lean-forward="true" selection-start-line="101" selection-start-column="3" selection-end-line="101" selection-end-column="3" />
           <folding>
-            <element signature="e#0#27#0" expanded="true" />
+            <element signature="e#0#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -507,9 +512,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -518,7 +521,7 @@
         <state relative-caret-position="1428">
           <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
           <folding>
-            <element signature="e#0#27#0" expanded="true" />
+            <element signature="e#0#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -563,9 +566,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -574,7 +575,7 @@
         <state relative-caret-position="493">
           <caret line="36" column="9" lean-forward="true" selection-start-line="36" selection-start-column="9" selection-end-line="36" selection-end-column="9" />
           <folding>
-            <element signature="e#0#27#0" expanded="true" />
+            <element signature="e#0#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -594,28 +595,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/project1/Emulator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="705">
+          <caret line="98" column="9" lean-forward="false" selection-start-line="98" selection-start-column="9" selection-end-line="98" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/project1/messaround.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+        <state relative-caret-position="68">
+          <caret line="4" column="14" lean-forward="true" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/project1/RAM.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="272">
+          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/project1/Emulator.py">
+    <entry file="file://$PROJECT_DIR$/project1/CPU.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-635">
-          <caret line="25" column="56" lean-forward="false" selection-start-line="25" selection-start-column="56" selection-end-line="25" selection-end-column="56" />
+        <state relative-caret-position="544">
+          <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
           <folding>
             <element signature="e#0#27#0" expanded="true" />
           </folding>
@@ -624,26 +633,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/project1/Address.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="45" lean-forward="false" selection-start-line="21" selection-start-column="45" selection-end-line="21" selection-end-column="45" />
+        <state relative-caret-position="663">
+          <caret line="39" column="32" lean-forward="false" selection-start-line="39" selection-start-column="32" selection-end-line="39" selection-end-column="32" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/project1/CPU.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/project1/Cache.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="453">
-          <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+        <state relative-caret-position="765">
+          <caret line="57" column="40" lean-forward="false" selection-start-line="57" selection-start-column="40" selection-end-line="57" selection-end-column="40" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>
