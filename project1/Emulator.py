@@ -84,9 +84,7 @@ if algorithm == 'daxpy':
     #for i in cpu.ram.data:
         #print(i)
 
-
     register0 = d_value
-
 
     for i in range(dimension):
 
