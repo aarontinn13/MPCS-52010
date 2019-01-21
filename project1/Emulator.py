@@ -7,7 +7,7 @@ import argparse
 from math import log
 from sys import exit
 
-'''CHANGE ALGORITHM BACK TO MXM-BLOCK (Currently daxpy)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'''
+'''CHANGE ALGORITHM BACK TO MXM-BLOCK (Currently daxpy) CHANGE CACHE TO 65536!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'''
 # -c size of the cache (65,536)
 # -b size of a block (64)
 # -n n-way associativity (2)
@@ -19,7 +19,7 @@ from sys import exit
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument('-c', action='store', default=65536, type=int, dest='cache_size',help='size of the cache (default: 65,536 Bytes)')
+parser.add_argument('-c', action='store', default=512, type=int, dest='cache_size',help='size of the cache (default: 65,536 Bytes)')
 parser.add_argument('-b', action='store', default=64, type=int, dest='block_size', help='size of a block (default: 64 Bytes)')
 parser.add_argument('-n', action='store', default=2, type=int, dest='n_way', help='n-way associativity (default: 2 blocks/set)')
 parser.add_argument('-r', action='store', default='LRU', type=str, dest='replacement', help='replacement policy [FIFO, LRU] (default: LRU)')
@@ -87,16 +87,13 @@ if algorithm == 'daxpy':
     cpu = CPU(RAM_size=RAM_size, cache_size=cache_size, block_size=block_size, associativity=n_way, replacement=replacement)
 
 
-
-
-
-
     for i in range(dimension):
         
         cpu.storeDouble(address=a[i], value=i)
         cpu.storeDouble(address=b[i], value=2*i)
         cpu.storeDouble(address=c[i], value=0)
 
+    print(cpu.ram.data)
     register0 = d_value
 
     for i in range(dimension):
