@@ -14,11 +14,4 @@ class RAM():
 
     def set_block(self, RAM_index, byte_index, value):
         '''initialize RAM with data'''
-        #print()
         self.data[RAM_index][byte_index] = value
-
-
-#x = RAM(11520, 64)
-
-
-#print(x.data)

@@ -14,7 +14,7 @@ from sys import exit
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument('-c', action='store', default=65536, type=int, dest='cache_size',help='size of the cache (default: 65,536 Bytes)')
+parser.add_argument('-c', action='store', default=512, type=int, dest='cache_size',help='size of the cache (default: 65,536 Bytes)')
 parser.add_argument('-b', action='store', default=64, type=int, dest='block_size', help='size of a block (default: 64 Bytes)')
 parser.add_argument('-n', action='store', default=2, type=int, dest='n_way', help='n-way associativity (default: 2 blocks/set)')
 parser.add_argument('-r', action='store', default='LRU', type=str, dest='replacement', help='replacement policy [FIFO, LRU] (default: LRU)')
@@ -28,7 +28,7 @@ results = parser.parse_args()
 
 cache_size = results.cache_size
 block_size = results.block_size
-n_way = results.n_way
+associativity = results.n_way
 replacement = results.replacement
 algorithm = results.algorithm
 dimension = results.dimension
@@ -36,9 +36,9 @@ print_ = results.print_
 blocking_factor = results.blocking_factor
 d_value = results.d_value                      #d-value for daxpy algorithm
 float_size = 8                                 #default float size
-floats_in_block = float(block_size/float_size) #number of floats in a block
-blocks_in_cache = float(cache_size/block_size) #number of blocks in the cache
-sets_in_cache = float(blocks_in_cache/n_way)   #number of sets in the cache (sets = 1 then fully associative, blocks=sets then DMC, else n-way)
+floats_in_block = block_size/float_size #number of floats in a block
+blocks_in_cache = cache_size/block_size #number of blocks in the cache
+sets_in_cache = blocks_in_cache/associativity   #number of sets in the cache (sets = 1 then fully associative, blocks=sets then DMC, else n-way)
 
 '''prepare calculations'''
 #check if block_size is a multiple of 8
@@ -64,16 +64,16 @@ if sets_in_cache > 1:
 else:
     exit("Error: n-way is greater than number of blocks in the cache!")
 
+#Generate the RAM size and initialize the CPU
+RAM_size = 3*dimension*float_size
+cpu = CPU(RAM_size=RAM_size, cache_size=cache_size, block_size=block_size, associativity=associativity, replacement=replacement)
+
 if algorithm == 'daxpy':
 
     #construct Address arrays of length = dimension
     a = list(range(0, dimension*float_size, float_size))
     b = list(range(dimension*float_size, 2*dimension*float_size, float_size))
     c = list(range(2*dimension*float_size, 3*dimension*float_size, float_size))
-
-    RAM_size = 3*dimension*float_size
-
-    cpu = CPU(RAM_size=RAM_size, cache_size=cache_size, block_size=block_size, associativity=n_way, replacement=replacement)
 
     for i in range(dimension):
         
@@ -84,29 +84,57 @@ if algorithm == 'daxpy':
     #for i in cpu.ram.data:
         #print(i)
 
-    
+
     register0 = d_value
 
 
     for i in range(dimension):
 
         register1 = cpu.loadDouble(a[i])
-        print('loading value {} from address {}'.format(register1, a[i]))
+        #print('loading value {} from address {}'.format(register1, a[i]))
         register2 = cpu.multDouble(register0, register1)
-        print('multiplying {} and {} = {}'.format(register0, register1, register0*register1))
+        #print('multiplying {} and {} = {}'.format(register0, register1, register0*register1))
         register3 = cpu.loadDouble(b[i])
-        print('loading value {} from address {}'.format(register3, b[i]))
+        #print('loading value {} from address {}'.format(register3, b[i]))
         register4 = cpu.addDouble(register2, register3)
-        print('adding {} and {} = {}'.format(register2, register3, register2 + register3))
+        #print('adding {} and {} = {}'.format(register2, register3, register2 + register3))
         cpu.storeDouble(address=c[i], value=register4)
-        print('storing value {} at address {} in RAM\n'.format(register4, c[i]))
-        print('--------------------------------------------------------------------------------------')
-
-    print(cpu.cache.write_miss)
-    print(cpu.cache.write_hit)
-    print(cpu.cache.read_miss)
-    print(cpu.cache.read_hit)
+        #print('storing value {} at address {} in RAM\n'.format(register4, c[i]))
+        #print('--------------------------------------------------------------------------------------')
 
     #for i in cpu.ram.data:
         #print(i)
 
+if algorithm == 'mxm':
+    pass
+
+
+
+if algorithm == 'mxm-block':
+    pass
+
+
+
+if print_:
+    #print the results of the values
+    pass
+
+print('INPUTS=====================================')
+print('Ram Size:                    {} bytes'.format(RAM_size))
+print('Cache Size:                  {} bytes'.format(cache_size))
+print('Block Size:                  {} bytes'.format(block_size))
+print('Total Blocks in Cache:       {}'.format(int(blocks_in_cache)))
+print('Associativity:               {}'.format(associativity))
+print('Number of Sets:              {}'.format(int(sets_in_cache)))
+print('Replacement Policy:          {}'.format(replacement))
+print('Algorithm:                   {}'.format(algorithm))
+print('MXM Blocking Factor:         {}'.format(blocking_factor))
+print('Matrix of Vector Dimension:  {}'.format(dimension))
+print('RESULTS=====================================')
+print('Instruction Count:           {}'.format(cpu.loadcount+cpu.storecount+cpu.addcount+cpu.multcount))
+print('Read hits:                   {}'.format(cpu.cache.read_hit))
+print('Read misses:                 {}'.format(cpu.cache.read_miss))
+print('Read miss rate:              {:.4}%'.format((cpu.cache.read_miss/(cpu.cache.read_hit+cpu.cache.read_miss))*100))
+print('Write hits:                  {}'.format(cpu.cache.write_hit))
+print('Write misses:                {}'.format(cpu.cache.write_miss))
+print('Write miss rate:             {:.4}%'.format((cpu.cache.write_miss/(cpu.cache.write_hit+cpu.cache.write_miss))*100))

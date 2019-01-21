@@ -27,9 +27,8 @@ class Cache():
         ram_index = add.convertByte(add.getRAMIndex(address))
         offset_index = add.convertByte(add.getOffset(address))
 
-        #print(self.cache_data)
         for i in self.cache_data[set_index]:
-            #print(offset_index, i)
+
             if ram_index == i[0][0]:
                 return i[int((offset_index//8))+1]
 
@@ -44,7 +43,7 @@ class Cache():
             return False
         else:                                                                                                          # set has a block(s) in it!
             for i in range(len(self.cache_data[set_index])):                                                           # scan the set for the tags
-                #check the RAM_address at the beginning of each array
+                                                                                                                       #check the RAM_address at the beginning of each array
                 if ram_index == self.cache_data[set_index][i][0][0]:                                                   # ram_index is the same as the ram_index in the block
                     self.read_hit += 1
                     if self.replacement == 'LRU':                                                                      # need to pull out the block and reinsert to back
@@ -54,57 +53,18 @@ class Cache():
             return False
 
     def setBlock(self, ram, address):
-
         add = Address(self.RAM_size, self.cache_size, self.block_size, self.associativity)                             # initialize address class
         set_index = add.convertByte(add.getsetIndex(address))                                                          # find the set_index with the address
         ram_index = add.convertByte(add.getRAMIndex(address))                                                          # find the block within the RAM
         block = ram.get_block(ram_index)
-        #print(ram.data)
-        #print('set_index',set_index)
-        #print('ram_index',ram_index)
-
-
-        #print('set block',block)
         if len(self.cache_data[set_index]) < self.associativity:                                                       # the set is not full
             self.write_hit += 1
             self.cache_data[set_index].append(block)
         else:
             self.write_miss += 1
             if self.replacement == 'Random':
-                index = choice(list(i for i in range(len(self.cache_data[set_index]))))                                  # randomly choose an index within the set
+                index = choice(list(i for i in range(len(self.cache_data[set_index]))))                                # randomly choose an index within the set
                 self.cache_data[set_index][index] = block
             else:                                                                                                      #LRU or FIFO
                 del self.cache_data[set_index][0]
                 self.cache_data[set_index].append(block)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

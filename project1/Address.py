@@ -4,13 +4,13 @@ class Address():
 
     def __init__(self, RAM_size, cache_size, block_size, associativity):
 
-        self.bits = len(bin(RAM_size).partition('b')[2])                                # number of bits maximum
-        self.associativity = associativity                                              # associativity
-        self.block_size = block_size                                                    # block size
-        self.offset_size = int(log(self.block_size, 2))                                 # number of bits in the offset
-        self.set_index_size = int(log(((cache_size/block_size)/associativity), 2))      # number of bits in the cache index
-        self.tag_size = self.bits - self.set_index_size - self.offset_size              # number of bits in the tag
-        self.RAM_index_size = self.set_index_size + self.tag_size                       # number of bits in the RAM index
+        self.bits = len(bin(RAM_size).partition('b')[2])                                                # number of bits maximum
+        self.associativity = associativity                                                              # associativity
+        self.block_size = block_size                                                                    # block size
+        self.offset_size = int(log(self.block_size, 2))                                                 # number of bits in the offset
+        self.set_index_size = int(log(((cache_size/block_size)/associativity), 2))                      # number of bits in the cache index
+        self.tag_size = self.bits - self.set_index_size - self.offset_size                              # number of bits in the tag
+        self.RAM_index_size = self.set_index_size + self.tag_size                                       # number of bits in the RAM index
 
     def getTag(self, address):
         '''Given a full integer address, will return the byte tag'''
@@ -21,7 +21,7 @@ class Address():
         '''Given a full integer address, will return the byte cache index'''
         index = bin(address).partition('b')[2]
         if self.set_index_size == 0:
-            return 0                                                                    #for fully associative
+            return 0                                                                                    #for fully associative
         return str(index).zfill(int(self.bits))[-self.offset_size-self.set_index_size:-self.offset_size]
 
     def getRAMIndex(self, address):

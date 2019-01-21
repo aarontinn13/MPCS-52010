@@ -13,10 +13,14 @@ class CPU():
         self.block_size = block_size
         self.cache_size = cache_size
         self.address = Address(self.RAM_size, self.cache_size, self.block_size, self.associativity)
+        self.loadcount = 0
+        self.storecount = 0
+        self.addcount = 0
+        self.multcount = 0
 
     def loadDouble(self, address):
         '''attempts to load values from cache, else loads from RAM'''
-
+        self.loadcount += 1
         ram = self.ram
         cache = self.cache
         if cache.getBlock(address):                                         #if the block is in the cache
@@ -27,6 +31,7 @@ class CPU():
 
     def storeDouble(self, address, value):
         '''stores values into RAM'''
+        self.storecount += 1
         ram = self.ram
         add = self.address
         RAM_index = add.convertByte(add.getRAMIndex(address))
@@ -35,7 +40,9 @@ class CPU():
         ram.set_block(RAM_index, byte_index, value)
 
     def addDouble(self, num1, num2):
+        self.addcount += 1
         return num1 + num2
 
     def multDouble(self, num1, num2):
+        self.multcount += 1
         return num1 * num2
