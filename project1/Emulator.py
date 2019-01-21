@@ -14,7 +14,7 @@ from sys import exit
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument('-c', action='store', default=512, type=int, dest='cache_size',help='size of the cache (default: 65,536 Bytes)')
+parser.add_argument('-c', action='store', default=65536, type=int, dest='cache_size',help='size of the cache (default: 65,536 Bytes)')
 parser.add_argument('-b', action='store', default=64, type=int, dest='block_size', help='size of a block (default: 64 Bytes)')
 parser.add_argument('-n', action='store', default=2, type=int, dest='n_way', help='n-way associativity (default: 2 blocks/set)')
 parser.add_argument('-r', action='store', default='LRU', type=str, dest='replacement', help='replacement policy [FIFO, LRU] (default: LRU)')
@@ -71,16 +71,9 @@ if algorithm == 'daxpy':
     b = list(range(dimension*float_size, 2*dimension*float_size, float_size))
     c = list(range(2*dimension*float_size, 3*dimension*float_size, float_size))
 
-    RAM_size = 3*dimension*float_size      #totprint(index, offset//8)al Bytes of RAM
+    RAM_size = 3*dimension*float_size
 
-    #print(a)
-    #print(b)
-    #print(c)
-    #print(RAM_size)
-
-    #initialize the CPU
     cpu = CPU(RAM_size=RAM_size, cache_size=cache_size, block_size=block_size, associativity=n_way, replacement=replacement)
-
 
     for i in range(dimension):
         
@@ -88,16 +81,34 @@ if algorithm == 'daxpy':
         cpu.storeDouble(address=b[i], value=2*i)
         cpu.storeDouble(address=c[i], value=0)
 
-    #print(cpu.ram.data)
+    #for i in cpu.ram.data:
+        #print(i)
+
+    
     register0 = d_value
 
-    for i in range(dimension):
-        register1 = cpu.loadDouble(a[i])
-        register2 = cpu.multDouble(register0, register1)
-        register3 = cpu.loadDouble(b[i])
-        register4 = cpu.addDouble(register2, register3)
-        #cpu.storeDouble(address=c[i], value=register4)
 
+    for i in range(dimension):
+
+        register1 = cpu.loadDouble(a[i])
+        print('loading value {} from address {}'.format(register1, a[i]))
+        register2 = cpu.multDouble(register0, register1)
+        print('multiplying {} and {} = {}'.format(register0, register1, register0*register1))
+        register3 = cpu.loadDouble(b[i])
+        print('loading value {} from address {}'.format(register3, b[i]))
+        register4 = cpu.addDouble(register2, register3)
+        print('adding {} and {} = {}'.format(register2, register3, register2 + register3))
+        cpu.storeDouble(address=c[i], value=register4)
+        print('storing value {} at address {} in RAM\n'.format(register4, c[i]))
+        print('--------------------------------------------------------------------------------------')
+
+    print(cpu.cache.write_miss)
+    print(cpu.cache.write_hit)
+    print(cpu.cache.read_miss)
+    print(cpu.cache.read_hit)
+
+    #for i in cpu.ram.data:
+        #print(i)
 
     #print(RAM_size)
     #print(block_size)

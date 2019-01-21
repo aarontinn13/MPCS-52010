@@ -1,4 +1,4 @@
-from random import random
+from random import choice
 from Address import Address
 from RAM import RAM
 
@@ -25,8 +25,11 @@ class Cache():
         add = Address(self.RAM_size, self.cache_size, self.block_size, self.associativity)                             # initialize address class
         set_index = add.convertByte(add.getsetIndex(address))
         ram_index = add.convertByte(add.getRAMIndex(address))
-        offset_index = add.convertByte(add.getoffset(address))
+        offset_index = add.convertByte(add.getOffset(address))
+
+        #print(self.cache_data)
         for i in self.cache_data[set_index]:
+            #print(offset_index, i)
             if ram_index == i[0][0]:
                 return i[int((offset_index//8))+1]
 
@@ -35,6 +38,7 @@ class Cache():
         add = Address(self.RAM_size, self.cache_size, self.block_size, self.associativity)                             # initialize address class
         set_index = add.convertByte(add.getsetIndex(address))                                                          # find the set_index with the address
         ram_index = add.convertByte(add.getRAMIndex(address))                                                          # find the ram_index with the address
+
         if not self.cache_data[set_index]:                                                                             # if the set is empty, this is a compulsory miss
             self.read_miss += 1
             return False
@@ -49,25 +53,30 @@ class Cache():
             self.read_miss += 1                                                                                        # could not find the block we were looking for
             return False
 
-    def setBlock(self, address):
+    def setBlock(self, ram, address):
 
         add = Address(self.RAM_size, self.cache_size, self.block_size, self.associativity)                             # initialize address class
-        ram = RAM(self.RAM_size, self.block_size)
         set_index = add.convertByte(add.getsetIndex(address))                                                          # find the set_index with the address
         ram_index = add.convertByte(add.getRAMIndex(address))                                                          # find the block within the RAM
         block = ram.get_block(ram_index)
+        #print(ram.data)
+        #print('set_index',set_index)
+        #print('ram_index',ram_index)
+
+
+        #print('set block',block)
         if len(self.cache_data[set_index]) < self.associativity:                                                       # the set is not full
             self.write_hit += 1
             self.cache_data[set_index].append(block)
         else:
             self.write_miss += 1
             if self.replacement == 'Random':
-                #randomly choose a guy and evict him
-                #replace with block
-            else:
-                # remove the first guy
-                # append to the end
-                pass
+                index = choice(list(i for i in range(len(self.cache_data[set_index]))))                                  # randomly choose an index within the set
+                self.cache_data[set_index][index] = block
+            else:                                                                                                      #LRU or FIFO
+                del self.cache_data[set_index][0]
+                self.cache_data[set_index].append(block)
+
 
 
 

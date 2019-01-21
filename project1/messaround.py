@@ -1,5 +1,4 @@
-x = [['z'],1,2,3,4,5]
+list_ = [[[i]]+[None] * (64//8) for i in range(5)]
 
 
-
-print(x[0][0])
+print(list_)
