@@ -110,7 +110,3 @@ if algorithm == 'daxpy':
     #for i in cpu.ram.data:
         #print(i)
 
-    #print(RAM_size)
-    #print(block_size)
-    #for i,j in enumerate(cpu.ram.data):
-        #print(i,j)

@@ -47,6 +47,11 @@ class Address():
         return int(byte,2)
 
 
+
+
+
+
+
 #TEST
 '''
 ramsize = 11520
