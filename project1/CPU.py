@@ -45,7 +45,7 @@ class CPU():
         byte_index = add.convertByte(add.getOffset(address))               # What position in the block we will place in
 
         byte_index = int(byte_index // 8) + 1
-        
+
         ram.set_block(RAM_index, byte_index, value)                        # write the info into RAM
 
         if cache.getBlock(address):                                        # if this block is in the cache

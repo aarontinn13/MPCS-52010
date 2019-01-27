@@ -1,15 +1,17 @@
-list_ = [[] for i in range(int(512 / 64 / 2))]
-print(list_)
-list_[0].append([[0],1,2,3,4])
-list_[0].append([[4],1,2,3,4])
-list_[3].append([[3],5,6,7,8])
-print(list_)
 
+dimension = 3
+byte = 8
 
-list_[-1] = 'YES'
-print(list_)
+matrix = [[i+j for j in range(0, dimension*byte, byte)]for i in range(0, dimension*dimension*byte, dimension*byte)]
+for i in matrix:
+    print(i)
 
-#if list_[0]:
-    #for i in list_[0]:
-        #print(i)
+print()
+matrix2 = [[i+j for j in range(0, dimension*byte, byte)]for i in range(dimension*dimension*byte, 2*dimension*dimension*byte, dimension*byte)]
+for i in matrix2:
+    print(i)
 
+print()
+matrix3 = [[i+j for j in range(0, dimension*byte, byte)]for i in range(2*dimension*dimension*byte, 3*dimension*dimension*byte, dimension*byte)]
+for i in matrix3:
+    print(i)

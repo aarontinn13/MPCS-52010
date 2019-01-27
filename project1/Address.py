@@ -1,4 +1,4 @@
-from math import log, ceil
+from math import log
 
 class Address():
 

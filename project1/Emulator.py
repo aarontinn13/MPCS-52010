@@ -64,11 +64,38 @@ if sets_in_cache > 1:
 else:
     exit("Error: n-way is greater than number of blocks in the cache!")
 
-#Generate the RAM size and initialize the CPU
-RAM_size = 3*dimension*float_size
-cpu = CPU(RAM_size=RAM_size, cache_size=cache_size, block_size=block_size, associativity=associativity, replacement=replacement)
+def results():
+    print('INPUTS=====================================')
+    print('Ram Size:                    {} bytes'.format(RAM_size))
+    print('Cache Size:                  {} bytes'.format(cache_size))
+    print('Block Size:                  {} bytes'.format(block_size))
+    print('Total Blocks in Cache:       {}'.format(int(blocks_in_cache)))
+    print('Associativity:               {}'.format(associativity))
+    print('Number of Sets:              {}'.format(int(sets_in_cache)))
+    print('Replacement Policy:          {}'.format(replacement))
+    print('Algorithm:                   {}'.format(algorithm))
+    print('MXM Blocking Factor:         {}'.format(blocking_factor))
+    print('Matrix of Vector Dimension:  {}'.format(dimension))
+    print('RESULTS=====================================')
+    print('Instruction Count:           {}'.format(cpu.loadcount + cpu.storecount + cpu.addcount + cpu.multcount))
+    print('Read hits:                   {}'.format(cpu.cache.read_hit))
+    print('Read misses:                 {}'.format(cpu.cache.read_miss))
+    print('Read miss rate:              {:.4}%'.format(
+        (cpu.cache.read_miss / (cpu.cache.read_hit + cpu.cache.read_miss)) * 100))
+    print('Write hits:                  {}'.format(cpu.cache.write_hit))
+    print('Write misses:                {}'.format(cpu.cache.write_miss))
+    print('Write miss rate:             {:.4}%'.format(
+        (cpu.cache.write_miss / (cpu.cache.write_hit + cpu.cache.write_miss)) * 100))
+
+
+def print_c():
+    pass
 
 if algorithm == 'daxpy':
+
+    # Generate the RAM size and initialize the CPU
+    RAM_size = 3 * dimension * float_size
+    cpu = CPU(RAM_size=RAM_size, cache_size=cache_size, block_size=block_size, associativity=associativity, replacement=replacement)
 
     #construct Address arrays of length = dimension
     a = list(range(0, dimension*float_size, float_size))
@@ -78,8 +105,12 @@ if algorithm == 'daxpy':
     for i in range(dimension):
         
         cpu.storeDouble(address=a[i], value=i)
+        #print(cpu.cache.cache_data)
         cpu.storeDouble(address=b[i], value=2*i)
+        #print(cpu.cache.cache_data)
         cpu.storeDouble(address=c[i], value=0)
+        #print(cpu.cache.cache_data)
+        #print('*******************ROUND {}*******************'.format(i))
 
     #for i in cpu.ram.data:
         #print(i)
@@ -103,36 +134,68 @@ if algorithm == 'daxpy':
     #for i in cpu.ram.data:
         #print(i)
 
+    if print_:
+        aux = []
+        for i in cpu.ram.data[(2 * dimension // 8):]:
+            for j in i[1:]:
+                aux.append(j)
+        print(aux)
+
+    results()
+
 if algorithm == 'mxm':
-    pass
+
+    # Generate the RAM size and initialize the CPU
+    RAM_size = 3 * dimension * dimension * float_size
+    cpu = CPU(RAM_size=RAM_size, cache_size=cache_size, block_size=block_size, associativity=associativity, replacement=replacement)
+
+    # construct Address arrays of length = dimension x dimension
+
+    a = [[i + j for j in range(0, dimension * float_size, float_size)] for i in
+         range(0, dimension * dimension * float_size, dimension * float_size)]
+
+    b = [[i + j for j in range(0, dimension * float_size, float_size)] for i in
+         range(dimension * dimension * float_size, 2 * dimension * dimension * float_size, dimension * float_size)]
+
+    c = [[i + j for j in range(0, dimension * float_size, float_size)] for i in
+         range(2 * dimension * dimension * float_size, 3 * dimension * dimension * float_size, dimension * float_size)]
 
 
+    for i in range(dimension):
+        for j in range(dimension):
+            cpu.storeDouble(address=a[i][j], value=i)
+            # print(cpu.cache.cache_data)
+            cpu.storeDouble(address=b[i][j], value=2*i)
+            # print(cpu.cache.cache_data)
+            cpu.storeDouble(address=c[i][j], value=0)
+            # print(cpu.cache.cache_data)
+    #for i in cpu.ram.data:
+        #print(i)
+
+
+    for i in range(dimension):
+        for j in range(dimension):
+
+            register0 = 0   #temporary storage
+
+            for k in range(dimension):
+
+                register1 = cpu.loadDouble(a[i][k])
+                register2 = cpu.loadDouble(b[k][j])
+                register3 = cpu.multDouble(register1, register2)
+                register0 = cpu.addDouble(register0, register3)
+
+            cpu.storeDouble(address=c[i][j], value=register0)
+
+    results()
+
+    if print_:
+        # print the results of the values
+        pass
 
 if algorithm == 'mxm-block':
     pass
 
 
 
-if print_:
-    #print the results of the values
-    pass
 
-print('INPUTS=====================================')
-print('Ram Size:                    {} bytes'.format(RAM_size))
-print('Cache Size:                  {} bytes'.format(cache_size))
-print('Block Size:                  {} bytes'.format(block_size))
-print('Total Blocks in Cache:       {}'.format(int(blocks_in_cache)))
-print('Associativity:               {}'.format(associativity))
-print('Number of Sets:              {}'.format(int(sets_in_cache)))
-print('Replacement Policy:          {}'.format(replacement))
-print('Algorithm:                   {}'.format(algorithm))
-print('MXM Blocking Factor:         {}'.format(blocking_factor))
-print('Matrix of Vector Dimension:  {}'.format(dimension))
-print('RESULTS=====================================')
-print('Instruction Count:           {}'.format(cpu.loadcount+cpu.storecount+cpu.addcount+cpu.multcount))
-print('Read hits:                   {}'.format(cpu.cache.read_hit))
-print('Read misses:                 {}'.format(cpu.cache.read_miss))
-print('Read miss rate:              {:.4}%'.format((cpu.cache.read_miss/(cpu.cache.read_hit+cpu.cache.read_miss))*100))
-print('Write hits:                  {}'.format(cpu.cache.write_hit))
-print('Write misses:                {}'.format(cpu.cache.write_miss))
-print('Write miss rate:             {:.4}%'.format((cpu.cache.write_miss/(cpu.cache.write_hit+cpu.cache.write_miss))*100))

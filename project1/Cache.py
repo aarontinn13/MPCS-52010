@@ -25,11 +25,13 @@ class Cache():
         ram_index = add.convertByte(add.getRAMIndex(address))
         offset_index = add.convertByte(add.getOffset(address))
 
-        for i in self.cache_data[set_index]:                                                                            # found the correct block, return the value
-            if ram_index == i[0][0]:
+        for i in range(len(self.cache_data[set_index])):                                                                # found the correct block, return the value
+            if ram_index == self.cache_data[set_index][i][0][0]:
                 self.read_hit += 1
-                return i[int((offset_index//8))+1]
-
+                if self.replacement == 'LRU':                                                                           # need to pull out the block and reinsert to back if this is LRU
+                    self.cache_data[set_index].append(self.cache_data[set_index].pop(i))
+                    return self.cache_data[set_index][-1][int((offset_index//8))+1]
+                return self.cache_data[set_index][i][int((offset_index//8))+1]
         self.read_miss += 1                                                                                             # did not find correct block, must write into
         return False
 
@@ -51,6 +53,7 @@ class Cache():
             return False
 
     def setBlock(self, ram, address, status):
+        '''On write hit, write miss, or read miss, will retrieve the correct block from RAM'''
         add = Address(self.RAM_size, self.cache_size, self.block_size, self.associativity)                              # initialize address class
         set_index = add.convertByte(add.getsetIndex(address))                                                           # find the set_index with the address
         ram_index = add.convertByte(add.getRAMIndex(address))                                                           # find the block within the RAM
