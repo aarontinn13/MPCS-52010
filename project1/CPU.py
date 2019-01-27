@@ -23,21 +23,34 @@ class CPU():
         self.loadcount += 1
         ram = self.ram
         cache = self.cache
-        if cache.getBlock(address):                                         #if the block is in the cache
+
+        if cache.getBlock(address):                                         # if the block is in the cache
             return cache.getDouble(address)
-        else:                                                               #block is not in the cache, so we must write inside
+        else:                                                               # block is not in the cache, so we must write inside
             cache.setBlock(ram, address)
             return cache.getDouble(address)
 
+
+
     def storeDouble(self, address, value):
         '''stores values into RAM'''
+        #store counts
         self.storecount += 1
+        #initialize the ram and address
         ram = self.ram
         add = self.address
-        RAM_index = add.convertByte(add.getRAMIndex(address))
-        byte_index = add.convertByte(add.getOffset(address))
+        cache = self.cache
+
+        RAM_index = add.convertByte(add.getRAMIndex(address))              # What block of RAM we will place in
+        byte_index = add.convertByte(add.getOffset(address))               # What position in the block we will place in
+
         byte_index = int(byte_index // 8) + 1
-        ram.set_block(RAM_index, byte_index, value)
+        ram.set_block(RAM_index, byte_index, value)                        # write the info into RAM
+
+        if cache.getBlock(address):                                        # if this block is in the cache
+            cache.setBlock(ram, address, True)                             # write allocate, copy to both RAM and update cache
+        else:
+            cache.setBlock(ram, address, False)
 
     def addDouble(self, num1, num2):
         self.addcount += 1
