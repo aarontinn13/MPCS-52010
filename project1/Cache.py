@@ -17,13 +17,12 @@ class Cache():
         self.read_hit = 0                                                                                               # total number of read hits
         self.read_miss = 0                                                                                              # total number of read misses
 
-    def getDouble(self, set_index, ram_index, offset_index):
+    def getDouble(self, ram_index, set_index, offset_index):
         '''given an address, will attempt to get the double within the cache'''
-        #print(len(self.cache_data[set_index]))
+
         for i in range(len(self.cache_data[set_index])):                                                                # found the correct block, return the value
-            #print(len(self.cache_data[set_index]))
+            #print('i',i)
             if ram_index == self.cache_data[set_index][i][0][0]:
-                print('hello')
                 self.read_hit += 1
                 if self.replacement == 'LRU':                                                                           # need to pull out the block and reinsert to back if this is LRU
                     self.cache_data[set_index].append(self.cache_data[set_index].pop(i))
@@ -33,7 +32,7 @@ class Cache():
         return False
 
     def getBlock(self, set_index, RAM_index):
-        ''' given a full address, will attempt to check if the block in question is in the cache when writing'''                                                          # find the ram_index with the address
+        ''' given a full address, will attempt to check if the block in question is in the cache when writing'''        # find the ram_index with the address
 
         if not self.cache_data[set_index]:                                                                              # if the set is empty, this is a compulsory miss
             self.write_miss += 1

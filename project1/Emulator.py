@@ -2,7 +2,6 @@ from CPU import CPU
 import argparse
 from sys import exit
 
-'''CHANGE ALGORITHM BACK TO MXM-BLOCK (Currently mxm) CHANGE CACHE TO 65536!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'''
 # -c size of the cache (65,536)
 # -b size of a block (64)
 # -n n-way associativity (2)
@@ -14,12 +13,12 @@ from sys import exit
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument('-c', action='store', default=128, type=int, dest='cache_size',help='size of the cache (default: 65,536 Bytes)')
+parser.add_argument('-c', action='store', default=512, type=int, dest='cache_size',help='size of the cache (default: 65,536 Bytes)')
 parser.add_argument('-b', action='store', default=64, type=int, dest='block_size', help='size of a block (default: 64 Bytes)')
-parser.add_argument('-n', action='store', default=2, type=int, dest='n_way', help='n-way associativity (default: 2 blocks/set)')
+parser.add_argument('-n', action='store', default=4, type=int, dest='n_way', help='n-way associativity (default: 2 blocks/set)')
 parser.add_argument('-r', action='store', default='LRU', type=str, dest='replacement', help='replacement policy [FIFO, LRU] (default: LRU)')
 parser.add_argument('-a', action='store', default='daxpy', type=str, dest='algorithm', help='algorithm to test [daxpy, mxm, mxm-block] (default: mxm-block)')
-parser.add_argument('-d', action='store', default=16, type=int, dest='dimension', help='dimension of the matrix (default: 480 floats)')
+parser.add_argument('-d', action='store', default=32, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
 parser.add_argument('-p', action='store_true', default=True, dest='print_',help='enables printing of the value')
 parser.add_argument('-f', action='store', default=32, type=int, dest='blocking_factor',help='blocking factor of mxm-block (default: 32)')
 parser.add_argument('-v', action='store', default=3, type=int, dest='d_value',help='random d-value for daxpy algorithm (default: 3)')
@@ -34,11 +33,11 @@ algorithm = results.algorithm
 dimension = results.dimension
 print_ = results.print_
 blocking_factor = results.blocking_factor
-d_value = results.d_value                      #d-value for daxpy algorithm
-float_size = 8                                 #default float size
-floats_in_block = block_size/float_size #number of floats in a block
-blocks_in_cache = cache_size/block_size #number of blocks in the cache
-sets_in_cache = blocks_in_cache/associativity   #number of sets in the cache (sets = 1 then fully associative, blocks=sets then DMC, else n-way)
+d_value = results.d_value                           #d-value for daxpy algorithm
+float_size = 8                                      #default float size
+floats_in_block = block_size/float_size             #number of floats in a block
+blocks_in_cache = cache_size/block_size             #number of blocks in the cache
+sets_in_cache = blocks_in_cache/associativity       #number of sets in the cache (sets = 1 then fully associative, blocks=sets then DMC, else n-way)
 
 '''prepare calculations'''
 #check if block_size is a multiple of 8
@@ -108,8 +107,8 @@ def Daxpy(cpu):
         #print(cpu.ram.data)
         #print('*******************ROUND {}*******************'.format(i))
 
-    #print(cpu.cache.cache_data[0])
-    print(cpu.ram.data)
+    #print(cpu.ram.data)
+    #print(cpu.cache.cache_data)
     #print()
     #for i in cpu.ram.data:
     #print(i)
@@ -118,16 +117,19 @@ def Daxpy(cpu):
 
     for i in range(dimension):
         register1 = cpu.loadDouble(a[i])
-        print('loading value {} from address {}'.format(register1, a[i]))
+        #print('loading value {} from address {}'.format(register1, a[i]))
+        #print(cpu.cache.cache_data)
         register2 = cpu.multDouble(register0, register1)
-        print('multiplying {} and {} = {}'.format(register0, register1, register0*register1))
+        #print('multiplying {} and {} = {}'.format(register0, register1, register0*register1))
         register3 = cpu.loadDouble(b[i])
-        print('loading value {} from address {}'.format(register3, b[i]))
+        #print('loading value {} from address {}'.format(register3, b[i]))
+        #print(cpu.cache.cache_data)
         register4 = cpu.addDouble(register2, register3)
-        print('adding {} and {} = {}'.format(register2, register3, register2 + register3))
+        #print('adding {} and {} = {}'.format(register2, register3, register2 + register3))
         cpu.storeDouble(address=c[i], value=register4)
-        print('storing value {} at address {} in RAM\n'.format(register4, c[i]))
-        print('--------------------------------------------------------------------------------------')
+        #print(cpu.cache.cache_data)
+        #print('storing value {} at address {} in RAM\n'.format(register4, c[i]))
+        #print('--------------------------------------------------------------------------------------')
 
     # for i in cpu.ram.data:
     # print(i)
@@ -137,6 +139,7 @@ def Daxpy(cpu):
         aux = [cpu.getAnswer(i) for i in c]
         print()
         print('Vector C:', aux)
+        print()
 
 
 def MXM(cpu):
