@@ -1,4 +1,5 @@
 from CPU import CPU
+import numpy as np
 import argparse
 from sys import exit
 
@@ -15,12 +16,12 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument('-c', action='store', default=512, type=int, dest='cache_size',help='size of the cache (default: 65,536 Bytes)')
 parser.add_argument('-b', action='store', default=64, type=int, dest='block_size', help='size of a block (default: 64 Bytes)')
-parser.add_argument('-n', action='store', default=4, type=int, dest='n_way', help='n-way associativity (default: 2 blocks/set)')
+parser.add_argument('-n', action='store', default=1, type=int, dest='n_way', help='n-way associativity (default: 2 blocks/set)')
 parser.add_argument('-r', action='store', default='LRU', type=str, dest='replacement', help='replacement policy [FIFO, LRU] (default: LRU)')
-parser.add_argument('-a', action='store', default='daxpy', type=str, dest='algorithm', help='algorithm to test [daxpy, mxm, mxm-block] (default: mxm-block)')
-parser.add_argument('-d', action='store', default=32, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
-parser.add_argument('-p', action='store_true', default=True, dest='print_',help='enables printing of the value')
-parser.add_argument('-f', action='store', default=32, type=int, dest='blocking_factor',help='blocking factor of mxm-block (default: 32)')
+parser.add_argument('-a', action='store', default='mxm', type=str, dest='algorithm', help='algorithm to test [daxpy, mxm, mxm-block] (default: mxm-block)')
+parser.add_argument('-d', action='store', default=4, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
+parser.add_argument('-p', action='store_true', default=False, dest='print_',help='enables printing of the value')
+parser.add_argument('-f', action='store', default=2, type=int, dest='blocking_factor',help='blocking factor of mxm-block (default: 32)')
 parser.add_argument('-v', action='store', default=3, type=int, dest='d_value',help='random d-value for daxpy algorithm (default: 3)')
 
 results = parser.parse_args()
@@ -145,103 +146,121 @@ def Daxpy(cpu):
 def MXM(cpu):
 
     # construct address arrays of length = dimension x dimension
-    a = [[i + j for j in range(0, dimension * float_size, float_size)] for i in
-         range(0, dimension * dimension * float_size, dimension * float_size)]
+    a = np.matrix([[i + j for j in range(0, dimension * float_size, float_size)] for i in
+         range(0, dimension * dimension * float_size, dimension * float_size)])
 
-    b = [[i + j for j in range(0, dimension * float_size, float_size)] for i in
-         range(dimension * dimension * float_size, 2 * dimension * dimension * float_size, dimension * float_size)]
+    b = np.matrix([[i + j for j in range(0, dimension * float_size, float_size)] for i in
+         range(dimension * dimension * float_size, 2 * dimension * dimension * float_size, dimension * float_size)])
 
-    c = [[i + j for j in range(0, dimension * float_size, float_size)] for i in
-         range(2 * dimension * dimension * float_size, 3 * dimension * dimension * float_size, dimension * float_size)]
+    c = np.matrix([[i + j for j in range(0, dimension * float_size, float_size)] for i in
+         range(2 * dimension * dimension * float_size, 3 * dimension * dimension * float_size, dimension * float_size)])
 
     val= 0
     for i in range(dimension):
         for j in range(dimension):
 
-            cpu.storeDouble(address=a[i][j], value=val)
+            cpu.storeDouble(address=a.item((i,j)), value=val)
             # print(cpu.cache.cache_data)
             # print(cpu.ram.data)
-            cpu.storeDouble(address=b[i][j], value=2*val)
+            cpu.storeDouble(address=b.item((i,j)), value=2*val)
             # print(cpu.cache.cache_data)
             # print(cpu.ram.data)
-            cpu.storeDouble(address=c[i][j], value=0)
+            cpu.storeDouble(address=c.item((i,j)), value=0)
             # print(cpu.cache.cache_data)
             # print(cpu.ram.data)
             val += 1
 
-    print(cpu.ram.data)
+    #print(cpu.ram.data)
     #for i in cpu.ram.data:
         #print(i)
 
 
     for i in range(dimension):
         for j in range(dimension):
-
-            register0 = 0   #temporary storage
-
             for k in range(dimension):
-
-                register1 = cpu.loadDouble(a[i][k])
-                register2 = cpu.loadDouble(b[k][j])
+                register1 = cpu.loadDouble(a.item((i, k)))
+                register2 = cpu.loadDouble(b.item((k, j)))
                 register3 = cpu.multDouble(register1, register2)
-                register0 = cpu.addDouble(register0, register3)
+                register4 = cpu.loadDouble(c.item((i,j)))
+                register0 = cpu.addDouble(register4, register3)
+                cpu.storeDouble(address=c.item((i, j)), value=register0)
 
-            cpu.storeDouble(address=c[i][j], value=register0)
-
-
+    #if printing is True
     if print_:
-        aux = [cpu.getAnswer(j) for i in c for j in i]
+        #np.set_printoptions(threshold=np.nan)   #if you want to print the whole matrix
+        aux = np.matrix([[ cpu.getAnswer(c.item((i,j))) for j in range(dimension)] for i in range(dimension) ])
         print()
         print('Matrix C:')
-        for i in range(0, len(aux),9):
-            print(aux[i:i+9])
+        print(aux,'\n')
 
-def MXMblock(cpu, RAM_size):
+
+def MXMblock(cpu):
+
     # construct address arrays of length = dimension x dimension
-    a = [[i + j for j in range(0, dimension * float_size, float_size)] for i in
-         range(0, dimension * dimension * float_size, dimension * float_size)]
+    a = np.matrix([[i + j for j in range(0, dimension * float_size, float_size)] for i in
+         range(0, dimension * dimension * float_size, dimension * float_size)])
 
-    b = [[i + j for j in range(0, dimension * float_size, float_size)] for i in
-         range(dimension * dimension * float_size, 2 * dimension * dimension * float_size, dimension * float_size)]
+    b = np.matrix([[i + j for j in range(0, dimension * float_size, float_size)] for i in
+         range(dimension * dimension * float_size, 2 * dimension * dimension * float_size, dimension * float_size)])
 
-    c = [[i + j for j in range(0, dimension * float_size, float_size)] for i in
-         range(2 * dimension * dimension * float_size, 3 * dimension * dimension * float_size, dimension * float_size)]
+    c = np.matrix([[i + j for j in range(0, dimension * float_size, float_size)] for i in
+         range(2 * dimension * dimension * float_size, 3 * dimension * dimension * float_size, dimension * float_size)])
 
     val= 0
     for i in range(dimension):
         for j in range(dimension):
 
-            cpu.storeDouble(address=a[i][j], value=val)
+            cpu.storeDouble(address=a.item((i,j)), value=val)
             # print(cpu.cache.cache_data)
             # print(cpu.ram.data)
-            cpu.storeDouble(address=b[i][j], value=2*val)
+            cpu.storeDouble(address=b.item((i,j)), value=2*val)
             # print(cpu.cache.cache_data)
             # print(cpu.ram.data)
-            cpu.storeDouble(address=c[i][j], value=0)
+            cpu.storeDouble(address=c.item((i,j)), value=0)
             # print(cpu.cache.cache_data)
             # print(cpu.ram.data)
             val += 1
 
-    print(cpu.ram.data)
+    #print(cpu.ram.data)
     #for i in cpu.ram.data:
         #print(i)
 
-    for i in range(0,dimension):
-        for j in range(0,dimension):
 
-            register0 = 0   #temporary storage
+    for i in range(0,dimension,blocking_factor):
 
-            for k in range(0,dimension):
+        for j in range(0,dimension,blocking_factor):
 
-                register1 = cpu.loadDouble(a[i][k])
-                register2 = cpu.loadDouble(b[k][j])
-                register3 = cpu.multDouble(register1, register2)
-                register0 = cpu.addDouble(register0, register3)
+            #print('A',(i,i+blocking_factor),(j,j+blocking_factor))
+            Asub = a[i:i+blocking_factor,j:j+blocking_factor]
+            #print('Asub')
+            #print(Asub)
+            for k in range(0,dimension,blocking_factor):
+                Bsub = b[j:j + blocking_factor, k:k + blocking_factor]
+                #print('B',(j, j + blocking_factor), (k, k + blocking_factor))
+                Csub = c[i:i + blocking_factor, k:k + blocking_factor]
+                #print('C', (i, i + blocking_factor), (k, k + blocking_factor))
+                #print('Bsub')
+                #print(Bsub)
+                #print('Csub')
+                #print(Csub)
 
-            cpu.storeDouble(address=c[i][j], value=register0)
+                for x in range(len(Asub)):
+                    for y in range(len(Bsub)):
+                        for z in range(len(Csub)):
+                            register1 = cpu.loadDouble(Asub[x, z])
+                            register2 = cpu.loadDouble(Bsub[z, y])
+                            register3 = cpu.multDouble(register1, register2)
+                            register4 = cpu.loadDouble(Csub[x, y])
+                            register0 = cpu.addDouble(register3, register4)
+                            cpu.storeDouble(Csub[x,y], register0)
 
-
-
+    #if printing is True
+    if print_:
+        #np.set_printoptions(threshold=np.nan)   #if you want to print the whole matrix
+        aux = np.matrix([[ cpu.getAnswer(c.item((i,j))) for j in range(dimension)] for i in range(dimension) ])
+        print()
+        print('Matrix C:')
+        print(aux,'\n')
 
 
 def main():
@@ -252,15 +271,19 @@ def main():
         cpu = CPU(RAM_size=RAM_size, cache_size=cache_size, block_size=block_size, associativity=associativity, replacement=replacement)
         Daxpy(cpu)
         results(cpu, RAM_size)
+
     if algorithm == 'mxm':
+
         RAM_size = 3 * dimension**2 * float_size
         cpu = CPU(RAM_size=RAM_size, cache_size=cache_size, block_size=block_size, associativity=associativity, replacement=replacement)
         MXM(cpu)
         results(cpu, RAM_size)
+
     if algorithm == 'mxm-block':
+
         RAM_size = 3 * dimension * dimension * float_size
         cpu = CPU(RAM_size=RAM_size, cache_size=cache_size, block_size=block_size, associativity=associativity, replacement=replacement)
-        MXMblock(cpu, RAM_size)
+        MXMblock(cpu)
         results(cpu, RAM_size)
 
 
