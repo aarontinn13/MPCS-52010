@@ -2,7 +2,7 @@ from CPU import CPU
 import argparse
 from sys import exit
 
-'''CHANGE ALGORITHM BACK TO MXM-BLOCK (Currently daxpy) CHANGE CACHE TO 65536!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'''
+'''CHANGE ALGORITHM BACK TO MXM-BLOCK (Currently mxm) CHANGE CACHE TO 65536!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'''
 # -c size of the cache (65,536)
 # -b size of a block (64)
 # -n n-way associativity (2)
@@ -14,13 +14,13 @@ from sys import exit
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument('-c', action='store', default=512, type=int, dest='cache_size',help='size of the cache (default: 65,536 Bytes)')
+parser.add_argument('-c', action='store', default=65536, type=int, dest='cache_size',help='size of the cache (default: 65,536 Bytes)')
 parser.add_argument('-b', action='store', default=64, type=int, dest='block_size', help='size of a block (default: 64 Bytes)')
 parser.add_argument('-n', action='store', default=2, type=int, dest='n_way', help='n-way associativity (default: 2 blocks/set)')
 parser.add_argument('-r', action='store', default='LRU', type=str, dest='replacement', help='replacement policy [FIFO, LRU] (default: LRU)')
-parser.add_argument('-a', action='store', default='daxpy', type=str, dest='algorithm', help='algorithm to test [daxpy, mxm, mxm-block] (default: mxm-block)')
-parser.add_argument('-d', action='store', default=480, type=int, dest='dimension', help='dimension of the matrix (default: 480 floats)')
-parser.add_argument('-p', action='store_true', default=False, dest='print_',help='enables printing of the value')
+parser.add_argument('-a', action='store', default='mxm', type=str, dest='algorithm', help='algorithm to test [daxpy, mxm, mxm-block] (default: mxm-block)')
+parser.add_argument('-d', action='store', default=9, type=int, dest='dimension', help='dimension of the matrix (default: 480 floats)')
+parser.add_argument('-p', action='store_true', default=True, dest='print_',help='enables printing of the value')
 parser.add_argument('-f', action='store', default=32, type=int, dest='blocking_factor',help='blocking factor of mxm-block (default: 32)')
 parser.add_argument('-v', action='store', default=3, type=int, dest='d_value',help='random d-value for daxpy algorithm (default: 3)')
 
@@ -95,6 +95,7 @@ if algorithm == 'daxpy':
 
     # Generate the RAM size and initialize the CPU
     RAM_size = 3 * dimension * float_size
+    #print(RAM_size)
     cpu = CPU(RAM_size=RAM_size, cache_size=cache_size, block_size=block_size, associativity=associativity, replacement=replacement)
 
     #construct Address arrays of length = dimension
@@ -106,10 +107,13 @@ if algorithm == 'daxpy':
         
         cpu.storeDouble(address=a[i], value=i)
         #print(cpu.cache.cache_data)
+        #print(cpu.ram.data)
         cpu.storeDouble(address=b[i], value=2*i)
         #print(cpu.cache.cache_data)
+        #print(cpu.ram.data)
         cpu.storeDouble(address=c[i], value=0)
         #print(cpu.cache.cache_data)
+        #print(cpu.ram.data)
         #print('*******************ROUND {}*******************'.format(i))
 
     #for i in cpu.ram.data:
@@ -134,14 +138,21 @@ if algorithm == 'daxpy':
     #for i in cpu.ram.data:
         #print(i)
 
-    if print_:
-        aux = []
-        for i in cpu.ram.data[(2 * dimension // 8):]:
-            for j in i[1:]:
-                aux.append(j)
-        print(aux)
-
     results()
+
+    if print_:
+        aux = [cpu.getAnswer(i) for i in c]
+        print()
+        print('Vector C:', aux)
+
+
+
+
+
+
+
+
+
 
 if algorithm == 'mxm':
 
@@ -149,8 +160,7 @@ if algorithm == 'mxm':
     RAM_size = 3 * dimension * dimension * float_size
     cpu = CPU(RAM_size=RAM_size, cache_size=cache_size, block_size=block_size, associativity=associativity, replacement=replacement)
 
-    # construct Address arrays of length = dimension x dimension
-
+    # construct address arrays of length = dimension x dimension
     a = [[i + j for j in range(0, dimension * float_size, float_size)] for i in
          range(0, dimension * dimension * float_size, dimension * float_size)]
 
@@ -160,15 +170,22 @@ if algorithm == 'mxm':
     c = [[i + j for j in range(0, dimension * float_size, float_size)] for i in
          range(2 * dimension * dimension * float_size, 3 * dimension * dimension * float_size, dimension * float_size)]
 
-
+    val= 0
     for i in range(dimension):
         for j in range(dimension):
-            cpu.storeDouble(address=a[i][j], value=i)
+
+            cpu.storeDouble(address=a[i][j], value=val)
             # print(cpu.cache.cache_data)
-            cpu.storeDouble(address=b[i][j], value=2*i)
+            # print(cpu.ram.data)
+            cpu.storeDouble(address=b[i][j], value=2*val)
             # print(cpu.cache.cache_data)
+            # print(cpu.ram.data)
             cpu.storeDouble(address=c[i][j], value=0)
             # print(cpu.cache.cache_data)
+            # print(cpu.ram.data)
+            val += 1
+
+    #print(cpu.ram.data)
     #for i in cpu.ram.data:
         #print(i)
 
@@ -190,8 +207,12 @@ if algorithm == 'mxm':
     results()
 
     if print_:
-        # print the results of the values
-        pass
+        aux = [cpu.getAnswer(j) for i in c for j in i]
+        print()
+        print('Matrix C:')
+        for i in range(0, len(aux),9):
+            print(aux[i:i+9])
+
 
 if algorithm == 'mxm-block':
     pass

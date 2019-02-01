@@ -18,12 +18,8 @@ class Cache():
         self.read_hit = 0                                                                                               # total number of read hits
         self.read_miss = 0                                                                                              # total number of read misses
 
-    def getDouble(self, address):
+    def getDouble(self, set_index, ram_index, offset_index):
         '''given an address, will attempt to get the double within the cache'''
-        add = Address(self.RAM_size, self.cache_size, self.block_size, self.associativity)                              # initialize address class
-        set_index = add.convertByte(add.getsetIndex(address))
-        ram_index = add.convertByte(add.getRAMIndex(address))
-        offset_index = add.convertByte(add.getOffset(address))
 
         for i in range(len(self.cache_data[set_index])):                                                                # found the correct block, return the value
             if ram_index == self.cache_data[set_index][i][0][0]:
@@ -35,34 +31,26 @@ class Cache():
         self.read_miss += 1                                                                                             # did not find correct block, must write into
         return False
 
-    def getBlock(self, address):
-        ''' given a full address, will attempt to check if the block in question is in the cache when writing'''
-        add = Address(self.RAM_size, self.cache_size, self.block_size, self.associativity)                              # initialize address class
-        set_index = add.convertByte(add.getsetIndex(address))                                                           # find the set_index with the address
-        ram_index = add.convertByte(add.getRAMIndex(address))                                                           # find the ram_index with the address
+    def getBlock(self, set_index, RAM_index):
+        ''' given a full address, will attempt to check if the block in question is in the cache when writing'''                                                          # find the ram_index with the address
 
         if not self.cache_data[set_index]:                                                                              # if the set is empty, this is a compulsory miss
             self.write_miss += 1
             return False
         else:                                                                                                           # set has a block(s) in it!
             for i in range(len(self.cache_data[set_index])):                                                            # scan the set for the tags                                                                                                           #check the RAM_address at the beginning of each array
-                if ram_index == self.cache_data[set_index][i][0][0]:                                                    # ram_index is the same as the ram_index in the block, we have a write hit
+                if RAM_index == self.cache_data[set_index][i][0][0]:                                                    # ram_index is the same as the ram_index in the block, we have a write hit
                     self.write_hit += 1
                     return True
             self.write_miss += 1                                                                                        # could not find the block we were looking for
             return False
 
-    def setBlock(self, ram, address, status):
+    def setBlock(self, block, set_index, RAM_index, status):
         '''On write hit, write miss, or read miss, will retrieve the correct block from RAM'''
-        add = Address(self.RAM_size, self.cache_size, self.block_size, self.associativity)                              # initialize address class
-        set_index = add.convertByte(add.getsetIndex(address))                                                           # find the set_index with the address
-        ram_index = add.convertByte(add.getRAMIndex(address))                                                           # find the block within the RAM
-
-        block = ram.get_block(ram_index)                                                                                # block we will insert into the cache
 
         if status:                                                                                                      # write hit
             for i in range(len(self.cache_data[set_index])):                                                            # scan for the block hit
-                if ram_index == self.cache_data[set_index][i][0][0]:                                                    # once we find it
+                if RAM_index == self.cache_data[set_index][i][0][0]:                                                    # once we find it
                     self.cache_data[set_index][i] = block                                                               # update this block from RAM
                     if self.replacement == 'LRU':                                                                       # need to pull out the block and reinsert to back if this is LRU
                         self.cache_data[set_index].append(self.cache_data[set_index].pop(i))

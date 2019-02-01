@@ -1,5 +1,5 @@
 
-dimension = 3
+dimension = 9
 byte = 8
 
 matrix = [[i+j for j in range(0, dimension*byte, byte)]for i in range(0, dimension*dimension*byte, dimension*byte)]

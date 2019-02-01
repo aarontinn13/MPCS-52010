@@ -23,14 +23,29 @@ class CPU():
         self.loadcount += 1
         ram = self.ram
         cache = self.cache
+        add = self.address
 
-        if cache.getDouble(address):                                         # if the block is in the cache
-            return cache.getDouble(address)
-        else:                                                               # block is not in the cache, so we must retrieve from RAM
-            cache.setBlock(ram, address, False)
-            return cache.getDouble(address)
+        set_index = add.convertByte(add.getsetIndex(address))
+        RAM_index = add.convertByte(add.getRAMIndex(address))
+        offset_index = add.convertByte(add.getOffset(address))
+        block = ram.get_block(RAM_index)
 
+        if cache.getDouble(RAM_index, set_index, offset_index):                                                         # if the block is in the cache
+            return cache.getDouble(RAM_index, set_index, offset_index)
+        else:                                                                                                           # block is not in the cache, so we must retrieve from RAM
+            cache.setBlock(block, set_index, RAM_index, False)
+            return cache.getDouble(RAM_index, set_index, offset_index)
 
+    def getAnswer(self, address):
+        '''attempts to retrieve double from RAM for printing correctness'''
+        ram = self.ram
+        add = self.address
+
+        RAM_index = add.convertByte(add.getRAMIndex(address))
+        byte_index = add.convertByte(add.getOffset(address))
+        byte_index = int(byte_index // 8) + 1
+
+        return ram.get_double(RAM_index, byte_index)
 
     def storeDouble(self, address, value):
         '''stores values into RAM'''
@@ -41,17 +56,18 @@ class CPU():
         add = self.address
         cache = self.cache
 
-        RAM_index = add.convertByte(add.getRAMIndex(address))              # What block of RAM we will place in
-        byte_index = add.convertByte(add.getOffset(address))               # What position in the block we will place in
-
+        RAM_index = add.convertByte(add.getRAMIndex(address))                                                           # What block of RAM we will place in
+        set_index = add.convertByte(add.getsetIndex(address))
+        byte_index = add.convertByte(add.getOffset(address))                                                            # What position in the block we will place in
         byte_index = int(byte_index // 8) + 1
 
-        ram.set_block(RAM_index, byte_index, value)                        # write the info into RAM
+        ram.set_block(RAM_index, byte_index, value)                                                                     # write the info into RAM
+        block = ram.get_block(RAM_index)
 
-        if cache.getBlock(address):                                        # if this block is in the cache
-            cache.setBlock(ram, address, True)                             # write allocate, copy to both RAM and update cache
+        if cache.getBlock(set_index, RAM_index):                                                                        # if this block is in the cache
+            cache.setBlock(block, set_index, RAM_index, True)                                                           # write allocate, copy to both RAM and update cache
         else:
-            cache.setBlock(ram, address, False)
+            cache.setBlock(block, set_index, RAM_index, False)
 
     def addDouble(self, num1, num2):
         self.addcount += 1
