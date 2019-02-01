@@ -196,6 +196,52 @@ def MXM(cpu):
         for i in range(0, len(aux),9):
             print(aux[i:i+9])
 
+def MXMblock(cpu, RAM_size):
+    # construct address arrays of length = dimension x dimension
+    a = [[i + j for j in range(0, dimension * float_size, float_size)] for i in
+         range(0, dimension * dimension * float_size, dimension * float_size)]
+
+    b = [[i + j for j in range(0, dimension * float_size, float_size)] for i in
+         range(dimension * dimension * float_size, 2 * dimension * dimension * float_size, dimension * float_size)]
+
+    c = [[i + j for j in range(0, dimension * float_size, float_size)] for i in
+         range(2 * dimension * dimension * float_size, 3 * dimension * dimension * float_size, dimension * float_size)]
+
+    val= 0
+    for i in range(dimension):
+        for j in range(dimension):
+
+            cpu.storeDouble(address=a[i][j], value=val)
+            # print(cpu.cache.cache_data)
+            # print(cpu.ram.data)
+            cpu.storeDouble(address=b[i][j], value=2*val)
+            # print(cpu.cache.cache_data)
+            # print(cpu.ram.data)
+            cpu.storeDouble(address=c[i][j], value=0)
+            # print(cpu.cache.cache_data)
+            # print(cpu.ram.data)
+            val += 1
+
+    print(cpu.ram.data)
+    #for i in cpu.ram.data:
+        #print(i)
+
+    for i in range(0,dimension):
+        for j in range(0,dimension):
+
+            register0 = 0   #temporary storage
+
+            for k in range(0,dimension):
+
+                register1 = cpu.loadDouble(a[i][k])
+                register2 = cpu.loadDouble(b[k][j])
+                register3 = cpu.multDouble(register1, register2)
+                register0 = cpu.addDouble(register0, register3)
+
+            cpu.storeDouble(address=c[i][j], value=register0)
+
+
+
 
 
 def main():
@@ -214,8 +260,9 @@ def main():
     if algorithm == 'mxm-block':
         RAM_size = 3 * dimension * dimension * float_size
         cpu = CPU(RAM_size=RAM_size, cache_size=cache_size, block_size=block_size, associativity=associativity, replacement=replacement)
+        MXMblock(cpu, RAM_size)
         results(cpu, RAM_size)
-        pass
+
 
 
 if __name__ == '__main__':

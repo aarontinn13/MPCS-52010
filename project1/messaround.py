@@ -1,6 +1,9 @@
+import numpy
 
-dimension = 9
-byte = 8
+
+
+dimension = 2
+byte = 1
 
 matrix = [[i+j for j in range(0, dimension*byte, byte)]for i in range(0, dimension*dimension*byte, dimension*byte)]
 for i in matrix:
@@ -16,5 +19,17 @@ matrix3 = [[i+j for j in range(0, dimension*byte, byte)]for i in range(2*dimensi
 for i in matrix3:
     print(i)
 
-
 print()
+matrix4 = [[i+j for j in range(0, dimension*byte, byte)]for i in range(3*dimension*dimension*byte, 4*dimension*dimension*byte, dimension*byte)]
+for i in matrix4:
+    print(i)
+print()
+
+a = [1,2,3,4]
+b = [5,6,7,8]
+c = [9,10,11,12]
+d = [13,14,15,16]
+
+x = numpy.block([[a,b],[c,d]])
+
+print(x)
