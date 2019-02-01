@@ -1,5 +1,4 @@
 from random import choice
-from Address import Address
 
 class Cache():
 
