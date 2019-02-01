@@ -14,7 +14,7 @@ from sys import exit
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument('-c', action='store', default=65536, type=int, dest='cache_size',help='size of the cache (default: 65,536 Bytes)')
+parser.add_argument('-c', action='store', default=128, type=int, dest='cache_size',help='size of the cache (default: 65,536 Bytes)')
 parser.add_argument('-b', action='store', default=64, type=int, dest='block_size', help='size of a block (default: 64 Bytes)')
 parser.add_argument('-n', action='store', default=2, type=int, dest='n_way', help='n-way associativity (default: 2 blocks/set)')
 parser.add_argument('-r', action='store', default='LRU', type=str, dest='replacement', help='replacement policy [FIFO, LRU] (default: LRU)')
@@ -59,12 +59,12 @@ if sets_in_cache.is_integer():
 else:
     exit("Error: n-way needs to divide blocks in the cache evenly to have even sets in the cache!")
 
-if sets_in_cache > 1:
+if sets_in_cache >= 1:
     pass
 else:
     exit("Error: n-way is greater than number of blocks in the cache!")
 
-def results():
+def results(cpu, RAM_size):
     print('INPUTS=====================================')
     print('Ram Size:                    {} bytes'.format(RAM_size))
     print('Cache Size:                  {} bytes'.format(cache_size))
@@ -98,40 +98,40 @@ def Daxpy(cpu):
 
     for i in range(dimension):
         cpu.storeDouble(address=a[i], value=i)
-        # print(cpu.cache.cache_data)
-        # print(cpu.ram.data)
+        #print(cpu.cache.cache_data)
+        #print(cpu.ram.data)
         cpu.storeDouble(address=b[i], value=2 * i)
-        # print(cpu.cache.cache_data)
-        # print(cpu.ram.data)
+        #print(cpu.cache.cache_data)
+        #print(cpu.ram.data)
         cpu.storeDouble(address=c[i], value=0)
-        # print(cpu.cache.cache_data)
-        # print(cpu.ram.data)
-        # print('*******************ROUND {}*******************'.format(i))
+        #print(cpu.cache.cache_data)
+        #print(cpu.ram.data)
+        #print('*******************ROUND {}*******************'.format(i))
 
-    # print(cpu.ram.data)
-    # print()
-    # for i in cpu.ram.data:
-    # print(i)
+    #print(cpu.cache.cache_data[0])
+    print(cpu.ram.data)
+    #print()
+    #for i in cpu.ram.data:
+    #print(i)
 
     register0 = d_value
 
     for i in range(dimension):
         register1 = cpu.loadDouble(a[i])
-        # print('loading value {} from address {}'.format(register1, a[i]))
+        print('loading value {} from address {}'.format(register1, a[i]))
         register2 = cpu.multDouble(register0, register1)
-        # print('multiplying {} and {} = {}'.format(register0, register1, register0*register1))
+        print('multiplying {} and {} = {}'.format(register0, register1, register0*register1))
         register3 = cpu.loadDouble(b[i])
-        # print('loading value {} from address {}'.format(register3, b[i]))
+        print('loading value {} from address {}'.format(register3, b[i]))
         register4 = cpu.addDouble(register2, register3)
-        # print('adding {} and {} = {}'.format(register2, register3, register2 + register3))
+        print('adding {} and {} = {}'.format(register2, register3, register2 + register3))
         cpu.storeDouble(address=c[i], value=register4)
-        # print('storing value {} at address {} in RAM\n'.format(register4, c[i]))
-        # print('--------------------------------------------------------------------------------------')
+        print('storing value {} at address {} in RAM\n'.format(register4, c[i]))
+        print('--------------------------------------------------------------------------------------')
 
     # for i in cpu.ram.data:
     # print(i)
 
-    results()
 
     if print_:
         aux = [cpu.getAnswer(i) for i in c]
@@ -185,7 +185,6 @@ def MXM(cpu):
 
             cpu.storeDouble(address=c[i][j], value=register0)
 
-    results()
 
     if print_:
         aux = [cpu.getAnswer(j) for i in c for j in i]
@@ -203,18 +202,18 @@ def main():
         RAM_size = 3 * dimension * float_size
         cpu = CPU(RAM_size=RAM_size, cache_size=cache_size, block_size=block_size, associativity=associativity, replacement=replacement)
         Daxpy(cpu)
-
+        results(cpu, RAM_size)
     if algorithm == 'mxm':
         RAM_size = 3 * dimension**2 * float_size
         cpu = CPU(RAM_size=RAM_size, cache_size=cache_size, block_size=block_size, associativity=associativity, replacement=replacement)
         MXM(cpu)
-
+        results(cpu, RAM_size)
     if algorithm == 'mxm-block':
         RAM_size = 3 * dimension * dimension * float_size
         cpu = CPU(RAM_size=RAM_size, cache_size=cache_size, block_size=block_size, associativity=associativity, replacement=replacement)
+        results(cpu, RAM_size)
         pass
 
-    results()
 
 if __name__ == '__main__':
     main()

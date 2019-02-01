@@ -21,7 +21,7 @@ class Address():
         '''Given a full integer address, will return the byte cache index'''
         index = bin(address).partition('b')[2]
         if self.set_index_size == 0:
-            return 0                                                                                    #for fully associative
+            return '0'                                                                                    #for fully associative
         return str(index).zfill(int(self.bits))[-self.offset_size-self.set_index_size:-self.offset_size]
 
     def getRAMIndex(self, address):

@@ -19,9 +19,11 @@ class Cache():
 
     def getDouble(self, set_index, ram_index, offset_index):
         '''given an address, will attempt to get the double within the cache'''
-
+        #print(len(self.cache_data[set_index]))
         for i in range(len(self.cache_data[set_index])):                                                                # found the correct block, return the value
+            #print(len(self.cache_data[set_index]))
             if ram_index == self.cache_data[set_index][i][0][0]:
+                print('hello')
                 self.read_hit += 1
                 if self.replacement == 'LRU':                                                                           # need to pull out the block and reinsert to back if this is LRU
                     self.cache_data[set_index].append(self.cache_data[set_index].pop(i))

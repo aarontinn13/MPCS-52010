@@ -30,6 +30,7 @@ class CPU():
         offset_index = add.convertByte(add.getOffset(address))
         block = ram.get_block(RAM_index)
 
+        #print('set_index:',set_index)
         if cache.getDouble(RAM_index, set_index, offset_index):                                                         # if the block is in the cache
             return cache.getDouble(RAM_index, set_index, offset_index)
         else:                                                                                                           # block is not in the cache, so we must retrieve from RAM
