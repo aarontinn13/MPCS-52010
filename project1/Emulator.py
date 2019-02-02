@@ -258,5 +258,4 @@ def main():
         MXMblock(cpu)
         results(cpu, RAM_size)
 
-if __name__ == '__main__':
-    main()
+main()
