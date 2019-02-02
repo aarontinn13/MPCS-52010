@@ -1,4 +1,5 @@
 from CPU import CPU
+from math import ceil
 import numpy as np
 import argparse
 from sys import exit
@@ -9,8 +10,9 @@ from sys import exit
 # -r replacement policy (LRU)
 # -a algorithm (mxm-block)
 # -d dimension of vector or matrix (480)
-# -p enables printing of results
+# -p enables printing of results (False)
 # -f blocking factor for mxm-block (32)
+# -v random d-value for daxpy algorithm (3)
 
 parser = argparse.ArgumentParser()
 
@@ -18,9 +20,9 @@ parser.add_argument('-c', action='store', default=65536, type=int, dest='cache_s
 parser.add_argument('-b', action='store', default=64, type=int, dest='block_size', help='size of a block (default: 64 Bytes)')
 parser.add_argument('-n', action='store', default=2, type=int, dest='n_way', help='n-way associativity (default: 2 blocks/set)')
 parser.add_argument('-r', action='store', default='LRU', type=str, dest='replacement', help='replacement policy [FIFO, LRU] (default: LRU)')
-parser.add_argument('-a', action='store', default='mxm', type=str, dest='algorithm', help='algorithm to test [daxpy, mxm, mxm-block] (default: mxm-block)')
-parser.add_argument('-d', action='store', default=100, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
-parser.add_argument('-p', action='store_true', default=True, dest='print_',help='enables printing of the value')
+parser.add_argument('-a', action='store', default='mxm-block', type=str, dest='algorithm', help='algorithm to test [daxpy, mxm, mxm-block] (default: mxm-block)')
+parser.add_argument('-d', action='store', default=480, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
+parser.add_argument('-p', action='store_true', default=False, dest='print_',help='enables printing of the value')
 parser.add_argument('-f', action='store', default=32, type=int, dest='blocking_factor',help='blocking factor of mxm-block (default: 32)')
 parser.add_argument('-v', action='store', default=3, type=int, dest='d_value',help='random d-value for daxpy algorithm (default: 3)')
 
@@ -70,6 +72,7 @@ def results(cpu, RAM_size):
     print('Cache Size:                  {} bytes'.format(cache_size))
     print('Block Size:                  {} bytes'.format(block_size))
     print('Total Blocks in Cache:       {}'.format(int(blocks_in_cache)))
+    print('Total Blocks in RAM:         {}'.format(ceil(RAM_size/block_size)))
     print('Associativity:               {}'.format(associativity))
     print('Number of Sets:              {}'.format(int(sets_in_cache)))
     print('Replacement Policy:          {}'.format(replacement))
@@ -89,7 +92,6 @@ def results(cpu, RAM_size):
 
 
 def Daxpy(cpu):
-
 
     # construct Address arrays of length = dimension
     a = list(range(0, dimension * float_size, float_size))
@@ -146,14 +148,11 @@ def MXM(cpu):
     val= 0
     for i in range(dimension):
         for j in range(dimension):
-            #instruction count = matrix size * matrix * size * 3
+            #instruction count = matrix size * matrix size * 3
             cpu.storeDouble(address=a.item((i,j)), value=val)
             cpu.storeDouble(address=b.item((i,j)), value=2*val)
             cpu.storeDouble(address=c.item((i,j)), value=0)
             val += 1
-
-    print(cpu.ram.data)
-    print('Finished Storing\n')
 
     iteration = 0
     for i in range(dimension):
@@ -161,20 +160,27 @@ def MXM(cpu):
             for k in range(dimension):
                 #instruction count = matrix size * matrix size * matrix size * 6
                 register1 = cpu.loadDouble(a.item((i, k)))
-                print('loading value {} from address {}'.format(register1, a[i,k]))
+                #print('loading value {} from address {}'.format(register1, a[i,k]))
                 register2 = cpu.loadDouble(b.item((k, j)))
-                print('loading value {} from address {}'.format(register2, a[k, j]))
+                #print('loading value {} from address {}'.format(register2, a[k, j]))
                 register3 = cpu.multDouble(register1, register2)
-                print('multiplying {} and {} = {}'.format(register1, register2, register1 * register2))
+                #print('multiplying {} and {} = {}'.format(register1, register2, register1 * register2))
                 register4 = cpu.loadDouble(c.item((i,j)))
-                print('loading value {} from address {}'.format(register2, a[i, j]))
+                #print('loading value {} from address {}'.format(register2, a[i, j]))
                 register0 = cpu.addDouble(register4, register3)
-                print('adding {} and {} = {}'.format(register3, register4, register3 + register4))
+                #print('adding {} and {} = {}'.format(register3, register4, register3 + register4))
                 cpu.storeDouble(address=c.item((i, j)), value=register0)
-                print('storing {} at address {}\n'.format(register0, c[i,j]))
-                print(iteration)
-                print()
-                iteration += 1
+                #print('storing {} at address {}\n'.format(register0, c[i,j]))
+
+                #print(iteration)
+                #print()
+                #iteration += 1
+
+    #for i in cpu.cache.cache_data:
+        #for j in i:
+            #print(j)
+
+
 
     #if printing is True
     if print_:
@@ -200,14 +206,13 @@ def MXMblock(cpu):
     val= 0
     for i in range(dimension):
         for j in range(dimension):
+            # instruction count = matrix size * matrix size * 3
             cpu.storeDouble(address=a.item((i,j)), value=val)
             cpu.storeDouble(address=b.item((i,j)), value=2*val)
             cpu.storeDouble(address=c.item((i,j)), value=0)
             val += 1
 
-    print(cpu.ram.data)
-    print('Finished Storing\n')
-
+    iteration = 0
     for i in range(0,dimension,blocking_factor):
         for j in range(0,dimension,blocking_factor):
 
@@ -221,13 +226,22 @@ def MXMblock(cpu):
                 for x in range(len(Asub)):
                     for y in range(len(Bsub)):
                         for z in range(len(Csub)):
-
+                            # instruction count = matrix size * matrix size * matrix size * 6
                             register1 = cpu.loadDouble(Asub[x, z])
+                            #print('loading value {} from address {}'.format(register1, Asub[x, z]))
                             register2 = cpu.loadDouble(Bsub[z, y])
+                            #print('loading value {} from address {}'.format(register1, Bsub[z, y]))
                             register3 = cpu.multDouble(register1, register2)
+                            #print('multiplying {} and {} = {}'.format(register1, register2, register1 * register2))
                             register4 = cpu.loadDouble(Csub[x, y])
+                            #print('loading value {} from address {}'.format(register4, Csub[x, y]))
                             register0 = cpu.addDouble(register3, register4)
+                            #print('adding {} and {} = {}'.format(register3, register4, register3 + register4))
                             cpu.storeDouble(Csub[x,y], register0)
+                            #print('storing {} at address {}\n'.format(register0, c[x, y]))
+                            #print(iteration)
+                            #print()
+                            #iteration += 1
 
     #if printing is True
     if print_:
@@ -236,7 +250,6 @@ def MXMblock(cpu):
         print()
         print('Matrix C:')
         print(aux,'\n')
-
 
 def main():
 
@@ -260,8 +273,6 @@ def main():
         cpu = CPU(RAM_size=RAM_size, cache_size=cache_size, block_size=block_size, associativity=associativity, replacement=replacement)
         MXMblock(cpu)
         results(cpu, RAM_size)
-
-
 
 if __name__ == '__main__':
     main()

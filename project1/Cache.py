@@ -17,11 +17,11 @@ class Cache():
         self.read_hit = 0                                                                                               # total number of read hits
         self.read_miss = 0                                                                                              # total number of read misses
 
+
     def getDouble(self, ram_index, set_index, offset_index):
         '''given an address, will attempt to get the double within the cache'''
 
         for i in range(len(self.cache_data[set_index])):                                                                # found the correct block, return the value
-            #print('i',i)
             if ram_index == self.cache_data[set_index][i][0][0]:
                 self.read_hit += 1
                 if self.replacement == 'LRU':                                                                           # need to pull out the block and reinsert to back if this is LRU

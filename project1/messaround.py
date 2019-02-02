@@ -1,6 +1,6 @@
 import numpy as np
 
-
+'''
 
 dimension=4
 byte=1
@@ -82,8 +82,6 @@ print(C)
         #print('============================')
 
 
-
-'''
 for i in range(dimension//blocking_factor):
     for j in range(dimension//blocking_factor):
 
@@ -92,18 +90,12 @@ for i in range(dimension//blocking_factor):
         for k in range(dimension//blocking_factor):
             print('A[{},{}] x B[{},{}] = C[{},{}]'.format(i, k, k, j, i, j))
             print('====================')
+
+
+
+
+
 '''
-
-
-
-
-
-
-
-
-
-
-
 
 
 

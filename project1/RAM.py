@@ -16,13 +16,3 @@ class RAM():
     def get_double(self, RAM_index, byte_index):
         '''retrieve the value from RAM for answer'''
         return self.data[RAM_index][byte_index]
-
-
-
-
-'''
-x = RAM(11520, 64)
-print(x.data)
-x.data[0][1] = 'hello'
-print(x.data)
-'''

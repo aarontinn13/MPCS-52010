@@ -27,6 +27,8 @@ class Address():
     def getRAMIndex(self, address):
         ''' given a full integer address, will return the byte RAM Index'''
         index = bin(address).partition('b')[2]
+        if str(index).zfill(int(self.bits))[:-self.offset_size] == '':
+            return '0'
         return str(index).zfill(int(self.bits))[:-self.offset_size]
 
     def getOffset(self, address):

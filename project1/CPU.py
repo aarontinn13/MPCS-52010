@@ -29,14 +29,14 @@ class CPU():
         RAM_index = add.convertByte(add.getRAMIndex(address))
         offset_index = add.convertByte(add.getOffset(address))
 
-        if cache.getDouble(RAM_index, set_index, offset_index):                                                         # if the block is in the cache
+        x = cache.getDouble(RAM_index, set_index, offset_index)
 
-            return cache.getDouble(RAM_index, set_index, offset_index)
+        if isinstance(x, int):
+            return x
         else:                                                                                                           # block is not in the cache, so we must retrieve from RAM
-
             block = ram.get_block(RAM_index)
             cache.setBlock(block, set_index, RAM_index, False)
-            return cache.getDouble(RAM_index, set_index, offset_index)
+            return block[offset_index//8+1]
 
     def getAnswer(self, address):
         '''attempts to retrieve double from RAM for printing correctness'''
