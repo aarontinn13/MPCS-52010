@@ -99,6 +99,3 @@ for i in range(dimension//blocking_factor):
 
 
 
-
-
-

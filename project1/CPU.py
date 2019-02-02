@@ -31,7 +31,7 @@ class CPU():
 
         x = cache.getDouble(RAM_index, set_index, offset_index)
 
-        if isinstance(x, int):
+        if type(x) is int:
             return x
         else:                                                                                                           # block is not in the cache, so we must retrieve from RAM
             block = ram.get_block(RAM_index)
