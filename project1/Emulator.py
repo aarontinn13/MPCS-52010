@@ -4,6 +4,7 @@ import numpy as np
 import argparse
 from sys import exit
 
+
 # -c size of the cache (65,536)
 # -b size of a block (64)
 # -n n-way associativity (2)
@@ -21,9 +22,9 @@ parser.add_argument('-b', action='store', default=64, type=int, dest='block_size
 parser.add_argument('-n', action='store', default=2, type=int, dest='n_way', help='n-way associativity (default: 2 blocks/set)')
 parser.add_argument('-r', action='store', default='LRU', type=str, dest='replacement', help='replacement policy [FIFO, LRU] (default: LRU)')
 parser.add_argument('-a', action='store', default='mxm-block', type=str, dest='algorithm', help='algorithm to test [daxpy, mxm, mxm-block] (default: mxm-block)')
-parser.add_argument('-d', action='store', default=100, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
+parser.add_argument('-d', action='store', default=480, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
 parser.add_argument('-p', action='store_true', default=False, dest='print_',help='enables printing of the value')
-parser.add_argument('-f', action='store', default=20, type=int, dest='blocking_factor',help='blocking factor of mxm-block (default: 32)')
+parser.add_argument('-f', action='store', default=32, type=int, dest='blocking_factor',help='blocking factor of mxm-block (default: 32)')
 parser.add_argument('-v', action='store', default=3, type=int, dest='d_value',help='random d-value for daxpy algorithm (default: 3)')
 
 results = parser.parse_args()
