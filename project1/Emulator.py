@@ -21,10 +21,10 @@ parser.add_argument('-c', action='store', default=65536, type=int, dest='cache_s
 parser.add_argument('-b', action='store', default=64, type=int, dest='block_size', help='size of a block (default: 64 Bytes)')
 parser.add_argument('-n', action='store', default=2, type=int, dest='n_way', help='n-way associativity (default: 2 blocks/set)')
 parser.add_argument('-r', action='store', default='LRU', type=str, dest='replacement', help='replacement policy [FIFO, LRU] (default: LRU)')
-parser.add_argument('-a', action='store', default='daxpy', type=str, dest='algorithm', help='algorithm to test [daxpy, mxm, mxm-block] (default: mxm-block)')
-parser.add_argument('-d', action='store', default=50, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
-parser.add_argument('-p', action='store_true', default=True, dest='print_',help='enables printing of the value')
-parser.add_argument('-f', action='store', default=10, type=int, dest='blocking_factor',help='blocking factor of mxm-block (default: 32)')
+parser.add_argument('-a', action='store', default='mxm_block', type=str, dest='algorithm', help='algorithm to test [daxpy, mxm, mxm-block] (default: mxm-block)')
+parser.add_argument('-d', action='store', default=480, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
+parser.add_argument('-p', action='store_true', default=False, dest='print_',help='enables printing of the value')
+parser.add_argument('-f', action='store', default=32, type=int, dest='blocking_factor',help='blocking factor of mxm-block (default: 32)')
 parser.add_argument('-v', action='store', default=3, type=int, dest='d_value',help='random d-value for daxpy algorithm (default: 3)')
 
 results = parser.parse_args()
@@ -156,9 +156,7 @@ def MXM(cpu):
                 register0 = cpu.addDouble(register0, register3)
             cpu.storeDouble(address=c.item((i, j)), value=register0, count=True)
 
-    #if printing is True
     if print_:
-        #np.set_printoptions(threshold=np.nan)   #if you want to print the whole matrix
         aux = np.matrix([[cpu.loadDouble(c.item((i,j))) for j in range(dimension)] for i in range(dimension) ])
         print()
         print('Matrix C:')
@@ -200,7 +198,9 @@ def MXMblock(cpu):
 
                 for x in range(len(Asub)):
                     for y in range(len(Bsub)):
+
                         register0 = 0
+
                         for z in range(len(Csub)):
                             register1 = cpu.loadDouble(address=Asub[x, z], count=True)
                             register2 = cpu.loadDouble(address=Bsub[z, y], count=True)
