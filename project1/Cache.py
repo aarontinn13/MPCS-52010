@@ -34,7 +34,7 @@ class Cache():
     def getBlock(self, set_index, RAM_index):
         ''' given a full address, will attempt to check if the block in question is in the cache when writing'''        # find the ram_index with the address
 
-        if not self.cache_data[set_index]:                                                                              # if the set is empty, this is a compulsory miss
+        if not self.cache_data[set_index]:                                                                                         # if the set is empty, this is a compulsory miss
             self.write_miss += 1
             return False
         else:                                                                                                           # set has a block(s) in it!
