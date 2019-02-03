@@ -196,7 +196,7 @@ def MXMblock(cpu):
             cpu.storeDouble(address=c.item((i,j)), value=0)
             val += 1
 
-    iteration = 0
+
     for i in range(0,dimension,blocking_factor):
         for j in range(0,dimension,blocking_factor):
 
@@ -223,8 +223,7 @@ def MXMblock(cpu):
                             #print('adding {} and {} = {}'.format(register3, register4, register3 + register4))
                             cpu.storeDouble(Csub[x,y], register0)
                             #print('storing {} at address {}\n'.format(register0, c[x, y]))
-                            print(iteration)
-                            iteration += 1
+
     #if printing is True
     if print_:
         #np.set_printoptions(threshold=np.nan)   #if you want to print the whole matrix
