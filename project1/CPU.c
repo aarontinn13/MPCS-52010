@@ -1225,6 +1225,7 @@ static const char __pyx_k_test[] = "__test__";
 static const char __pyx_k_Cache[] = "Cache";
 static const char __pyx_k_block[] = "block";
 static const char __pyx_k_cache[] = "cache";
+static const char __pyx_k_count[] = "count";
 static const char __pyx_k_value[] = "value";
 static const char __pyx_k_CPU_py[] = "CPU.py";
 static const char __pyx_k_import[] = "__import__";
@@ -1294,6 +1295,7 @@ static PyObject *__pyx_n_s_cache;
 static PyObject *__pyx_n_s_cache_size;
 static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_n_s_convertByte;
+static PyObject *__pyx_n_s_count;
 static PyObject *__pyx_n_s_doc;
 static PyObject *__pyx_n_s_getAnswer;
 static PyObject *__pyx_n_s_getBlock;
@@ -1330,9 +1332,9 @@ static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_n_s_value;
 static PyObject *__pyx_n_s_x;
 static PyObject *__pyx_pf_3CPU_3CPU___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_RAM_size, PyObject *__pyx_v_cache_size, PyObject *__pyx_v_block_size, PyObject *__pyx_v_associativity, PyObject *__pyx_v_replacement); /* proto */
-static PyObject *__pyx_pf_3CPU_3CPU_2loadDouble(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_address); /* proto */
+static PyObject *__pyx_pf_3CPU_3CPU_2loadDouble(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_address, PyObject *__pyx_v_count); /* proto */
 static PyObject *__pyx_pf_3CPU_3CPU_4getAnswer(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_address); /* proto */
-static PyObject *__pyx_pf_3CPU_3CPU_6storeDouble(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_address, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_3CPU_3CPU_6storeDouble(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_address, PyObject *__pyx_v_value, PyObject *__pyx_v_count); /* proto */
 static PyObject *__pyx_pf_3CPU_3CPU_8addDouble(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_num1, PyObject *__pyx_v_num2); /* proto */
 static PyObject *__pyx_pf_3CPU_3CPU_10multDouble(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_num1, PyObject *__pyx_v_num2); /* proto */
 static PyObject *__pyx_int_0;
@@ -1341,15 +1343,17 @@ static PyObject *__pyx_int_8;
 static PyObject *__pyx_tuple_;
 static PyObject *__pyx_tuple__3;
 static PyObject *__pyx_tuple__5;
-static PyObject *__pyx_tuple__7;
-static PyObject *__pyx_tuple__9;
+static PyObject *__pyx_tuple__6;
+static PyObject *__pyx_tuple__8;
+static PyObject *__pyx_tuple__10;
 static PyObject *__pyx_tuple__11;
+static PyObject *__pyx_tuple__13;
 static PyObject *__pyx_codeobj__2;
 static PyObject *__pyx_codeobj__4;
-static PyObject *__pyx_codeobj__6;
-static PyObject *__pyx_codeobj__8;
-static PyObject *__pyx_codeobj__10;
+static PyObject *__pyx_codeobj__7;
+static PyObject *__pyx_codeobj__9;
 static PyObject *__pyx_codeobj__12;
+static PyObject *__pyx_codeobj__14;
 /* Late includes */
 
 /* "CPU.py":7
@@ -1670,7 +1674,7 @@ static PyObject *__pyx_pf_3CPU_3CPU___init__(CYTHON_UNUSED PyObject *__pyx_self,
  *         self.addcount = 0
  *         self.multcount = 0             # <<<<<<<<<<<<<<
  * 
- *     def loadDouble(self, address):
+ *     def loadDouble(self, address, count=False):
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_multcount, __pyx_int_0) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
 
@@ -1705,7 +1709,7 @@ static PyObject *__pyx_pf_3CPU_3CPU___init__(CYTHON_UNUSED PyObject *__pyx_self,
 /* "CPU.py":21
  *         self.multcount = 0
  * 
- *     def loadDouble(self, address):             # <<<<<<<<<<<<<<
+ *     def loadDouble(self, address, count=False):             # <<<<<<<<<<<<<<
  *         '''attempts to read values from cache, else loads from RAM'''
  *         self.loadcount += 1
  */
@@ -1717,16 +1721,20 @@ static PyMethodDef __pyx_mdef_3CPU_3CPU_3loadDouble = {"loadDouble", (PyCFunctio
 static PyObject *__pyx_pw_3CPU_3CPU_3loadDouble(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_address = 0;
+  PyObject *__pyx_v_count = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("loadDouble (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_address,0};
-    PyObject* values[2] = {0,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_address,&__pyx_n_s_count,0};
+    PyObject* values[3] = {0,0,0};
+    values[2] = ((PyObject *)((PyObject *)Py_False));
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
       switch (pos_args) {
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        CYTHON_FALLTHROUGH;
         case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
         CYTHON_FALLTHROUGH;
         case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
@@ -1743,37 +1751,48 @@ static PyObject *__pyx_pw_3CPU_3CPU_3loadDouble(PyObject *__pyx_self, PyObject *
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_address)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("loadDouble", 1, 2, 2, 1); __PYX_ERR(0, 21, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("loadDouble", 0, 2, 3, 1); __PYX_ERR(0, 21, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  2:
+        if (kw_args > 0) {
+          PyObject* value = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_count);
+          if (value) { values[2] = value; kw_args--; }
         }
       }
       if (unlikely(kw_args > 0)) {
         if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "loadDouble") < 0)) __PYX_ERR(0, 21, __pyx_L3_error)
       }
-    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
-      goto __pyx_L5_argtuple_error;
     } else {
-      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+      switch (PyTuple_GET_SIZE(__pyx_args)) {
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        CYTHON_FALLTHROUGH;
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        break;
+        default: goto __pyx_L5_argtuple_error;
+      }
     }
     __pyx_v_self = values[0];
     __pyx_v_address = values[1];
+    __pyx_v_count = values[2];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("loadDouble", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 21, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("loadDouble", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 21, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("CPU.CPU.loadDouble", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_3CPU_3CPU_2loadDouble(__pyx_self, __pyx_v_self, __pyx_v_address);
+  __pyx_r = __pyx_pf_3CPU_3CPU_2loadDouble(__pyx_self, __pyx_v_self, __pyx_v_address, __pyx_v_count);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_3CPU_3CPU_2loadDouble(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_address) {
+static PyObject *__pyx_pf_3CPU_3CPU_2loadDouble(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_address, PyObject *__pyx_v_count) {
   PyObject *__pyx_v_ram = NULL;
   PyObject *__pyx_v_cache = NULL;
   PyObject *__pyx_v_add = NULL;
@@ -1795,7 +1814,7 @@ static PyObject *__pyx_pf_3CPU_3CPU_2loadDouble(CYTHON_UNUSED PyObject *__pyx_se
   __Pyx_RefNannySetupContext("loadDouble", 0);
 
   /* "CPU.py":23
- *     def loadDouble(self, address):
+ *     def loadDouble(self, address, count=False):
  *         '''attempts to read values from cache, else loads from RAM'''
  *         self.loadcount += 1             # <<<<<<<<<<<<<<
  *         ram = self.ram
@@ -1940,7 +1959,7 @@ static PyObject *__pyx_pf_3CPU_3CPU_2loadDouble(CYTHON_UNUSED PyObject *__pyx_se
  *         RAM_index = add.convertByte(add.getRAMIndex(address))
  *         offset_index = add.convertByte(add.getOffset(address))             # <<<<<<<<<<<<<<
  * 
- *         x = cache.getDouble(RAM_index, set_index, offset_index)
+ *         x = cache.getDouble(RAM_index, set_index, offset_index, count)
  */
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_add, __pyx_n_s_convertByte); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 30, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -1983,7 +2002,7 @@ static PyObject *__pyx_pf_3CPU_3CPU_2loadDouble(CYTHON_UNUSED PyObject *__pyx_se
   /* "CPU.py":32
  *         offset_index = add.convertByte(add.getOffset(address))
  * 
- *         x = cache.getDouble(RAM_index, set_index, offset_index)             # <<<<<<<<<<<<<<
+ *         x = cache.getDouble(RAM_index, set_index, offset_index, count)             # <<<<<<<<<<<<<<
  * 
  *         if type(x) is int:
  */
@@ -2003,22 +2022,22 @@ static PyObject *__pyx_pf_3CPU_3CPU_2loadDouble(CYTHON_UNUSED PyObject *__pyx_se
   }
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_1)) {
-    PyObject *__pyx_temp[4] = {__pyx_t_3, __pyx_v_RAM_index, __pyx_v_set_index, __pyx_v_offset_index};
-    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 32, __pyx_L1_error)
+    PyObject *__pyx_temp[5] = {__pyx_t_3, __pyx_v_RAM_index, __pyx_v_set_index, __pyx_v_offset_index, __pyx_v_count};
+    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_6, 4+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 32, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_GOTREF(__pyx_t_2);
   } else
   #endif
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
-    PyObject *__pyx_temp[4] = {__pyx_t_3, __pyx_v_RAM_index, __pyx_v_set_index, __pyx_v_offset_index};
-    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 32, __pyx_L1_error)
+    PyObject *__pyx_temp[5] = {__pyx_t_3, __pyx_v_RAM_index, __pyx_v_set_index, __pyx_v_offset_index, __pyx_v_count};
+    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_6, 4+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 32, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_GOTREF(__pyx_t_2);
   } else
   #endif
   {
-    __pyx_t_4 = PyTuple_New(3+__pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 32, __pyx_L1_error)
+    __pyx_t_4 = PyTuple_New(4+__pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 32, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     if (__pyx_t_3) {
       __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __pyx_t_3 = NULL;
@@ -2032,6 +2051,9 @@ static PyObject *__pyx_pf_3CPU_3CPU_2loadDouble(CYTHON_UNUSED PyObject *__pyx_se
     __Pyx_INCREF(__pyx_v_offset_index);
     __Pyx_GIVEREF(__pyx_v_offset_index);
     PyTuple_SET_ITEM(__pyx_t_4, 2+__pyx_t_6, __pyx_v_offset_index);
+    __Pyx_INCREF(__pyx_v_count);
+    __Pyx_GIVEREF(__pyx_v_count);
+    PyTuple_SET_ITEM(__pyx_t_4, 3+__pyx_t_6, __pyx_v_count);
     __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_4, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 32, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -2041,7 +2063,7 @@ static PyObject *__pyx_pf_3CPU_3CPU_2loadDouble(CYTHON_UNUSED PyObject *__pyx_se
   __pyx_t_2 = 0;
 
   /* "CPU.py":34
- *         x = cache.getDouble(RAM_index, set_index, offset_index)
+ *         x = cache.getDouble(RAM_index, set_index, offset_index, count)
  * 
  *         if type(x) is int:             # <<<<<<<<<<<<<<
  *             return x
@@ -2064,7 +2086,7 @@ static PyObject *__pyx_pf_3CPU_3CPU_2loadDouble(CYTHON_UNUSED PyObject *__pyx_se
     goto __pyx_L0;
 
     /* "CPU.py":34
- *         x = cache.getDouble(RAM_index, set_index, offset_index)
+ *         x = cache.getDouble(RAM_index, set_index, offset_index, count)
  * 
  *         if type(x) is int:             # <<<<<<<<<<<<<<
  *             return x
@@ -2186,7 +2208,7 @@ static PyObject *__pyx_pf_3CPU_3CPU_2loadDouble(CYTHON_UNUSED PyObject *__pyx_se
   /* "CPU.py":21
  *         self.multcount = 0
  * 
- *     def loadDouble(self, address):             # <<<<<<<<<<<<<<
+ *     def loadDouble(self, address, count=False):             # <<<<<<<<<<<<<<
  *         '''attempts to read values from cache, else loads from RAM'''
  *         self.loadcount += 1
  */
@@ -2437,7 +2459,7 @@ static PyObject *__pyx_pf_3CPU_3CPU_4getAnswer(CYTHON_UNUSED PyObject *__pyx_sel
  * 
  *         return ram.get_double(RAM_index, byte_index)             # <<<<<<<<<<<<<<
  * 
- *     def storeDouble(self, address, value):
+ *     def storeDouble(self, address, value, count=False):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_ram, __pyx_n_s_get_double); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 50, __pyx_L1_error)
@@ -2521,7 +2543,7 @@ static PyObject *__pyx_pf_3CPU_3CPU_4getAnswer(CYTHON_UNUSED PyObject *__pyx_sel
 /* "CPU.py":52
  *         return ram.get_double(RAM_index, byte_index)
  * 
- *     def storeDouble(self, address, value):             # <<<<<<<<<<<<<<
+ *     def storeDouble(self, address, value, count=False):             # <<<<<<<<<<<<<<
  *         '''stores values into RAM'''
  * 
  */
@@ -2534,16 +2556,20 @@ static PyObject *__pyx_pw_3CPU_3CPU_7storeDouble(PyObject *__pyx_self, PyObject 
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_address = 0;
   PyObject *__pyx_v_value = 0;
+  PyObject *__pyx_v_count = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("storeDouble (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_address,&__pyx_n_s_value,0};
-    PyObject* values[3] = {0,0,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_address,&__pyx_n_s_value,&__pyx_n_s_count,0};
+    PyObject* values[4] = {0,0,0,0};
+    values[3] = ((PyObject *)((PyObject *)Py_False));
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
       switch (pos_args) {
+        case  4: values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+        CYTHON_FALLTHROUGH;
         case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
         CYTHON_FALLTHROUGH;
         case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
@@ -2562,45 +2588,56 @@ static PyObject *__pyx_pw_3CPU_3CPU_7storeDouble(PyObject *__pyx_self, PyObject 
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_address)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("storeDouble", 1, 3, 3, 1); __PYX_ERR(0, 52, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("storeDouble", 0, 3, 4, 1); __PYX_ERR(0, 52, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("storeDouble", 1, 3, 3, 2); __PYX_ERR(0, 52, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("storeDouble", 0, 3, 4, 2); __PYX_ERR(0, 52, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  3:
+        if (kw_args > 0) {
+          PyObject* value = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_count);
+          if (value) { values[3] = value; kw_args--; }
         }
       }
       if (unlikely(kw_args > 0)) {
         if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "storeDouble") < 0)) __PYX_ERR(0, 52, __pyx_L3_error)
       }
-    } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
-      goto __pyx_L5_argtuple_error;
     } else {
-      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-      values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+      switch (PyTuple_GET_SIZE(__pyx_args)) {
+        case  4: values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+        CYTHON_FALLTHROUGH;
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        break;
+        default: goto __pyx_L5_argtuple_error;
+      }
     }
     __pyx_v_self = values[0];
     __pyx_v_address = values[1];
     __pyx_v_value = values[2];
+    __pyx_v_count = values[3];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("storeDouble", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 52, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("storeDouble", 0, 3, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 52, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("CPU.CPU.storeDouble", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_3CPU_3CPU_6storeDouble(__pyx_self, __pyx_v_self, __pyx_v_address, __pyx_v_value);
+  __pyx_r = __pyx_pf_3CPU_3CPU_6storeDouble(__pyx_self, __pyx_v_self, __pyx_v_address, __pyx_v_value, __pyx_v_count);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_3CPU_3CPU_6storeDouble(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_address, PyObject *__pyx_v_value) {
+static PyObject *__pyx_pf_3CPU_3CPU_6storeDouble(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_address, PyObject *__pyx_v_value, PyObject *__pyx_v_count) {
   PyObject *__pyx_v_ram = NULL;
   PyObject *__pyx_v_add = NULL;
   PyObject *__pyx_v_cache = NULL;
@@ -2887,7 +2924,7 @@ static PyObject *__pyx_pf_3CPU_3CPU_6storeDouble(CYTHON_UNUSED PyObject *__pyx_s
  *         ram.set_block(RAM_index, byte_index, value)                                                                     # write the info into RAM
  *         block = ram.get_block(RAM_index)             # <<<<<<<<<<<<<<
  * 
- *         if cache.getBlock(set_index, RAM_index):                                                                  # if this block is in the cache
+ *         if cache.getBlock(set_index, RAM_index, count):                                                                 # if this block is in the cache
  */
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_ram, __pyx_n_s_get_block); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 67, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -2912,7 +2949,7 @@ static PyObject *__pyx_pf_3CPU_3CPU_6storeDouble(CYTHON_UNUSED PyObject *__pyx_s
   /* "CPU.py":69
  *         block = ram.get_block(RAM_index)
  * 
- *         if cache.getBlock(set_index, RAM_index):                                                                  # if this block is in the cache             # <<<<<<<<<<<<<<
+ *         if cache.getBlock(set_index, RAM_index, count):                                                                 # if this block is in the cache             # <<<<<<<<<<<<<<
  *             cache.setBlock(block, set_index, RAM_index, True)                                                           # write allocate, copy to both RAM and update cache
  *         else:
  */
@@ -2932,22 +2969,22 @@ static PyObject *__pyx_pf_3CPU_3CPU_6storeDouble(CYTHON_UNUSED PyObject *__pyx_s
   }
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_1)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_v_set_index, __pyx_v_RAM_index};
-    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 69, __pyx_L1_error)
+    PyObject *__pyx_temp[4] = {__pyx_t_4, __pyx_v_set_index, __pyx_v_RAM_index, __pyx_v_count};
+    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 69, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_2);
   } else
   #endif
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_v_set_index, __pyx_v_RAM_index};
-    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 69, __pyx_L1_error)
+    PyObject *__pyx_temp[4] = {__pyx_t_4, __pyx_v_set_index, __pyx_v_RAM_index, __pyx_v_count};
+    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 69, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_2);
   } else
   #endif
   {
-    __pyx_t_3 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 69, __pyx_L1_error)
+    __pyx_t_3 = PyTuple_New(3+__pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 69, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     if (__pyx_t_4) {
       __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_4); __pyx_t_4 = NULL;
@@ -2958,6 +2995,9 @@ static PyObject *__pyx_pf_3CPU_3CPU_6storeDouble(CYTHON_UNUSED PyObject *__pyx_s
     __Pyx_INCREF(__pyx_v_RAM_index);
     __Pyx_GIVEREF(__pyx_v_RAM_index);
     PyTuple_SET_ITEM(__pyx_t_3, 1+__pyx_t_6, __pyx_v_RAM_index);
+    __Pyx_INCREF(__pyx_v_count);
+    __Pyx_GIVEREF(__pyx_v_count);
+    PyTuple_SET_ITEM(__pyx_t_3, 2+__pyx_t_6, __pyx_v_count);
     __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 69, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -2969,7 +3009,7 @@ static PyObject *__pyx_pf_3CPU_3CPU_6storeDouble(CYTHON_UNUSED PyObject *__pyx_s
 
     /* "CPU.py":70
  * 
- *         if cache.getBlock(set_index, RAM_index):                                                                  # if this block is in the cache
+ *         if cache.getBlock(set_index, RAM_index, count):                                                                 # if this block is in the cache
  *             cache.setBlock(block, set_index, RAM_index, True)                                                           # write allocate, copy to both RAM and update cache             # <<<<<<<<<<<<<<
  *         else:
  *             cache.setBlock(block, set_index, RAM_index, False)
@@ -3032,7 +3072,7 @@ static PyObject *__pyx_pf_3CPU_3CPU_6storeDouble(CYTHON_UNUSED PyObject *__pyx_s
     /* "CPU.py":69
  *         block = ram.get_block(RAM_index)
  * 
- *         if cache.getBlock(set_index, RAM_index):                                                                  # if this block is in the cache             # <<<<<<<<<<<<<<
+ *         if cache.getBlock(set_index, RAM_index, count):                                                                 # if this block is in the cache             # <<<<<<<<<<<<<<
  *             cache.setBlock(block, set_index, RAM_index, True)                                                           # write allocate, copy to both RAM and update cache
  *         else:
  */
@@ -3107,7 +3147,7 @@ static PyObject *__pyx_pf_3CPU_3CPU_6storeDouble(CYTHON_UNUSED PyObject *__pyx_s
   /* "CPU.py":52
  *         return ram.get_double(RAM_index, byte_index)
  * 
- *     def storeDouble(self, address, value):             # <<<<<<<<<<<<<<
+ *     def storeDouble(self, address, value, count=False):             # <<<<<<<<<<<<<<
  *         '''stores values into RAM'''
  * 
  */
@@ -3478,6 +3518,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_cache_size, __pyx_k_cache_size, sizeof(__pyx_k_cache_size), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
   {&__pyx_n_s_convertByte, __pyx_k_convertByte, sizeof(__pyx_k_convertByte), 0, 0, 1, 1},
+  {&__pyx_n_s_count, __pyx_k_count, sizeof(__pyx_k_count), 0, 0, 1, 1},
   {&__pyx_n_s_doc, __pyx_k_doc, sizeof(__pyx_k_doc), 0, 0, 1, 1},
   {&__pyx_n_s_getAnswer, __pyx_k_getAnswer, sizeof(__pyx_k_getAnswer), 0, 0, 1, 1},
   {&__pyx_n_s_getBlock, __pyx_k_getBlock, sizeof(__pyx_k_getBlock), 0, 0, 1, 1},
@@ -3538,14 +3579,17 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   /* "CPU.py":21
  *         self.multcount = 0
  * 
- *     def loadDouble(self, address):             # <<<<<<<<<<<<<<
+ *     def loadDouble(self, address, count=False):             # <<<<<<<<<<<<<<
  *         '''attempts to read values from cache, else loads from RAM'''
  *         self.loadcount += 1
  */
-  __pyx_tuple__3 = PyTuple_Pack(10, __pyx_n_s_self, __pyx_n_s_address, __pyx_n_s_ram, __pyx_n_s_cache, __pyx_n_s_add, __pyx_n_s_set_index, __pyx_n_s_RAM_index, __pyx_n_s_offset_index, __pyx_n_s_x, __pyx_n_s_block); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 21, __pyx_L1_error)
+  __pyx_tuple__3 = PyTuple_Pack(11, __pyx_n_s_self, __pyx_n_s_address, __pyx_n_s_count, __pyx_n_s_ram, __pyx_n_s_cache, __pyx_n_s_add, __pyx_n_s_set_index, __pyx_n_s_RAM_index, __pyx_n_s_offset_index, __pyx_n_s_x, __pyx_n_s_block); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
-  __pyx_codeobj__4 = (PyObject*)__Pyx_PyCode_New(2, 0, 10, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__3, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_CPU_py, __pyx_n_s_loadDouble, 21, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__4)) __PYX_ERR(0, 21, __pyx_L1_error)
+  __pyx_codeobj__4 = (PyObject*)__Pyx_PyCode_New(3, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__3, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_CPU_py, __pyx_n_s_loadDouble, 21, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__4)) __PYX_ERR(0, 21, __pyx_L1_error)
+  __pyx_tuple__5 = PyTuple_Pack(1, ((PyObject *)Py_False)); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 21, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__5);
+  __Pyx_GIVEREF(__pyx_tuple__5);
 
   /* "CPU.py":41
  *             return block[offset_index//8+1]
@@ -3554,22 +3598,25 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *         '''attempts to retrieve double from RAM for printing correctness'''
  *         ram = self.ram
  */
-  __pyx_tuple__5 = PyTuple_Pack(6, __pyx_n_s_self, __pyx_n_s_address, __pyx_n_s_ram, __pyx_n_s_add, __pyx_n_s_RAM_index, __pyx_n_s_byte_index); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 41, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__5);
-  __Pyx_GIVEREF(__pyx_tuple__5);
-  __pyx_codeobj__6 = (PyObject*)__Pyx_PyCode_New(2, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_CPU_py, __pyx_n_s_getAnswer, 41, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__6)) __PYX_ERR(0, 41, __pyx_L1_error)
+  __pyx_tuple__6 = PyTuple_Pack(6, __pyx_n_s_self, __pyx_n_s_address, __pyx_n_s_ram, __pyx_n_s_add, __pyx_n_s_RAM_index, __pyx_n_s_byte_index); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 41, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__6);
+  __Pyx_GIVEREF(__pyx_tuple__6);
+  __pyx_codeobj__7 = (PyObject*)__Pyx_PyCode_New(2, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__6, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_CPU_py, __pyx_n_s_getAnswer, 41, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__7)) __PYX_ERR(0, 41, __pyx_L1_error)
 
   /* "CPU.py":52
  *         return ram.get_double(RAM_index, byte_index)
  * 
- *     def storeDouble(self, address, value):             # <<<<<<<<<<<<<<
+ *     def storeDouble(self, address, value, count=False):             # <<<<<<<<<<<<<<
  *         '''stores values into RAM'''
  * 
  */
-  __pyx_tuple__7 = PyTuple_Pack(10, __pyx_n_s_self, __pyx_n_s_address, __pyx_n_s_value, __pyx_n_s_ram, __pyx_n_s_add, __pyx_n_s_cache, __pyx_n_s_RAM_index, __pyx_n_s_set_index, __pyx_n_s_byte_index, __pyx_n_s_block); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 52, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__7);
-  __Pyx_GIVEREF(__pyx_tuple__7);
-  __pyx_codeobj__8 = (PyObject*)__Pyx_PyCode_New(3, 0, 10, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__7, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_CPU_py, __pyx_n_s_storeDouble, 52, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__8)) __PYX_ERR(0, 52, __pyx_L1_error)
+  __pyx_tuple__8 = PyTuple_Pack(11, __pyx_n_s_self, __pyx_n_s_address, __pyx_n_s_value, __pyx_n_s_count, __pyx_n_s_ram, __pyx_n_s_add, __pyx_n_s_cache, __pyx_n_s_RAM_index, __pyx_n_s_set_index, __pyx_n_s_byte_index, __pyx_n_s_block); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 52, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__8);
+  __Pyx_GIVEREF(__pyx_tuple__8);
+  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(4, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_CPU_py, __pyx_n_s_storeDouble, 52, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) __PYX_ERR(0, 52, __pyx_L1_error)
+  __pyx_tuple__10 = PyTuple_Pack(1, ((PyObject *)Py_False)); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 52, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__10);
+  __Pyx_GIVEREF(__pyx_tuple__10);
 
   /* "CPU.py":74
  *             cache.setBlock(block, set_index, RAM_index, False)
@@ -3578,10 +3625,10 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *         self.addcount += 1
  *         return num1 + num2
  */
-  __pyx_tuple__9 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_num1, __pyx_n_s_num2); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(0, 74, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__9);
-  __Pyx_GIVEREF(__pyx_tuple__9);
-  __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__9, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_CPU_py, __pyx_n_s_addDouble, 74, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) __PYX_ERR(0, 74, __pyx_L1_error)
+  __pyx_tuple__11 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_num1, __pyx_n_s_num2); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 74, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__11);
+  __Pyx_GIVEREF(__pyx_tuple__11);
+  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_CPU_py, __pyx_n_s_addDouble, 74, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) __PYX_ERR(0, 74, __pyx_L1_error)
 
   /* "CPU.py":78
  *         return num1 + num2
@@ -3590,10 +3637,10 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *         self.multcount += 1
  *         return num1 * num2
  */
-  __pyx_tuple__11 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_num1, __pyx_n_s_num2); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 78, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__11);
-  __Pyx_GIVEREF(__pyx_tuple__11);
-  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_CPU_py, __pyx_n_s_multDouble, 78, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) __PYX_ERR(0, 78, __pyx_L1_error)
+  __pyx_tuple__13 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_num1, __pyx_n_s_num2); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(0, 78, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__13);
+  __Pyx_GIVEREF(__pyx_tuple__13);
+  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_CPU_py, __pyx_n_s_multDouble, 78, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -3959,12 +4006,13 @@ if (!__Pyx_RefNanny) {
   /* "CPU.py":21
  *         self.multcount = 0
  * 
- *     def loadDouble(self, address):             # <<<<<<<<<<<<<<
+ *     def loadDouble(self, address, count=False):             # <<<<<<<<<<<<<<
  *         '''attempts to read values from cache, else loads from RAM'''
  *         self.loadcount += 1
  */
   __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3CPU_3CPU_3loadDouble, 0, __pyx_n_s_CPU_loadDouble, NULL, __pyx_n_s_CPU, __pyx_d, ((PyObject *)__pyx_codeobj__4)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_1, __pyx_tuple__5);
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_loadDouble, __pyx_t_1) < 0) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
@@ -3975,7 +4023,7 @@ if (!__Pyx_RefNanny) {
  *         '''attempts to retrieve double from RAM for printing correctness'''
  *         ram = self.ram
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3CPU_3CPU_5getAnswer, 0, __pyx_n_s_CPU_getAnswer, NULL, __pyx_n_s_CPU, __pyx_d, ((PyObject *)__pyx_codeobj__6)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 41, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3CPU_3CPU_5getAnswer, 0, __pyx_n_s_CPU_getAnswer, NULL, __pyx_n_s_CPU, __pyx_d, ((PyObject *)__pyx_codeobj__7)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 41, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_getAnswer, __pyx_t_1) < 0) __PYX_ERR(0, 41, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -3983,12 +4031,13 @@ if (!__Pyx_RefNanny) {
   /* "CPU.py":52
  *         return ram.get_double(RAM_index, byte_index)
  * 
- *     def storeDouble(self, address, value):             # <<<<<<<<<<<<<<
+ *     def storeDouble(self, address, value, count=False):             # <<<<<<<<<<<<<<
  *         '''stores values into RAM'''
  * 
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3CPU_3CPU_7storeDouble, 0, __pyx_n_s_CPU_storeDouble, NULL, __pyx_n_s_CPU, __pyx_d, ((PyObject *)__pyx_codeobj__8)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 52, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3CPU_3CPU_7storeDouble, 0, __pyx_n_s_CPU_storeDouble, NULL, __pyx_n_s_CPU, __pyx_d, ((PyObject *)__pyx_codeobj__9)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_1, __pyx_tuple__10);
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_storeDouble, __pyx_t_1) < 0) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
@@ -3999,7 +4048,7 @@ if (!__Pyx_RefNanny) {
  *         self.addcount += 1
  *         return num1 + num2
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3CPU_3CPU_9addDouble, 0, __pyx_n_s_CPU_addDouble, NULL, __pyx_n_s_CPU, __pyx_d, ((PyObject *)__pyx_codeobj__10)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 74, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3CPU_3CPU_9addDouble, 0, __pyx_n_s_CPU_addDouble, NULL, __pyx_n_s_CPU, __pyx_d, ((PyObject *)__pyx_codeobj__12)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 74, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_addDouble, __pyx_t_1) < 0) __PYX_ERR(0, 74, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -4011,7 +4060,7 @@ if (!__Pyx_RefNanny) {
  *         self.multcount += 1
  *         return num1 * num2
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3CPU_3CPU_11multDouble, 0, __pyx_n_s_CPU_multDouble, NULL, __pyx_n_s_CPU, __pyx_d, ((PyObject *)__pyx_codeobj__12)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 78, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3CPU_3CPU_11multDouble, 0, __pyx_n_s_CPU_multDouble, NULL, __pyx_n_s_CPU, __pyx_d, ((PyObject *)__pyx_codeobj__14)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_multDouble, __pyx_t_1) < 0) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;

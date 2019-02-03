@@ -822,7 +822,7 @@ static const char *__pyx_f[] = {
 struct __pyx_obj_5Cache___pyx_scope_struct__setBlock;
 struct __pyx_obj_5Cache___pyx_scope_struct_1_genexpr;
 
-/* "Cache.py":48
+/* "Cache.py":52
  *             return False
  * 
  *     def setBlock(self, block, set_index, RAM_index, status):             # <<<<<<<<<<<<<<
@@ -836,7 +836,7 @@ struct __pyx_obj_5Cache___pyx_scope_struct__setBlock {
 };
 
 
-/* "Cache.py":63
+/* "Cache.py":67
  *             else:                                                                                                       # cache is full, we need to evict someone
  *                 if self.replacement == 'Random':
  *                     index = choice(list(i for i in range(len(self.cache_data[set_index]))))                             # randomly choose an index within the set and replace it with the block             # <<<<<<<<<<<<<<
@@ -1471,6 +1471,7 @@ static const char __pyx_k_test[] = "__test__";
 static const char __pyx_k_Cache[] = "Cache";
 static const char __pyx_k_block[] = "block";
 static const char __pyx_k_close[] = "close";
+static const char __pyx_k_count[] = "count";
 static const char __pyx_k_index[] = "index";
 static const char __pyx_k_range[] = "range";
 static const char __pyx_k_throw[] = "throw";
@@ -1532,6 +1533,7 @@ static PyObject *__pyx_n_s_cache_size;
 static PyObject *__pyx_n_s_choice;
 static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_n_s_close;
+static PyObject *__pyx_n_s_count;
 static PyObject *__pyx_n_s_doc;
 static PyObject *__pyx_n_s_genexpr;
 static PyObject *__pyx_n_s_getBlock;
@@ -1565,8 +1567,8 @@ static PyObject *__pyx_n_s_throw;
 static PyObject *__pyx_n_s_write_hit;
 static PyObject *__pyx_n_s_write_miss;
 static PyObject *__pyx_pf_5Cache_5Cache___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_RAM_size, PyObject *__pyx_v_cache_size, PyObject *__pyx_v_block_size, PyObject *__pyx_v_associativity, PyObject *__pyx_v_replacement); /* proto */
-static PyObject *__pyx_pf_5Cache_5Cache_2getDouble(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_ram_index, PyObject *__pyx_v_set_index, PyObject *__pyx_v_offset_index); /* proto */
-static PyObject *__pyx_pf_5Cache_5Cache_4getBlock(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_set_index, PyObject *__pyx_v_RAM_index); /* proto */
+static PyObject *__pyx_pf_5Cache_5Cache_2getDouble(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_ram_index, PyObject *__pyx_v_set_index, PyObject *__pyx_v_offset_index, PyObject *__pyx_v_count); /* proto */
+static PyObject *__pyx_pf_5Cache_5Cache_4getBlock(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_set_index, PyObject *__pyx_v_RAM_index, PyObject *__pyx_v_count); /* proto */
 static PyObject *__pyx_pf_5Cache_5Cache_8setBlock_genexpr(PyObject *__pyx_self); /* proto */
 static PyObject *__pyx_pf_5Cache_5Cache_6setBlock(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_block, PyObject *__pyx_v_set_index, PyObject *__pyx_v_RAM_index, PyObject *__pyx_v_status); /* proto */
 static PyObject *__pyx_tp_new_5Cache___pyx_scope_struct__setBlock(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
@@ -1918,7 +1920,7 @@ static PyObject *__pyx_pf_5Cache_5Cache___init__(CYTHON_UNUSED PyObject *__pyx_s
 /* "Cache.py":21
  * 
  * 
- *     def getDouble(self, ram_index, set_index, offset_index):             # <<<<<<<<<<<<<<
+ *     def getDouble(self, ram_index, set_index, offset_index, count):             # <<<<<<<<<<<<<<
  *         '''given an address, will attempt to get the double within the cache'''
  * 
  */
@@ -1932,16 +1934,19 @@ static PyObject *__pyx_pw_5Cache_5Cache_3getDouble(PyObject *__pyx_self, PyObjec
   PyObject *__pyx_v_ram_index = 0;
   PyObject *__pyx_v_set_index = 0;
   PyObject *__pyx_v_offset_index = 0;
+  PyObject *__pyx_v_count = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getDouble (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_ram_index,&__pyx_n_s_set_index,&__pyx_n_s_offset_index,0};
-    PyObject* values[4] = {0,0,0,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_ram_index,&__pyx_n_s_set_index,&__pyx_n_s_offset_index,&__pyx_n_s_count,0};
+    PyObject* values[5] = {0,0,0,0,0};
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
       switch (pos_args) {
+        case  5: values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
+        CYTHON_FALLTHROUGH;
         case  4: values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
         CYTHON_FALLTHROUGH;
         case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
@@ -1962,53 +1967,61 @@ static PyObject *__pyx_pw_5Cache_5Cache_3getDouble(PyObject *__pyx_self, PyObjec
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_ram_index)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("getDouble", 1, 4, 4, 1); __PYX_ERR(0, 21, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("getDouble", 1, 5, 5, 1); __PYX_ERR(0, 21, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_set_index)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("getDouble", 1, 4, 4, 2); __PYX_ERR(0, 21, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("getDouble", 1, 5, 5, 2); __PYX_ERR(0, 21, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_offset_index)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("getDouble", 1, 4, 4, 3); __PYX_ERR(0, 21, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("getDouble", 1, 5, 5, 3); __PYX_ERR(0, 21, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  4:
+        if (likely((values[4] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_count)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("getDouble", 1, 5, 5, 4); __PYX_ERR(0, 21, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "getDouble") < 0)) __PYX_ERR(0, 21, __pyx_L3_error)
       }
-    } else if (PyTuple_GET_SIZE(__pyx_args) != 4) {
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 5) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
       values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+      values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
     }
     __pyx_v_self = values[0];
     __pyx_v_ram_index = values[1];
     __pyx_v_set_index = values[2];
     __pyx_v_offset_index = values[3];
+    __pyx_v_count = values[4];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("getDouble", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 21, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("getDouble", 1, 5, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 21, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("Cache.Cache.getDouble", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5Cache_5Cache_2getDouble(__pyx_self, __pyx_v_self, __pyx_v_ram_index, __pyx_v_set_index, __pyx_v_offset_index);
+  __pyx_r = __pyx_pf_5Cache_5Cache_2getDouble(__pyx_self, __pyx_v_self, __pyx_v_ram_index, __pyx_v_set_index, __pyx_v_offset_index, __pyx_v_count);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5Cache_5Cache_2getDouble(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_ram_index, PyObject *__pyx_v_set_index, PyObject *__pyx_v_offset_index) {
+static PyObject *__pyx_pf_5Cache_5Cache_2getDouble(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_ram_index, PyObject *__pyx_v_set_index, PyObject *__pyx_v_offset_index, PyObject *__pyx_v_count) {
   Py_ssize_t __pyx_v_i;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -2027,7 +2040,7 @@ static PyObject *__pyx_pf_5Cache_5Cache_2getDouble(CYTHON_UNUSED PyObject *__pyx
  * 
  *         for i in range(len(self.cache_data[set_index])):                                                                # found the correct block, return the value             # <<<<<<<<<<<<<<
  *             if ram_index == self.cache_data[set_index][i][0][0]:
- *                 self.read_hit += 1
+ *                 if count:
  */
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 24, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -2044,8 +2057,8 @@ static PyObject *__pyx_pf_5Cache_5Cache_2getDouble(CYTHON_UNUSED PyObject *__pyx
  * 
  *         for i in range(len(self.cache_data[set_index])):                                                                # found the correct block, return the value
  *             if ram_index == self.cache_data[set_index][i][0][0]:             # <<<<<<<<<<<<<<
- *                 self.read_hit += 1
- *                 if self.replacement == 'LRU':                                                                           # need to pull out the block and reinsert to back if this is LRU
+ *                 if count:
+ *                     self.read_hit += 1
  */
     __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 25, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
@@ -2070,80 +2083,99 @@ static PyObject *__pyx_pf_5Cache_5Cache_2getDouble(CYTHON_UNUSED PyObject *__pyx
       /* "Cache.py":26
  *         for i in range(len(self.cache_data[set_index])):                                                                # found the correct block, return the value
  *             if ram_index == self.cache_data[set_index][i][0][0]:
- *                 self.read_hit += 1             # <<<<<<<<<<<<<<
+ *                 if count:             # <<<<<<<<<<<<<<
+ *                     self.read_hit += 1
+ *                 if self.replacement == 'LRU':                                                                           # need to pull out the block and reinsert to back if this is LRU
+ */
+      __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_v_count); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 26, __pyx_L1_error)
+      if (__pyx_t_6) {
+
+        /* "Cache.py":27
+ *             if ram_index == self.cache_data[set_index][i][0][0]:
+ *                 if count:
+ *                     self.read_hit += 1             # <<<<<<<<<<<<<<
  *                 if self.replacement == 'LRU':                                                                           # need to pull out the block and reinsert to back if this is LRU
  *                     self.cache_data[set_index].append(self.cache_data[set_index].pop(i))
  */
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_read_hit); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 26, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_2 = __Pyx_PyInt_AddObjC(__pyx_t_1, __pyx_int_1, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 26, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_read_hit, __pyx_t_2) < 0) __PYX_ERR(0, 26, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_read_hit); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 27, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __pyx_t_2 = __Pyx_PyInt_AddObjC(__pyx_t_1, __pyx_int_1, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 27, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_read_hit, __pyx_t_2) < 0) __PYX_ERR(0, 27, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "Cache.py":27
+        /* "Cache.py":26
+ *         for i in range(len(self.cache_data[set_index])):                                                                # found the correct block, return the value
  *             if ram_index == self.cache_data[set_index][i][0][0]:
- *                 self.read_hit += 1
+ *                 if count:             # <<<<<<<<<<<<<<
+ *                     self.read_hit += 1
+ *                 if self.replacement == 'LRU':                                                                           # need to pull out the block and reinsert to back if this is LRU
+ */
+      }
+
+      /* "Cache.py":28
+ *                 if count:
+ *                     self.read_hit += 1
  *                 if self.replacement == 'LRU':                                                                           # need to pull out the block and reinsert to back if this is LRU             # <<<<<<<<<<<<<<
  *                     self.cache_data[set_index].append(self.cache_data[set_index].pop(i))
  *                     return self.cache_data[set_index][-1][int((offset_index//8))+1]
  */
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_replacement); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 27, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_replacement); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 28, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_6 = (__Pyx_PyString_Equals(__pyx_t_2, __pyx_n_s_LRU, Py_EQ)); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 27, __pyx_L1_error)
+      __pyx_t_6 = (__Pyx_PyString_Equals(__pyx_t_2, __pyx_n_s_LRU, Py_EQ)); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 28, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       if (__pyx_t_6) {
 
-        /* "Cache.py":28
- *                 self.read_hit += 1
+        /* "Cache.py":29
+ *                     self.read_hit += 1
  *                 if self.replacement == 'LRU':                                                                           # need to pull out the block and reinsert to back if this is LRU
  *                     self.cache_data[set_index].append(self.cache_data[set_index].pop(i))             # <<<<<<<<<<<<<<
  *                     return self.cache_data[set_index][-1][int((offset_index//8))+1]
  *                 return self.cache_data[set_index][i][int((offset_index//8))+1]
  */
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 28, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_v_set_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 28, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 28, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_v_set_index); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 28, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_7);
-        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_2 = __Pyx_PyObject_PopIndex(__pyx_t_7, Py_None, __pyx_v_i, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 28, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        __pyx_t_8 = __Pyx_PyObject_Append(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_8 == ((int)-1))) __PYX_ERR(0, 28, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-        /* "Cache.py":29
- *                 if self.replacement == 'LRU':                                                                           # need to pull out the block and reinsert to back if this is LRU
- *                     self.cache_data[set_index].append(self.cache_data[set_index].pop(i))
- *                     return self.cache_data[set_index][-1][int((offset_index//8))+1]             # <<<<<<<<<<<<<<
- *                 return self.cache_data[set_index][i][int((offset_index//8))+1]
- *         self.read_miss += 1                                                                                             # did not find correct block, must write into
- */
-        __Pyx_XDECREF(__pyx_r);
         __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 29, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_v_set_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 29, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 29, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 29, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_v_set_index); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 29, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_7);
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        __pyx_t_2 = __Pyx_PyObject_PopIndex(__pyx_t_7, Py_None, __pyx_v_i, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 29, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+        __pyx_t_8 = __Pyx_PyObject_Append(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_8 == ((int)-1))) __PYX_ERR(0, 29, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+        /* "Cache.py":30
+ *                 if self.replacement == 'LRU':                                                                           # need to pull out the block and reinsert to back if this is LRU
+ *                     self.cache_data[set_index].append(self.cache_data[set_index].pop(i))
+ *                     return self.cache_data[set_index][-1][int((offset_index//8))+1]             # <<<<<<<<<<<<<<
+ *                 return self.cache_data[set_index][i][int((offset_index//8))+1]
+ *         if count:
+ */
+        __Pyx_XDECREF(__pyx_r);
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 30, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_v_set_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 30, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 30, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __pyx_t_1 = __Pyx_PyInt_FloorDivideObjC(__pyx_v_offset_index, __pyx_int_8, 8, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 29, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyInt_FloorDivideObjC(__pyx_v_offset_index, __pyx_int_8, 8, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 30, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_7 = __Pyx_PyNumber_Int(__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 29, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyNumber_Int(__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 30, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __pyx_t_1 = __Pyx_PyInt_AddObjC(__pyx_t_7, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 29, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyInt_AddObjC(__pyx_t_7, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 30, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 29, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 30, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -2151,40 +2183,40 @@ static PyObject *__pyx_pf_5Cache_5Cache_2getDouble(CYTHON_UNUSED PyObject *__pyx
         __pyx_t_7 = 0;
         goto __pyx_L0;
 
-        /* "Cache.py":27
- *             if ram_index == self.cache_data[set_index][i][0][0]:
- *                 self.read_hit += 1
+        /* "Cache.py":28
+ *                 if count:
+ *                     self.read_hit += 1
  *                 if self.replacement == 'LRU':                                                                           # need to pull out the block and reinsert to back if this is LRU             # <<<<<<<<<<<<<<
  *                     self.cache_data[set_index].append(self.cache_data[set_index].pop(i))
  *                     return self.cache_data[set_index][-1][int((offset_index//8))+1]
  */
       }
 
-      /* "Cache.py":30
+      /* "Cache.py":31
  *                     self.cache_data[set_index].append(self.cache_data[set_index].pop(i))
  *                     return self.cache_data[set_index][-1][int((offset_index//8))+1]
  *                 return self.cache_data[set_index][i][int((offset_index//8))+1]             # <<<<<<<<<<<<<<
- *         self.read_miss += 1                                                                                             # did not find correct block, must write into
- *         return False
+ *         if count:
+ *             self.read_miss += 1                                                                                         # did not find correct block, must write into
  */
       __Pyx_XDECREF(__pyx_r);
-      __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 30, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 31, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_set_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 30, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_set_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 31, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 30, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 31, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyInt_FloorDivideObjC(__pyx_v_offset_index, __pyx_int_8, 8, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 30, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyInt_FloorDivideObjC(__pyx_v_offset_index, __pyx_int_8, 8, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 31, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_2 = __Pyx_PyNumber_Int(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 30, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyNumber_Int(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 31, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyInt_AddObjC(__pyx_t_2, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 30, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyInt_AddObjC(__pyx_t_2, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 31, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 30, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 31, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -2196,33 +2228,52 @@ static PyObject *__pyx_pf_5Cache_5Cache_2getDouble(CYTHON_UNUSED PyObject *__pyx
  * 
  *         for i in range(len(self.cache_data[set_index])):                                                                # found the correct block, return the value
  *             if ram_index == self.cache_data[set_index][i][0][0]:             # <<<<<<<<<<<<<<
- *                 self.read_hit += 1
- *                 if self.replacement == 'LRU':                                                                           # need to pull out the block and reinsert to back if this is LRU
+ *                 if count:
+ *                     self.read_hit += 1
  */
     }
   }
 
-  /* "Cache.py":31
+  /* "Cache.py":32
  *                     return self.cache_data[set_index][-1][int((offset_index//8))+1]
  *                 return self.cache_data[set_index][i][int((offset_index//8))+1]
- *         self.read_miss += 1                                                                                             # did not find correct block, must write into             # <<<<<<<<<<<<<<
+ *         if count:             # <<<<<<<<<<<<<<
+ *             self.read_miss += 1                                                                                         # did not find correct block, must write into
+ *         return False
+ */
+  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_v_count); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 32, __pyx_L1_error)
+  if (__pyx_t_6) {
+
+    /* "Cache.py":33
+ *                 return self.cache_data[set_index][i][int((offset_index//8))+1]
+ *         if count:
+ *             self.read_miss += 1                                                                                         # did not find correct block, must write into             # <<<<<<<<<<<<<<
  *         return False
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_read_miss); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 31, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyInt_AddObjC(__pyx_t_2, __pyx_int_1, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 31, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_read_miss, __pyx_t_1) < 0) __PYX_ERR(0, 31, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_read_miss); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 33, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_1 = __Pyx_PyInt_AddObjC(__pyx_t_2, __pyx_int_1, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 33, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_read_miss, __pyx_t_1) < 0) __PYX_ERR(0, 33, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "Cache.py":32
+    /* "Cache.py":32
+ *                     return self.cache_data[set_index][-1][int((offset_index//8))+1]
  *                 return self.cache_data[set_index][i][int((offset_index//8))+1]
- *         self.read_miss += 1                                                                                             # did not find correct block, must write into
+ *         if count:             # <<<<<<<<<<<<<<
+ *             self.read_miss += 1                                                                                         # did not find correct block, must write into
+ *         return False
+ */
+  }
+
+  /* "Cache.py":34
+ *         if count:
+ *             self.read_miss += 1                                                                                         # did not find correct block, must write into
  *         return False             # <<<<<<<<<<<<<<
  * 
- *     def getBlock(self, set_index, RAM_index):
+ *     def getBlock(self, set_index, RAM_index, count):
  */
   __Pyx_XDECREF(__pyx_r);
   __Pyx_INCREF(Py_False);
@@ -2232,7 +2283,7 @@ static PyObject *__pyx_pf_5Cache_5Cache_2getDouble(CYTHON_UNUSED PyObject *__pyx
   /* "Cache.py":21
  * 
  * 
- *     def getDouble(self, ram_index, set_index, offset_index):             # <<<<<<<<<<<<<<
+ *     def getDouble(self, ram_index, set_index, offset_index, count):             # <<<<<<<<<<<<<<
  *         '''given an address, will attempt to get the double within the cache'''
  * 
  */
@@ -2250,12 +2301,12 @@ static PyObject *__pyx_pf_5Cache_5Cache_2getDouble(CYTHON_UNUSED PyObject *__pyx
   return __pyx_r;
 }
 
-/* "Cache.py":34
+/* "Cache.py":36
  *         return False
  * 
- *     def getBlock(self, set_index, RAM_index):             # <<<<<<<<<<<<<<
+ *     def getBlock(self, set_index, RAM_index, count):             # <<<<<<<<<<<<<<
  *         ''' given a full address, will attempt to check if the block in question is in the cache when writing'''        # find the ram_index with the address
- * 
+ *         if not self.cache_data[set_index]:                                                                              # if the set is empty, this is a compulsory miss
  */
 
 /* Python wrapper */
@@ -2266,16 +2317,19 @@ static PyObject *__pyx_pw_5Cache_5Cache_5getBlock(PyObject *__pyx_self, PyObject
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_set_index = 0;
   PyObject *__pyx_v_RAM_index = 0;
+  PyObject *__pyx_v_count = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getBlock (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_set_index,&__pyx_n_s_RAM_index,0};
-    PyObject* values[3] = {0,0,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_set_index,&__pyx_n_s_RAM_index,&__pyx_n_s_count,0};
+    PyObject* values[4] = {0,0,0,0};
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
       switch (pos_args) {
+        case  4: values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+        CYTHON_FALLTHROUGH;
         case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
         CYTHON_FALLTHROUGH;
         case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
@@ -2294,45 +2348,53 @@ static PyObject *__pyx_pw_5Cache_5Cache_5getBlock(PyObject *__pyx_self, PyObject
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_set_index)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("getBlock", 1, 3, 3, 1); __PYX_ERR(0, 34, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("getBlock", 1, 4, 4, 1); __PYX_ERR(0, 36, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_RAM_index)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("getBlock", 1, 3, 3, 2); __PYX_ERR(0, 34, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("getBlock", 1, 4, 4, 2); __PYX_ERR(0, 36, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  3:
+        if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_count)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("getBlock", 1, 4, 4, 3); __PYX_ERR(0, 36, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "getBlock") < 0)) __PYX_ERR(0, 34, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "getBlock") < 0)) __PYX_ERR(0, 36, __pyx_L3_error)
       }
-    } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 4) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+      values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
     }
     __pyx_v_self = values[0];
     __pyx_v_set_index = values[1];
     __pyx_v_RAM_index = values[2];
+    __pyx_v_count = values[3];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("getBlock", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 34, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("getBlock", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 36, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("Cache.Cache.getBlock", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5Cache_5Cache_4getBlock(__pyx_self, __pyx_v_self, __pyx_v_set_index, __pyx_v_RAM_index);
+  __pyx_r = __pyx_pf_5Cache_5Cache_4getBlock(__pyx_self, __pyx_v_self, __pyx_v_set_index, __pyx_v_RAM_index, __pyx_v_count);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5Cache_5Cache_4getBlock(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_set_index, PyObject *__pyx_v_RAM_index) {
+static PyObject *__pyx_pf_5Cache_5Cache_4getBlock(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_set_index, PyObject *__pyx_v_RAM_index, PyObject *__pyx_v_count) {
   Py_ssize_t __pyx_v_i;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -2345,41 +2407,60 @@ static PyObject *__pyx_pf_5Cache_5Cache_4getBlock(CYTHON_UNUSED PyObject *__pyx_
   Py_ssize_t __pyx_t_7;
   __Pyx_RefNannySetupContext("getBlock", 0);
 
-  /* "Cache.py":37
+  /* "Cache.py":38
+ *     def getBlock(self, set_index, RAM_index, count):
  *         ''' given a full address, will attempt to check if the block in question is in the cache when writing'''        # find the ram_index with the address
- * 
- *         if not self.cache_data[set_index]:                                                                                         # if the set is empty, this is a compulsory miss             # <<<<<<<<<<<<<<
- *             self.write_miss += 1
- *             return False
+ *         if not self.cache_data[set_index]:                                                                              # if the set is empty, this is a compulsory miss             # <<<<<<<<<<<<<<
+ *             if count:
+ *                 self.write_miss += 1
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 37, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 38, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_set_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 37, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_set_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 38, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 37, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 38, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "Cache.py":38
- * 
- *         if not self.cache_data[set_index]:                                                                                         # if the set is empty, this is a compulsory miss
- *             self.write_miss += 1             # <<<<<<<<<<<<<<
+    /* "Cache.py":39
+ *         ''' given a full address, will attempt to check if the block in question is in the cache when writing'''        # find the ram_index with the address
+ *         if not self.cache_data[set_index]:                                                                              # if the set is empty, this is a compulsory miss
+ *             if count:             # <<<<<<<<<<<<<<
+ *                 self.write_miss += 1
+ *             return False
+ */
+    __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_v_count); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 39, __pyx_L1_error)
+    if (__pyx_t_4) {
+
+      /* "Cache.py":40
+ *         if not self.cache_data[set_index]:                                                                              # if the set is empty, this is a compulsory miss
+ *             if count:
+ *                 self.write_miss += 1             # <<<<<<<<<<<<<<
  *             return False
  *         else:                                                                                                           # set has a block(s) in it!
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_write_miss); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 38, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_1 = __Pyx_PyInt_AddObjC(__pyx_t_2, __pyx_int_1, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 38, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_write_miss, __pyx_t_1) < 0) __PYX_ERR(0, 38, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_write_miss); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 40, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_1 = __Pyx_PyInt_AddObjC(__pyx_t_2, __pyx_int_1, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 40, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_write_miss, __pyx_t_1) < 0) __PYX_ERR(0, 40, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "Cache.py":39
- *         if not self.cache_data[set_index]:                                                                                         # if the set is empty, this is a compulsory miss
- *             self.write_miss += 1
+      /* "Cache.py":39
+ *         ''' given a full address, will attempt to check if the block in question is in the cache when writing'''        # find the ram_index with the address
+ *         if not self.cache_data[set_index]:                                                                              # if the set is empty, this is a compulsory miss
+ *             if count:             # <<<<<<<<<<<<<<
+ *                 self.write_miss += 1
+ *             return False
+ */
+    }
+
+    /* "Cache.py":41
+ *             if count:
+ *                 self.write_miss += 1
  *             return False             # <<<<<<<<<<<<<<
  *         else:                                                                                                           # set has a block(s) in it!
  *             for i in range(len(self.cache_data[set_index])):                                                            # scan the set for the tags                                                                                                           #check the RAM_address at the beginning of each array
@@ -2389,116 +2470,154 @@ static PyObject *__pyx_pf_5Cache_5Cache_4getBlock(CYTHON_UNUSED PyObject *__pyx_
     __pyx_r = Py_False;
     goto __pyx_L0;
 
-    /* "Cache.py":37
+    /* "Cache.py":38
+ *     def getBlock(self, set_index, RAM_index, count):
  *         ''' given a full address, will attempt to check if the block in question is in the cache when writing'''        # find the ram_index with the address
- * 
- *         if not self.cache_data[set_index]:                                                                                         # if the set is empty, this is a compulsory miss             # <<<<<<<<<<<<<<
- *             self.write_miss += 1
- *             return False
+ *         if not self.cache_data[set_index]:                                                                              # if the set is empty, this is a compulsory miss             # <<<<<<<<<<<<<<
+ *             if count:
+ *                 self.write_miss += 1
  */
   }
 
-  /* "Cache.py":41
+  /* "Cache.py":43
  *             return False
  *         else:                                                                                                           # set has a block(s) in it!
  *             for i in range(len(self.cache_data[set_index])):                                                            # scan the set for the tags                                                                                                           #check the RAM_address at the beginning of each array             # <<<<<<<<<<<<<<
  *                 if RAM_index == self.cache_data[set_index][i][0][0]:                                                    # ram_index is the same as the ram_index in the block, we have a write hit
- *                     self.write_hit += 1
+ *                     if count:
  */
   /*else*/ {
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 41, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 43, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_set_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 41, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_set_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 43, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_5 = PyObject_Length(__pyx_t_2); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(0, 41, __pyx_L1_error)
+    __pyx_t_5 = PyObject_Length(__pyx_t_2); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(0, 43, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_6 = __pyx_t_5;
     for (__pyx_t_7 = 0; __pyx_t_7 < __pyx_t_6; __pyx_t_7+=1) {
       __pyx_v_i = __pyx_t_7;
 
-      /* "Cache.py":42
+      /* "Cache.py":44
  *         else:                                                                                                           # set has a block(s) in it!
  *             for i in range(len(self.cache_data[set_index])):                                                            # scan the set for the tags                                                                                                           #check the RAM_address at the beginning of each array
  *                 if RAM_index == self.cache_data[set_index][i][0][0]:                                                    # ram_index is the same as the ram_index in the block, we have a write hit             # <<<<<<<<<<<<<<
- *                     self.write_hit += 1
- *                     return True
+ *                     if count:
+ *                         self.write_hit += 1
  */
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 42, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 44, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_v_set_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 42, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_v_set_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 44, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 42, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 44, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 42, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 44, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 42, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 44, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = PyObject_RichCompare(__pyx_v_RAM_index, __pyx_t_2, Py_EQ); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 42, __pyx_L1_error)
+      __pyx_t_1 = PyObject_RichCompare(__pyx_v_RAM_index, __pyx_t_2, Py_EQ); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 44, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 42, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 44, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       if (__pyx_t_4) {
 
-        /* "Cache.py":43
+        /* "Cache.py":45
  *             for i in range(len(self.cache_data[set_index])):                                                            # scan the set for the tags                                                                                                           #check the RAM_address at the beginning of each array
  *                 if RAM_index == self.cache_data[set_index][i][0][0]:                                                    # ram_index is the same as the ram_index in the block, we have a write hit
- *                     self.write_hit += 1             # <<<<<<<<<<<<<<
+ *                     if count:             # <<<<<<<<<<<<<<
+ *                         self.write_hit += 1
  *                     return True
- *             self.write_miss += 1                                                                                        # could not find the block we were looking for
  */
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_write_hit); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 43, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_2 = __Pyx_PyInt_AddObjC(__pyx_t_1, __pyx_int_1, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 43, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_write_hit, __pyx_t_2) < 0) __PYX_ERR(0, 43, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_v_count); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 45, __pyx_L1_error)
+        if (__pyx_t_4) {
 
-        /* "Cache.py":44
+          /* "Cache.py":46
  *                 if RAM_index == self.cache_data[set_index][i][0][0]:                                                    # ram_index is the same as the ram_index in the block, we have a write hit
- *                     self.write_hit += 1
+ *                     if count:
+ *                         self.write_hit += 1             # <<<<<<<<<<<<<<
+ *                     return True
+ *             if count:
+ */
+          __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_write_hit); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 46, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_1);
+          __pyx_t_2 = __Pyx_PyInt_AddObjC(__pyx_t_1, __pyx_int_1, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 46, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_2);
+          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+          if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_write_hit, __pyx_t_2) < 0) __PYX_ERR(0, 46, __pyx_L1_error)
+          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+          /* "Cache.py":45
+ *             for i in range(len(self.cache_data[set_index])):                                                            # scan the set for the tags                                                                                                           #check the RAM_address at the beginning of each array
+ *                 if RAM_index == self.cache_data[set_index][i][0][0]:                                                    # ram_index is the same as the ram_index in the block, we have a write hit
+ *                     if count:             # <<<<<<<<<<<<<<
+ *                         self.write_hit += 1
+ *                     return True
+ */
+        }
+
+        /* "Cache.py":47
+ *                     if count:
+ *                         self.write_hit += 1
  *                     return True             # <<<<<<<<<<<<<<
- *             self.write_miss += 1                                                                                        # could not find the block we were looking for
- *             return False
+ *             if count:
+ *                 self.write_miss += 1                                                                                    # could not find the block we were looking for
  */
         __Pyx_XDECREF(__pyx_r);
         __Pyx_INCREF(Py_True);
         __pyx_r = Py_True;
         goto __pyx_L0;
 
-        /* "Cache.py":42
+        /* "Cache.py":44
  *         else:                                                                                                           # set has a block(s) in it!
  *             for i in range(len(self.cache_data[set_index])):                                                            # scan the set for the tags                                                                                                           #check the RAM_address at the beginning of each array
  *                 if RAM_index == self.cache_data[set_index][i][0][0]:                                                    # ram_index is the same as the ram_index in the block, we have a write hit             # <<<<<<<<<<<<<<
- *                     self.write_hit += 1
- *                     return True
+ *                     if count:
+ *                         self.write_hit += 1
  */
       }
     }
 
-    /* "Cache.py":45
- *                     self.write_hit += 1
+    /* "Cache.py":48
+ *                         self.write_hit += 1
  *                     return True
- *             self.write_miss += 1                                                                                        # could not find the block we were looking for             # <<<<<<<<<<<<<<
+ *             if count:             # <<<<<<<<<<<<<<
+ *                 self.write_miss += 1                                                                                    # could not find the block we were looking for
+ *             return False
+ */
+    __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_v_count); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 48, __pyx_L1_error)
+    if (__pyx_t_4) {
+
+      /* "Cache.py":49
+ *                     return True
+ *             if count:
+ *                 self.write_miss += 1                                                                                    # could not find the block we were looking for             # <<<<<<<<<<<<<<
  *             return False
  * 
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_write_miss); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 45, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_1 = __Pyx_PyInt_AddObjC(__pyx_t_2, __pyx_int_1, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 45, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_write_miss, __pyx_t_1) < 0) __PYX_ERR(0, 45, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_write_miss); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 49, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_1 = __Pyx_PyInt_AddObjC(__pyx_t_2, __pyx_int_1, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 49, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_write_miss, __pyx_t_1) < 0) __PYX_ERR(0, 49, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "Cache.py":46
+      /* "Cache.py":48
+ *                         self.write_hit += 1
  *                     return True
- *             self.write_miss += 1                                                                                        # could not find the block we were looking for
+ *             if count:             # <<<<<<<<<<<<<<
+ *                 self.write_miss += 1                                                                                    # could not find the block we were looking for
+ *             return False
+ */
+    }
+
+    /* "Cache.py":50
+ *             if count:
+ *                 self.write_miss += 1                                                                                    # could not find the block we were looking for
  *             return False             # <<<<<<<<<<<<<<
  * 
  *     def setBlock(self, block, set_index, RAM_index, status):
@@ -2509,12 +2628,12 @@ static PyObject *__pyx_pf_5Cache_5Cache_4getBlock(CYTHON_UNUSED PyObject *__pyx_
     goto __pyx_L0;
   }
 
-  /* "Cache.py":34
+  /* "Cache.py":36
  *         return False
  * 
- *     def getBlock(self, set_index, RAM_index):             # <<<<<<<<<<<<<<
+ *     def getBlock(self, set_index, RAM_index, count):             # <<<<<<<<<<<<<<
  *         ''' given a full address, will attempt to check if the block in question is in the cache when writing'''        # find the ram_index with the address
- * 
+ *         if not self.cache_data[set_index]:                                                                              # if the set is empty, this is a compulsory miss
  */
 
   /* function exit code */
@@ -2529,7 +2648,7 @@ static PyObject *__pyx_pf_5Cache_5Cache_4getBlock(CYTHON_UNUSED PyObject *__pyx_
   return __pyx_r;
 }
 
-/* "Cache.py":48
+/* "Cache.py":52
  *             return False
  * 
  *     def setBlock(self, block, set_index, RAM_index, status):             # <<<<<<<<<<<<<<
@@ -2579,29 +2698,29 @@ static PyObject *__pyx_pw_5Cache_5Cache_7setBlock(PyObject *__pyx_self, PyObject
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_block)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("setBlock", 1, 5, 5, 1); __PYX_ERR(0, 48, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("setBlock", 1, 5, 5, 1); __PYX_ERR(0, 52, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_set_index)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("setBlock", 1, 5, 5, 2); __PYX_ERR(0, 48, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("setBlock", 1, 5, 5, 2); __PYX_ERR(0, 52, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_RAM_index)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("setBlock", 1, 5, 5, 3); __PYX_ERR(0, 48, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("setBlock", 1, 5, 5, 3); __PYX_ERR(0, 52, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
         if (likely((values[4] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_status)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("setBlock", 1, 5, 5, 4); __PYX_ERR(0, 48, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("setBlock", 1, 5, 5, 4); __PYX_ERR(0, 52, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "setBlock") < 0)) __PYX_ERR(0, 48, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "setBlock") < 0)) __PYX_ERR(0, 52, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 5) {
       goto __pyx_L5_argtuple_error;
@@ -2620,7 +2739,7 @@ static PyObject *__pyx_pw_5Cache_5Cache_7setBlock(PyObject *__pyx_self, PyObject
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("setBlock", 1, 5, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 48, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("setBlock", 1, 5, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 52, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("Cache.Cache.setBlock", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2634,7 +2753,7 @@ static PyObject *__pyx_pw_5Cache_5Cache_7setBlock(PyObject *__pyx_self, PyObject
 }
 static PyObject *__pyx_gb_5Cache_5Cache_8setBlock_2generator(__pyx_CoroutineObject *__pyx_generator, CYTHON_UNUSED PyThreadState *__pyx_tstate, PyObject *__pyx_sent_value); /* proto */
 
-/* "Cache.py":63
+/* "Cache.py":67
  *             else:                                                                                                       # cache is full, we need to evict someone
  *                 if self.replacement == 'Random':
  *                     index = choice(list(i for i in range(len(self.cache_data[set_index]))))                             # randomly choose an index within the set and replace it with the block             # <<<<<<<<<<<<<<
@@ -2651,7 +2770,7 @@ static PyObject *__pyx_pf_5Cache_5Cache_8setBlock_genexpr(PyObject *__pyx_self) 
   if (unlikely(!__pyx_cur_scope)) {
     __pyx_cur_scope = ((struct __pyx_obj_5Cache___pyx_scope_struct_1_genexpr *)Py_None);
     __Pyx_INCREF(Py_None);
-    __PYX_ERR(0, 63, __pyx_L1_error)
+    __PYX_ERR(0, 67, __pyx_L1_error)
   } else {
     __Pyx_GOTREF(__pyx_cur_scope);
   }
@@ -2659,7 +2778,7 @@ static PyObject *__pyx_pf_5Cache_5Cache_8setBlock_genexpr(PyObject *__pyx_self) 
   __Pyx_INCREF(((PyObject *)__pyx_cur_scope->__pyx_outer_scope));
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_outer_scope);
   {
-    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_5Cache_5Cache_8setBlock_2generator, NULL, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_Cache_setBlock_locals_genexpr, __pyx_n_s_Cache); if (unlikely(!gen)) __PYX_ERR(0, 63, __pyx_L1_error)
+    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_5Cache_5Cache_8setBlock_2generator, NULL, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_Cache_setBlock_locals_genexpr, __pyx_n_s_Cache); if (unlikely(!gen)) __PYX_ERR(0, 67, __pyx_L1_error)
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -2693,24 +2812,24 @@ static PyObject *__pyx_gb_5Cache_5Cache_8setBlock_2generator(__pyx_CoroutineObje
     return NULL;
   }
   __pyx_L3_first_run:;
-  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 63, __pyx_L1_error)
-  __pyx_r = PyList_New(0); if (unlikely(!__pyx_r)) __PYX_ERR(0, 63, __pyx_L1_error)
+  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 67, __pyx_L1_error)
+  __pyx_r = PyList_New(0); if (unlikely(!__pyx_r)) __PYX_ERR(0, 67, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_r);
-  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 63, __pyx_L1_error) }
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 63, __pyx_L1_error)
+  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 67, __pyx_L1_error) }
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 67, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_set_index)) { __Pyx_RaiseClosureNameError("set_index"); __PYX_ERR(0, 63, __pyx_L1_error) }
-  __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_cur_scope->__pyx_outer_scope->__pyx_v_set_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 63, __pyx_L1_error)
+  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_set_index)) { __Pyx_RaiseClosureNameError("set_index"); __PYX_ERR(0, 67, __pyx_L1_error) }
+  __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_cur_scope->__pyx_outer_scope->__pyx_v_set_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 67, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = PyObject_Length(__pyx_t_2); if (unlikely(__pyx_t_3 == ((Py_ssize_t)-1))) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_t_3 = PyObject_Length(__pyx_t_2); if (unlikely(__pyx_t_3 == ((Py_ssize_t)-1))) __PYX_ERR(0, 67, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_4 = __pyx_t_3;
   for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
     __pyx_cur_scope->__pyx_v_i = __pyx_t_5;
-    __pyx_t_2 = PyInt_FromSsize_t(__pyx_cur_scope->__pyx_v_i); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 63, __pyx_L1_error)
+    __pyx_t_2 = PyInt_FromSsize_t(__pyx_cur_scope->__pyx_v_i); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 67, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    if (unlikely(__Pyx_ListComp_Append(__pyx_r, (PyObject*)__pyx_t_2))) __PYX_ERR(0, 63, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_r, (PyObject*)__pyx_t_2))) __PYX_ERR(0, 67, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
   CYTHON_MAYBE_UNUSED_VAR(__pyx_cur_scope);
@@ -2733,7 +2852,7 @@ static PyObject *__pyx_gb_5Cache_5Cache_8setBlock_2generator(__pyx_CoroutineObje
   return __pyx_r;
 }
 
-/* "Cache.py":48
+/* "Cache.py":52
  *             return False
  * 
  *     def setBlock(self, block, set_index, RAM_index, status):             # <<<<<<<<<<<<<<
@@ -2761,7 +2880,7 @@ static PyObject *__pyx_pf_5Cache_5Cache_6setBlock(CYTHON_UNUSED PyObject *__pyx_
   if (unlikely(!__pyx_cur_scope)) {
     __pyx_cur_scope = ((struct __pyx_obj_5Cache___pyx_scope_struct__setBlock *)Py_None);
     __Pyx_INCREF(Py_None);
-    __PYX_ERR(0, 48, __pyx_L1_error)
+    __PYX_ERR(0, 52, __pyx_L1_error)
   } else {
     __Pyx_GOTREF(__pyx_cur_scope);
   }
@@ -2772,114 +2891,114 @@ static PyObject *__pyx_pf_5Cache_5Cache_6setBlock(CYTHON_UNUSED PyObject *__pyx_
   __Pyx_INCREF(__pyx_cur_scope->__pyx_v_set_index);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_set_index);
 
-  /* "Cache.py":51
+  /* "Cache.py":55
  *         '''On write hit, write miss, or read miss, will retrieve the correct block from RAM'''
  * 
  *         if status:                                                                                                      # write hit             # <<<<<<<<<<<<<<
  *             for i in range(len(self.cache_data[set_index])):                                                            # scan for the block hit
  *                 if RAM_index == self.cache_data[set_index][i][0][0]:                                                    # once we find it
  */
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_status); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_status); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 55, __pyx_L1_error)
   if (__pyx_t_1) {
 
-    /* "Cache.py":52
+    /* "Cache.py":56
  * 
  *         if status:                                                                                                      # write hit
  *             for i in range(len(self.cache_data[set_index])):                                                            # scan for the block hit             # <<<<<<<<<<<<<<
  *                 if RAM_index == self.cache_data[set_index][i][0][0]:                                                    # once we find it
  *                     self.cache_data[set_index][i] = block                                                               # update this block from RAM
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 52, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 56, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_cur_scope->__pyx_v_set_index); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 52, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_cur_scope->__pyx_v_set_index); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 56, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_4 = PyObject_Length(__pyx_t_3); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(0, 52, __pyx_L1_error)
+    __pyx_t_4 = PyObject_Length(__pyx_t_3); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(0, 56, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_5 = __pyx_t_4;
     for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
       __pyx_v_i = __pyx_t_6;
 
-      /* "Cache.py":53
+      /* "Cache.py":57
  *         if status:                                                                                                      # write hit
  *             for i in range(len(self.cache_data[set_index])):                                                            # scan for the block hit
  *                 if RAM_index == self.cache_data[set_index][i][0][0]:                                                    # once we find it             # <<<<<<<<<<<<<<
  *                     self.cache_data[set_index][i] = block                                                               # update this block from RAM
  *                     if self.replacement == 'LRU':                                                                       # need to pull out the block and reinsert to back if this is LRU
  */
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 53, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 57, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_cur_scope->__pyx_v_set_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 53, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_cur_scope->__pyx_v_set_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 57, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_2, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 53, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_2, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 57, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_3, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 53, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_3, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 57, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 53, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 57, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = PyObject_RichCompare(__pyx_v_RAM_index, __pyx_t_3, Py_EQ); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 53, __pyx_L1_error)
+      __pyx_t_2 = PyObject_RichCompare(__pyx_v_RAM_index, __pyx_t_3, Py_EQ); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 57, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 53, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 57, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       if (__pyx_t_1) {
 
-        /* "Cache.py":54
+        /* "Cache.py":58
  *             for i in range(len(self.cache_data[set_index])):                                                            # scan for the block hit
  *                 if RAM_index == self.cache_data[set_index][i][0][0]:                                                    # once we find it
  *                     self.cache_data[set_index][i] = block                                                               # update this block from RAM             # <<<<<<<<<<<<<<
  *                     if self.replacement == 'LRU':                                                                       # need to pull out the block and reinsert to back if this is LRU
  *                         self.cache_data[set_index].append(self.cache_data[set_index].pop(i))
  */
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 54, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 58, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_cur_scope->__pyx_v_set_index); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 54, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_cur_scope->__pyx_v_set_index); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 58, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        if (unlikely(__Pyx_SetItemInt(__pyx_t_3, __pyx_v_i, __pyx_v_block, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1) < 0)) __PYX_ERR(0, 54, __pyx_L1_error)
+        if (unlikely(__Pyx_SetItemInt(__pyx_t_3, __pyx_v_i, __pyx_v_block, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1) < 0)) __PYX_ERR(0, 58, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-        /* "Cache.py":55
+        /* "Cache.py":59
  *                 if RAM_index == self.cache_data[set_index][i][0][0]:                                                    # once we find it
  *                     self.cache_data[set_index][i] = block                                                               # update this block from RAM
  *                     if self.replacement == 'LRU':                                                                       # need to pull out the block and reinsert to back if this is LRU             # <<<<<<<<<<<<<<
  *                         self.cache_data[set_index].append(self.cache_data[set_index].pop(i))
  * 
  */
-        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_replacement); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 55, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_replacement); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 59, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_t_3, __pyx_n_s_LRU, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 55, __pyx_L1_error)
+        __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_t_3, __pyx_n_s_LRU, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 59, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         if (__pyx_t_1) {
 
-          /* "Cache.py":56
+          /* "Cache.py":60
  *                     self.cache_data[set_index][i] = block                                                               # update this block from RAM
  *                     if self.replacement == 'LRU':                                                                       # need to pull out the block and reinsert to back if this is LRU
  *                         self.cache_data[set_index].append(self.cache_data[set_index].pop(i))             # <<<<<<<<<<<<<<
  * 
  *         else:                                                                                                           # write miss
  */
-          __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 56, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 60, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
-          __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_cur_scope->__pyx_v_set_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 56, __pyx_L1_error)
+          __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_cur_scope->__pyx_v_set_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 60, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-          __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 56, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 60, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
-          __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_cur_scope->__pyx_v_set_index); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 56, __pyx_L1_error)
+          __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_cur_scope->__pyx_v_set_index); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 60, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_7);
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-          __pyx_t_3 = __Pyx_PyObject_PopIndex(__pyx_t_7, Py_None, __pyx_v_i, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 56, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyObject_PopIndex(__pyx_t_7, Py_None, __pyx_v_i, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 60, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-          __pyx_t_8 = __Pyx_PyObject_Append(__pyx_t_2, __pyx_t_3); if (unlikely(__pyx_t_8 == ((int)-1))) __PYX_ERR(0, 56, __pyx_L1_error)
+          __pyx_t_8 = __Pyx_PyObject_Append(__pyx_t_2, __pyx_t_3); if (unlikely(__pyx_t_8 == ((int)-1))) __PYX_ERR(0, 60, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-          /* "Cache.py":55
+          /* "Cache.py":59
  *                 if RAM_index == self.cache_data[set_index][i][0][0]:                                                    # once we find it
  *                     self.cache_data[set_index][i] = block                                                               # update this block from RAM
  *                     if self.replacement == 'LRU':                                                                       # need to pull out the block and reinsert to back if this is LRU             # <<<<<<<<<<<<<<
@@ -2888,7 +3007,7 @@ static PyObject *__pyx_pf_5Cache_5Cache_6setBlock(CYTHON_UNUSED PyObject *__pyx_
  */
         }
 
-        /* "Cache.py":53
+        /* "Cache.py":57
  *         if status:                                                                                                      # write hit
  *             for i in range(len(self.cache_data[set_index])):                                                            # scan for the block hit
  *                 if RAM_index == self.cache_data[set_index][i][0][0]:                                                    # once we find it             # <<<<<<<<<<<<<<
@@ -2898,7 +3017,7 @@ static PyObject *__pyx_pf_5Cache_5Cache_6setBlock(CYTHON_UNUSED PyObject *__pyx_
       }
     }
 
-    /* "Cache.py":51
+    /* "Cache.py":55
  *         '''On write hit, write miss, or read miss, will retrieve the correct block from RAM'''
  * 
  *         if status:                                                                                                      # write hit             # <<<<<<<<<<<<<<
@@ -2908,7 +3027,7 @@ static PyObject *__pyx_pf_5Cache_5Cache_6setBlock(CYTHON_UNUSED PyObject *__pyx_
     goto __pyx_L3;
   }
 
-  /* "Cache.py":59
+  /* "Cache.py":63
  * 
  *         else:                                                                                                           # write miss
  *             if len(self.cache_data[set_index]) < self.associativity:                                                    # the set is not full, append block to the end of the index             # <<<<<<<<<<<<<<
@@ -2916,40 +3035,40 @@ static PyObject *__pyx_pf_5Cache_5Cache_6setBlock(CYTHON_UNUSED PyObject *__pyx_
  *             else:                                                                                                       # cache is full, we need to evict someone
  */
   /*else*/ {
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 59, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 63, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_cur_scope->__pyx_v_set_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 59, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_cur_scope->__pyx_v_set_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 63, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_4 = PyObject_Length(__pyx_t_2); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(0, 59, __pyx_L1_error)
+    __pyx_t_4 = PyObject_Length(__pyx_t_2); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(0, 63, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = PyInt_FromSsize_t(__pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 59, __pyx_L1_error)
+    __pyx_t_2 = PyInt_FromSsize_t(__pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 63, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_associativity); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 59, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_associativity); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 63, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_7 = PyObject_RichCompare(__pyx_t_2, __pyx_t_3, Py_LT); __Pyx_XGOTREF(__pyx_t_7); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 59, __pyx_L1_error)
+    __pyx_t_7 = PyObject_RichCompare(__pyx_t_2, __pyx_t_3, Py_LT); __Pyx_XGOTREF(__pyx_t_7); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 63, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_7); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 59, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_7); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 63, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     if (__pyx_t_1) {
 
-      /* "Cache.py":60
+      /* "Cache.py":64
  *         else:                                                                                                           # write miss
  *             if len(self.cache_data[set_index]) < self.associativity:                                                    # the set is not full, append block to the end of the index
  *                 self.cache_data[set_index].append(block)             # <<<<<<<<<<<<<<
  *             else:                                                                                                       # cache is full, we need to evict someone
  *                 if self.replacement == 'Random':
  */
-      __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 60, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 64, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_cur_scope->__pyx_v_set_index); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 60, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_cur_scope->__pyx_v_set_index); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 64, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_8 = __Pyx_PyObject_Append(__pyx_t_3, __pyx_v_block); if (unlikely(__pyx_t_8 == ((int)-1))) __PYX_ERR(0, 60, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyObject_Append(__pyx_t_3, __pyx_v_block); if (unlikely(__pyx_t_8 == ((int)-1))) __PYX_ERR(0, 64, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-      /* "Cache.py":59
+      /* "Cache.py":63
  * 
  *         else:                                                                                                           # write miss
  *             if len(self.cache_data[set_index]) < self.associativity:                                                    # the set is not full, append block to the end of the index             # <<<<<<<<<<<<<<
@@ -2959,7 +3078,7 @@ static PyObject *__pyx_pf_5Cache_5Cache_6setBlock(CYTHON_UNUSED PyObject *__pyx_
       goto __pyx_L8;
     }
 
-    /* "Cache.py":62
+    /* "Cache.py":66
  *                 self.cache_data[set_index].append(block)
  *             else:                                                                                                       # cache is full, we need to evict someone
  *                 if self.replacement == 'Random':             # <<<<<<<<<<<<<<
@@ -2967,24 +3086,24 @@ static PyObject *__pyx_pf_5Cache_5Cache_6setBlock(CYTHON_UNUSED PyObject *__pyx_
  *                     self.cache_data[set_index][index] = block
  */
     /*else*/ {
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_replacement); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 62, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_replacement); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 66, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_t_3, __pyx_n_s_Random, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 62, __pyx_L1_error)
+      __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_t_3, __pyx_n_s_Random, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 66, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       if (__pyx_t_1) {
 
-        /* "Cache.py":63
+        /* "Cache.py":67
  *             else:                                                                                                       # cache is full, we need to evict someone
  *                 if self.replacement == 'Random':
  *                     index = choice(list(i for i in range(len(self.cache_data[set_index]))))                             # randomly choose an index within the set and replace it with the block             # <<<<<<<<<<<<<<
  *                     self.cache_data[set_index][index] = block
  *                 else:                                                                                                   # LRU or FIFO
  */
-        __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_choice); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 63, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_choice); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 67, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
-        __pyx_t_2 = __pyx_pf_5Cache_5Cache_8setBlock_genexpr(((PyObject*)__pyx_cur_scope)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 63, __pyx_L1_error)
+        __pyx_t_2 = __pyx_pf_5Cache_5Cache_8setBlock_genexpr(((PyObject*)__pyx_cur_scope)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 67, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_9 = __Pyx_Generator_Next(__pyx_t_2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 63, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_Generator_Next(__pyx_t_2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 67, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __pyx_t_2 = NULL;
@@ -3000,28 +3119,28 @@ static PyObject *__pyx_pf_5Cache_5Cache_6setBlock(CYTHON_UNUSED PyObject *__pyx_
         __pyx_t_3 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_7, __pyx_t_2, __pyx_t_9) : __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_9);
         __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-        if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 63, __pyx_L1_error)
+        if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 67, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         __pyx_v_index = __pyx_t_3;
         __pyx_t_3 = 0;
 
-        /* "Cache.py":64
+        /* "Cache.py":68
  *                 if self.replacement == 'Random':
  *                     index = choice(list(i for i in range(len(self.cache_data[set_index]))))                             # randomly choose an index within the set and replace it with the block
  *                     self.cache_data[set_index][index] = block             # <<<<<<<<<<<<<<
  *                 else:                                                                                                   # LRU or FIFO
  *                     del self.cache_data[set_index][0]                                                                   # Delete first block in the set
  */
-        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 64, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 68, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_cur_scope->__pyx_v_set_index); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 64, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_cur_scope->__pyx_v_set_index); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 68, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        if (unlikely(PyObject_SetItem(__pyx_t_7, __pyx_v_index, __pyx_v_block) < 0)) __PYX_ERR(0, 64, __pyx_L1_error)
+        if (unlikely(PyObject_SetItem(__pyx_t_7, __pyx_v_index, __pyx_v_block) < 0)) __PYX_ERR(0, 68, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-        /* "Cache.py":62
+        /* "Cache.py":66
  *                 self.cache_data[set_index].append(block)
  *             else:                                                                                                       # cache is full, we need to evict someone
  *                 if self.replacement == 'Random':             # <<<<<<<<<<<<<<
@@ -3031,32 +3150,32 @@ static PyObject *__pyx_pf_5Cache_5Cache_6setBlock(CYTHON_UNUSED PyObject *__pyx_
         goto __pyx_L9;
       }
 
-      /* "Cache.py":66
+      /* "Cache.py":70
  *                     self.cache_data[set_index][index] = block
  *                 else:                                                                                                   # LRU or FIFO
  *                     del self.cache_data[set_index][0]                                                                   # Delete first block in the set             # <<<<<<<<<<<<<<
  *                     self.cache_data[set_index].append(block)                                                            # attach it to the back
  */
       /*else*/ {
-        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 66, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 70, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
-        __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_cur_scope->__pyx_v_set_index); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 66, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_cur_scope->__pyx_v_set_index); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 70, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        if (unlikely(__Pyx_DelItemInt(__pyx_t_3, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 66, __pyx_L1_error)
+        if (unlikely(__Pyx_DelItemInt(__pyx_t_3, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 70, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-        /* "Cache.py":67
+        /* "Cache.py":71
  *                 else:                                                                                                   # LRU or FIFO
  *                     del self.cache_data[set_index][0]                                                                   # Delete first block in the set
  *                     self.cache_data[set_index].append(block)                                                            # attach it to the back             # <<<<<<<<<<<<<<
  */
-        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 67, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_cache_data); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 71, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_cur_scope->__pyx_v_set_index); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 67, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_cur_scope->__pyx_v_set_index); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 71, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __pyx_t_8 = __Pyx_PyObject_Append(__pyx_t_7, __pyx_v_block); if (unlikely(__pyx_t_8 == ((int)-1))) __PYX_ERR(0, 67, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_PyObject_Append(__pyx_t_7, __pyx_v_block); if (unlikely(__pyx_t_8 == ((int)-1))) __PYX_ERR(0, 71, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       }
       __pyx_L9:;
@@ -3065,7 +3184,7 @@ static PyObject *__pyx_pf_5Cache_5Cache_6setBlock(CYTHON_UNUSED PyObject *__pyx_
   }
   __pyx_L3:;
 
-  /* "Cache.py":48
+  /* "Cache.py":52
  *             return False
  * 
  *     def setBlock(self, block, set_index, RAM_index, status):             # <<<<<<<<<<<<<<
@@ -3365,6 +3484,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_choice, __pyx_k_choice, sizeof(__pyx_k_choice), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
   {&__pyx_n_s_close, __pyx_k_close, sizeof(__pyx_k_close), 0, 0, 1, 1},
+  {&__pyx_n_s_count, __pyx_k_count, sizeof(__pyx_k_count), 0, 0, 1, 1},
   {&__pyx_n_s_doc, __pyx_k_doc, sizeof(__pyx_k_doc), 0, 0, 1, 1},
   {&__pyx_n_s_genexpr, __pyx_k_genexpr, sizeof(__pyx_k_genexpr), 0, 0, 1, 1},
   {&__pyx_n_s_getBlock, __pyx_k_getBlock, sizeof(__pyx_k_getBlock), 0, 0, 1, 1},
@@ -3425,38 +3545,38 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   /* "Cache.py":21
  * 
  * 
- *     def getDouble(self, ram_index, set_index, offset_index):             # <<<<<<<<<<<<<<
+ *     def getDouble(self, ram_index, set_index, offset_index, count):             # <<<<<<<<<<<<<<
  *         '''given an address, will attempt to get the double within the cache'''
  * 
  */
-  __pyx_tuple__3 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_ram_index, __pyx_n_s_set_index, __pyx_n_s_offset_index, __pyx_n_s_i); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 21, __pyx_L1_error)
+  __pyx_tuple__3 = PyTuple_Pack(6, __pyx_n_s_self, __pyx_n_s_ram_index, __pyx_n_s_set_index, __pyx_n_s_offset_index, __pyx_n_s_count, __pyx_n_s_i); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
-  __pyx_codeobj__4 = (PyObject*)__Pyx_PyCode_New(4, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__3, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Cache_py, __pyx_n_s_getDouble, 21, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__4)) __PYX_ERR(0, 21, __pyx_L1_error)
+  __pyx_codeobj__4 = (PyObject*)__Pyx_PyCode_New(5, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__3, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Cache_py, __pyx_n_s_getDouble, 21, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__4)) __PYX_ERR(0, 21, __pyx_L1_error)
 
-  /* "Cache.py":34
+  /* "Cache.py":36
  *         return False
  * 
- *     def getBlock(self, set_index, RAM_index):             # <<<<<<<<<<<<<<
+ *     def getBlock(self, set_index, RAM_index, count):             # <<<<<<<<<<<<<<
  *         ''' given a full address, will attempt to check if the block in question is in the cache when writing'''        # find the ram_index with the address
- * 
+ *         if not self.cache_data[set_index]:                                                                              # if the set is empty, this is a compulsory miss
  */
-  __pyx_tuple__5 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_set_index, __pyx_n_s_RAM_index, __pyx_n_s_i); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 34, __pyx_L1_error)
+  __pyx_tuple__5 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_set_index, __pyx_n_s_RAM_index, __pyx_n_s_count, __pyx_n_s_i); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
-  __pyx_codeobj__6 = (PyObject*)__Pyx_PyCode_New(3, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Cache_py, __pyx_n_s_getBlock, 34, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__6)) __PYX_ERR(0, 34, __pyx_L1_error)
+  __pyx_codeobj__6 = (PyObject*)__Pyx_PyCode_New(4, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Cache_py, __pyx_n_s_getBlock, 36, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__6)) __PYX_ERR(0, 36, __pyx_L1_error)
 
-  /* "Cache.py":48
+  /* "Cache.py":52
  *             return False
  * 
  *     def setBlock(self, block, set_index, RAM_index, status):             # <<<<<<<<<<<<<<
  *         '''On write hit, write miss, or read miss, will retrieve the correct block from RAM'''
  * 
  */
-  __pyx_tuple__7 = PyTuple_Pack(9, __pyx_n_s_self, __pyx_n_s_block, __pyx_n_s_set_index, __pyx_n_s_RAM_index, __pyx_n_s_status, __pyx_n_s_i, __pyx_n_s_index, __pyx_n_s_genexpr, __pyx_n_s_genexpr); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 48, __pyx_L1_error)
+  __pyx_tuple__7 = PyTuple_Pack(9, __pyx_n_s_self, __pyx_n_s_block, __pyx_n_s_set_index, __pyx_n_s_RAM_index, __pyx_n_s_status, __pyx_n_s_i, __pyx_n_s_index, __pyx_n_s_genexpr, __pyx_n_s_genexpr); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__7);
   __Pyx_GIVEREF(__pyx_tuple__7);
-  __pyx_codeobj__8 = (PyObject*)__Pyx_PyCode_New(5, 0, 9, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__7, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Cache_py, __pyx_n_s_setBlock, 48, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__8)) __PYX_ERR(0, 48, __pyx_L1_error)
+  __pyx_codeobj__8 = (PyObject*)__Pyx_PyCode_New(5, 0, 9, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__7, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Cache_py, __pyx_n_s_setBlock, 52, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__8)) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -3510,13 +3630,13 @@ static int __Pyx_modinit_type_init_code(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_init_code", 0);
   /*--- Type init code ---*/
-  if (PyType_Ready(&__pyx_type_5Cache___pyx_scope_struct__setBlock) < 0) __PYX_ERR(0, 48, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_5Cache___pyx_scope_struct__setBlock) < 0) __PYX_ERR(0, 52, __pyx_L1_error)
   __pyx_type_5Cache___pyx_scope_struct__setBlock.tp_print = 0;
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_5Cache___pyx_scope_struct__setBlock.tp_dictoffset && __pyx_type_5Cache___pyx_scope_struct__setBlock.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_5Cache___pyx_scope_struct__setBlock.tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
   }
   __pyx_ptype_5Cache___pyx_scope_struct__setBlock = &__pyx_type_5Cache___pyx_scope_struct__setBlock;
-  if (PyType_Ready(&__pyx_type_5Cache___pyx_scope_struct_1_genexpr) < 0) __PYX_ERR(0, 63, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_5Cache___pyx_scope_struct_1_genexpr) < 0) __PYX_ERR(0, 67, __pyx_L1_error)
   __pyx_type_5Cache___pyx_scope_struct_1_genexpr.tp_print = 0;
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_5Cache___pyx_scope_struct_1_genexpr.tp_dictoffset && __pyx_type_5Cache___pyx_scope_struct_1_genexpr.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_5Cache___pyx_scope_struct_1_genexpr.tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
@@ -3796,7 +3916,7 @@ if (!__Pyx_RefNanny) {
   /* "Cache.py":21
  * 
  * 
- *     def getDouble(self, ram_index, set_index, offset_index):             # <<<<<<<<<<<<<<
+ *     def getDouble(self, ram_index, set_index, offset_index, count):             # <<<<<<<<<<<<<<
  *         '''given an address, will attempt to get the double within the cache'''
  * 
  */
@@ -3805,28 +3925,28 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_getDouble, __pyx_t_1) < 0) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "Cache.py":34
+  /* "Cache.py":36
  *         return False
  * 
- *     def getBlock(self, set_index, RAM_index):             # <<<<<<<<<<<<<<
+ *     def getBlock(self, set_index, RAM_index, count):             # <<<<<<<<<<<<<<
  *         ''' given a full address, will attempt to check if the block in question is in the cache when writing'''        # find the ram_index with the address
- * 
+ *         if not self.cache_data[set_index]:                                                                              # if the set is empty, this is a compulsory miss
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5Cache_5Cache_5getBlock, 0, __pyx_n_s_Cache_getBlock, NULL, __pyx_n_s_Cache, __pyx_d, ((PyObject *)__pyx_codeobj__6)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 34, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5Cache_5Cache_5getBlock, 0, __pyx_n_s_Cache_getBlock, NULL, __pyx_n_s_Cache, __pyx_d, ((PyObject *)__pyx_codeobj__6)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_getBlock, __pyx_t_1) < 0) __PYX_ERR(0, 34, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_getBlock, __pyx_t_1) < 0) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "Cache.py":48
+  /* "Cache.py":52
  *             return False
  * 
  *     def setBlock(self, block, set_index, RAM_index, status):             # <<<<<<<<<<<<<<
  *         '''On write hit, write miss, or read miss, will retrieve the correct block from RAM'''
  * 
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5Cache_5Cache_7setBlock, 0, __pyx_n_s_Cache_setBlock, NULL, __pyx_n_s_Cache, __pyx_d, ((PyObject *)__pyx_codeobj__8)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 48, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5Cache_5Cache_7setBlock, 0, __pyx_n_s_Cache_setBlock, NULL, __pyx_n_s_Cache, __pyx_d, ((PyObject *)__pyx_codeobj__8)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_setBlock, __pyx_t_1) < 0) __PYX_ERR(0, 48, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_setBlock, __pyx_t_1) < 0) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "Cache.py":3
