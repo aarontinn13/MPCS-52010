@@ -22,8 +22,8 @@ parser.add_argument('-b', action='store', default=64, type=int, dest='block_size
 parser.add_argument('-n', action='store', default=2, type=int, dest='n_way', help='n-way associativity (default: 2 blocks/set)')
 parser.add_argument('-r', action='store', default='LRU', type=str, dest='replacement', help='replacement policy [FIFO, LRU] (default: LRU)')
 parser.add_argument('-a', action='store', default='mxm-block', type=str, dest='algorithm', help='algorithm to test [daxpy, mxm, mxm-block] (default: mxm-block)')
-parser.add_argument('-d', action='store', default=480, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
-parser.add_argument('-p', action='store_true', default=False, dest='print_',help='enables printing of the value')
+parser.add_argument('-d', action='store', default=96, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
+parser.add_argument('-p', action='store_true', default=True, dest='print_',help='enables printing of the value')
 parser.add_argument('-f', action='store', default=32, type=int, dest='blocking_factor',help='blocking factor of mxm-block (default: 32)')
 parser.add_argument('-v', action='store', default=3, type=int, dest='d_value',help='random d-value for daxpy algorithm (default: 3)')
 
@@ -111,15 +111,10 @@ def Daxpy(cpu):
     for i in range(dimension):
         #instruction count = vector length * 5
         register1 = cpu.loadDouble(a[i])
-        #print('loading value {} from address {}'.format(register1, a[i]))
         register2 = cpu.multDouble(register0, register1)
-        #print('multiplying {} and {} = {}'.format(register0, register1, register0*register1))
         register3 = cpu.loadDouble(b[i])
-        #print('loading value {} from address {}'.format(register3, b[i]))
         register4 = cpu.addDouble(register2, register3)
-        #print('adding {} and {} = {}'.format(register2, register3, register2 + register3))
         cpu.storeDouble(address=c[i], value=register4)
-        #print('storing {} at address {}\n'.format(register4, c[i]))
 
     if print_:
         aux = [cpu.getAnswer(i) for i in c]
@@ -153,20 +148,15 @@ def MXM(cpu):
 
     for i in range(dimension):
         for j in range(dimension):
+            register0 = cpu.loadDouble(c.item((i,j)))
             for k in range(dimension):
-                #instruction count = matrix size * matrix size * matrix size * 6
                 register1 = cpu.loadDouble(a.item((i, k)))
-                #print('loading value {} from address {}\n'.format(register1, a.item((i,k))))
                 register2 = cpu.loadDouble(b.item((k, j)))
-                #print('loading value {} from address {}\n'.format(register2, b.item((k,j))))
                 register3 = cpu.multDouble(register1, register2)
-                #print('multiplying {} and {} = {}'.format(register1, register2, register1 * register2))
-                register4 = cpu.loadDouble(c.item((i,j)))
-                #print('loading value {} from address {}\n'.format(register2, c.item((i, j))))
-                register0 = cpu.addDouble(register4, register3)
-                #print('adding {} and {} = {}'.format(register3, register4, register3 + register4))
-                cpu.storeDouble(address=c.item((i, j)), value=register0)
-                #print('storing {} at address {}\n'.format(register0, c.item((i,j))))
+                register0 = cpu.addDouble(register0, register3)
+            cpu.storeDouble(address=c.item((i, j)), value=register0)
+
+
 
     #if printing is True
     if print_:
@@ -212,20 +202,15 @@ def MXMblock(cpu):
 
                 for x in range(len(Asub)):
                     for y in range(len(Bsub)):
+                        register0 = cpu.loadDouble(Csub[x, y])
                         for z in range(len(Csub)):
                             # instruction count = matrix size * matrix size * matrix size * 6
                             register1 = cpu.loadDouble(Asub[x, z])
-                            #print('loading value {} from address {}'.format(register1, Asub[x, z]))
                             register2 = cpu.loadDouble(Bsub[z, y])
-                            #print('loading value {} from address {}'.format(register1, Bsub[z, y]))
                             register3 = cpu.multDouble(register1, register2)
-                            #print('multiplying {} and {} = {}'.format(register1, register2, register1 * register2))
-                            register4 = cpu.loadDouble(Csub[x, y])
-                            #print('loading value {} from address {}'.format(register4, Csub[x, y]))
-                            register0 = cpu.addDouble(register3, register4)
-                            #print('adding {} and {} = {}'.format(register3, register4, register3 + register4))
-                            cpu.storeDouble(Csub[x,y], register0)
-                            #print('storing {} at address {}\n'.format(register0, c[x, y]))
+                            register0 = cpu.addDouble(register3, register0)
+                        cpu.storeDouble(Csub[x,y], register0)
+
 
     #if printing is True
     if print_:
