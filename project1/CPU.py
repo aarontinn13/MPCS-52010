@@ -66,7 +66,7 @@ class CPU():
         ram.set_block(RAM_index, byte_index, value)                                                                     # write the info into RAM
         block = ram.get_block(RAM_index)
 
-        if cache.getBlock(set_index, RAM_index):                                                                  # if this block is in the cache
+        if cache.getBlock(set_index, RAM_index):                                                                        # if this block is in the cache
             cache.setBlock(block, set_index, RAM_index, True)                                                           # write allocate, copy to both RAM and update cache
         else:
             cache.setBlock(block, set_index, RAM_index, False)

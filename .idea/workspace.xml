@@ -2,24 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b3a9912b-9e10-4730-9dae-c23d3218e1e1" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/project1/Address.c" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/project1/Address.cpython-37m-x86_64-linux-gnu.so" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/project1/CPU.c" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/project1/CPU.cpython-37m-x86_64-linux-gnu.so" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/project1/Cache.c" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/project1/Cache.cpython-37m-x86_64-linux-gnu.so" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/project1/Emulator.c" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/project1/Emulator.cpython-37m-x86_64-linux-gnu.so" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/project1/RAM.c" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/project1/RAM.cpython-37m-x86_64-linux-gnu.so" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/project1/build/temp.linux-x86_64-3.7/Emulator.o" afterPath="$PROJECT_DIR$/project1/build/temp.linux-x86_64-3.7/Emulator.o" />
-      <change beforePath="$PROJECT_DIR$/project1/testing/Address.cpython-37m-x86_64-linux-gnu.so" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/project1/testing/CPU.cpython-37m-x86_64-linux-gnu.so" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/project1/testing/Cache.cpython-37m-x86_64-linux-gnu.so" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/project1/testing/Emulator.cpython-37m-x86_64-linux-gnu.so" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/project1/testing/RAM.cpython-37m-x86_64-linux-gnu.so" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/project1/testing/main.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/project1/CPU.py" afterPath="$PROJECT_DIR$/project1/CPU.py" />
+      <change beforePath="$PROJECT_DIR$/project1/Emulator.py" afterPath="$PROJECT_DIR$/project1/Emulator.py" />
+      <change beforePath="$PROJECT_DIR$/project1/messaround.py" afterPath="$PROJECT_DIR$/project1/messaround.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -33,8 +18,8 @@
       <file leaf-file-name="CPU.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/project1/CPU.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1122">
-              <caret line="68" column="46" lean-forward="false" selection-start-line="68" selection-start-column="46" selection-end-line="68" selection-end-column="46" />
+            <state relative-caret-position="391">
+              <caret line="23" column="8" lean-forward="false" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
               <folding>
                 <element signature="e#0#27#0" expanded="true" />
               </folding>
@@ -45,8 +30,8 @@
       <file leaf-file-name="Cache.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/project1/Cache.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="33" column="45" lean-forward="false" selection-start-line="33" selection-start-column="45" selection-end-line="33" selection-end-column="45" />
+            <state relative-caret-position="612">
+              <caret line="36" column="48" lean-forward="true" selection-start-line="36" selection-start-column="48" selection-end-line="36" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -55,11 +40,21 @@
       <file leaf-file-name="Emulator.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/project1/Emulator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="799">
-              <caret line="47" column="32" lean-forward="false" selection-start-line="47" selection-start-column="32" selection-end-line="47" selection-end-column="32" />
+            <state relative-caret-position="354">
+              <caret line="191" column="0" lean-forward="true" selection-start-line="191" selection-start-column="0" selection-end-line="191" selection-end-column="0" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="messaround.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/project1/messaround.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="810">
+              <caret line="102" column="16" lean-forward="true" selection-start-line="102" selection-start-column="16" selection-end-line="102" selection-end-column="16" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -81,21 +76,21 @@
         <option value="$PROJECT_DIR$/project1/Util.py" />
         <option value="$PROJECT_DIR$/project1/RAM.py" />
         <option value="$PROJECT_DIR$/project1/Address.py" />
-        <option value="$PROJECT_DIR$/project1/messaround.py" />
         <option value="$PROJECT_DIR$/project1/testing/main.py" />
         <option value="$PROJECT_DIR$/project1/main.py" />
         <option value="$PROJECT_DIR$/project1/compile.py" />
-        <option value="$PROJECT_DIR$/project1/CPU.py" />
         <option value="$PROJECT_DIR$/project1/Cache.py" />
+        <option value="$PROJECT_DIR$/project1/CPU.py" />
+        <option value="$PROJECT_DIR$/project1/messaround.py" />
         <option value="$PROJECT_DIR$/project1/Emulator.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="2377" />
+    <option name="x" value="550" />
     <option name="y" value="-4" />
     <option name="width" value="934" />
-    <option name="height" value="1079" />
+    <option name="height" value="1073" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -155,24 +150,6 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.Emulator">
-    <configuration name="CPU" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/project1" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="MPCS-52010" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/project1/CPU.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
     <configuration name="Cache" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -245,20 +222,38 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
+    <configuration name="messaround" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/project1" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="MPCS-52010" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/project1/messaround.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.Emulator" />
-      <item index="1" class="java.lang.String" itemvalue="Python.CPU" />
-      <item index="2" class="java.lang.String" itemvalue="Python.compile" />
-      <item index="3" class="java.lang.String" itemvalue="Python.main" />
-      <item index="4" class="java.lang.String" itemvalue="Python.Cache" />
+      <item index="1" class="java.lang.String" itemvalue="Python.compile" />
+      <item index="2" class="java.lang.String" itemvalue="Python.main" />
+      <item index="3" class="java.lang.String" itemvalue="Python.Cache" />
+      <item index="4" class="java.lang.String" itemvalue="Python.messaround" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.Emulator" />
-        <item index="1" class="java.lang.String" itemvalue="Python.Cache" />
-        <item index="2" class="java.lang.String" itemvalue="Python.main" />
-        <item index="3" class="java.lang.String" itemvalue="Python.compile" />
-        <item index="4" class="java.lang.String" itemvalue="Python.CPU" />
+        <item index="1" class="java.lang.String" itemvalue="Python.messaround" />
+        <item index="2" class="java.lang.String" itemvalue="Python.Cache" />
+        <item index="3" class="java.lang.String" itemvalue="Python.main" />
+        <item index="4" class="java.lang.String" itemvalue="Python.compile" />
       </list>
     </recent_temporary>
   </component>
@@ -279,14 +274,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1969" y="-4" width="1871" height="1084" extended-state="6" />
+    <frame x="43" y="-4" width="1877" height="1084" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20897916" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17101759" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32924336" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28701228" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="489" y="254" width="870" height="158" />
+      <window_info id="Run" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25998935" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="489" y="254" width="870" height="158" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32924336" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -666,13 +662,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/project1/messaround.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/project1/Address.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -682,8 +671,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/project1/CPU.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1122">
-          <caret line="68" column="46" lean-forward="false" selection-start-line="68" selection-start-column="46" selection-end-line="68" selection-end-column="46" />
+        <state relative-caret-position="391">
+          <caret line="23" column="8" lean-forward="false" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
           <folding>
             <element signature="e#0#27#0" expanded="true" />
           </folding>
@@ -692,16 +681,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/project1/Cache.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="33" column="45" lean-forward="false" selection-start-line="33" selection-start-column="45" selection-end-line="33" selection-end-column="45" />
+        <state relative-caret-position="612">
+          <caret line="36" column="48" lean-forward="true" selection-start-line="36" selection-start-column="48" selection-end-line="36" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/project1/messaround.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="810">
+          <caret line="102" column="16" lean-forward="true" selection-start-line="102" selection-start-column="16" selection-end-line="102" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/project1/Emulator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="799">
-          <caret line="47" column="32" lean-forward="false" selection-start-line="47" selection-start-column="32" selection-end-line="47" selection-end-column="32" />
+        <state relative-caret-position="354">
+          <caret line="191" column="0" lean-forward="true" selection-start-line="191" selection-start-column="0" selection-end-line="191" selection-end-column="0" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>

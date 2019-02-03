@@ -19,12 +19,12 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument('-c', action='store', default=65536, type=int, dest='cache_size',help='size of the cache (default: 65,536 Bytes)')
 parser.add_argument('-b', action='store', default=64, type=int, dest='block_size', help='size of a block (default: 64 Bytes)')
-parser.add_argument('-n', action='store', default=2, type=int, dest='n_way', help='n-way associativity (default: 2 blocks/set)')
+parser.add_argument('-n', action='store', default=1, type=int, dest='n_way', help='n-way associativity (default: 2 blocks/set)')
 parser.add_argument('-r', action='store', default='LRU', type=str, dest='replacement', help='replacement policy [FIFO, LRU] (default: LRU)')
 parser.add_argument('-a', action='store', default='mxm-block', type=str, dest='algorithm', help='algorithm to test [daxpy, mxm, mxm-block] (default: mxm-block)')
-parser.add_argument('-d', action='store', default=96, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
-parser.add_argument('-p', action='store_true', default=True, dest='print_',help='enables printing of the value')
-parser.add_argument('-f', action='store', default=32, type=int, dest='blocking_factor',help='blocking factor of mxm-block (default: 32)')
+parser.add_argument('-d', action='store', default=100, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
+parser.add_argument('-p', action='store_true', default=False, dest='print_',help='enables printing of the value')
+parser.add_argument('-f', action='store', default=10, type=int, dest='blocking_factor',help='blocking factor of mxm-block (default: 32)')
 parser.add_argument('-v', action='store', default=3, type=int, dest='d_value',help='random d-value for daxpy algorithm (default: 3)')
 
 results = parser.parse_args()
@@ -204,7 +204,6 @@ def MXMblock(cpu):
                     for y in range(len(Bsub)):
                         register0 = cpu.loadDouble(Csub[x, y])
                         for z in range(len(Csub)):
-                            # instruction count = matrix size * matrix size * matrix size * 6
                             register1 = cpu.loadDouble(Asub[x, z])
                             register2 = cpu.loadDouble(Bsub[z, y])
                             register3 = cpu.multDouble(register1, register2)
@@ -236,7 +235,7 @@ def main():
         MXM(cpu)
         results(cpu, RAM_size)
 
-    if algorithm == 'mxm-block':
+    if algorithm == 'mxm_block':
 
         RAM_size = 3 * dimension * dimension * float_size
         cpu = CPU(RAM_size=RAM_size, cache_size=cache_size, block_size=block_size, associativity=associativity, replacement=replacement)
