@@ -17,14 +17,14 @@ from sys import exit
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument('-c', action='store', default=16384, type=int, dest='cache_size',help='size of the cache (default: 65,536 Bytes)')
+parser.add_argument('-c', action='store', default=65536, type=int, dest='cache_size',help='size of the cache (default: 65,536 Bytes)')
 parser.add_argument('-b', action='store', default=64, type=int, dest='block_size', help='size of a block (default: 64 Bytes)')
 parser.add_argument('-n', action='store', default=2, type=int, dest='n_way', help='n-way associativity (default: 2 blocks/set)')
 parser.add_argument('-r', action='store', default='LRU', type=str, dest='replacement', help='replacement policy [FIFO, LRU] (default: LRU)')
-parser.add_argument('-a', action='store', default='mxm', type=str, dest='algorithm', help='algorithm to test [daxpy, mxm, mxm-block] (default: mxm-block)')
-parser.add_argument('-d', action='store', default=30, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
+parser.add_argument('-a', action='store', default='mxm_block', type=str, dest='algorithm', help='algorithm to test [daxpy, mxm, mxm-block] (default: mxm-block)')
+parser.add_argument('-d', action='store', default=480, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
 parser.add_argument('-p', action='store_true', default=False, dest='print_',help='enables printing of the value')
-parser.add_argument('-f', action='store', default=20, type=int, dest='blocking_factor',help='blocking factor of mxm-block (default: 32)')
+parser.add_argument('-f', action='store', default=32, type=int, dest='blocking_factor',help='blocking factor of mxm-block (default: 32)')
 parser.add_argument('-v', action='store', default=3, type=int, dest='d_value',help='random d-value for daxpy algorithm (default: 3)')
 
 results = parser.parse_args()
@@ -147,31 +147,13 @@ def MXM(cpu):
 
     for i in range(dimension):
         for j in range(dimension):
-            print()
-            print('before loading c')
-            for x in cpu.cache.cache_data:
-                print(x)
             register0 = cpu.loadDouble(address=c.item((i, j)), count=True)
-            print()
-            print('after loading c')
-            for x in cpu.cache.cache_data:
-                print(x)
             for k in range(dimension):
                 register1 = cpu.loadDouble(address=a.item((i, k)), count=True)
                 register2 = cpu.loadDouble(address=b.item((k, j)), count=True)
                 register3 = cpu.multDouble(register1, register2)
                 register0 = cpu.addDouble(register0, register3)
-            print()
-            print('before storing c')
-            for x in cpu.cache.cache_data:
-                print(x)
             cpu.storeDouble(address=c.item((i, j)), value=register0, count=True)
-            print()
-            print('after storing c')
-            for x,g in enumerate(cpu.cache.cache_data):
-                print(x,g)
-
-
 
     if print_:
         aux = np.matrix([[cpu.loadDouble(c.item((i,j))) for j in range(dimension)] for i in range(dimension) ])
