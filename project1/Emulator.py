@@ -110,11 +110,11 @@ def Daxpy(cpu):
 
     for i in range(dimension):
         #instruction count = vector length * 5
-        register1 = cpu.loadDouble(a[i])
+        register1 = cpu.loadDouble(a[i], count=True)
         register2 = cpu.multDouble(register0, register1)
-        register3 = cpu.loadDouble(b[i])
+        register3 = cpu.loadDouble(b[i], count=True)
         register4 = cpu.addDouble(register2, register3)
-        cpu.storeDouble(address=c[i], value=register4)
+        cpu.storeDouble(address=c[i], value=register4, count=True)
 
     if print_:
         aux = [cpu.getAnswer(i) for i in c]
@@ -148,13 +148,13 @@ def MXM(cpu):
 
     for i in range(dimension):
         for j in range(dimension):
-            register0 = cpu.loadDouble(c.item((i,j)))
+            register0 = 0
             for k in range(dimension):
-                register1 = cpu.loadDouble(a.item((i, k)))
-                register2 = cpu.loadDouble(b.item((k, j)))
+                register1 = cpu.loadDouble(a.item((i, k)), count=True)
+                register2 = cpu.loadDouble(b.item((k, j)), count=True)
                 register3 = cpu.multDouble(register1, register2)
                 register0 = cpu.addDouble(register0, register3)
-            cpu.storeDouble(address=c.item((i, j)), value=register0)
+            cpu.storeDouble(address=c.item((i, j)), value=register0, count=True)
 
 
 
@@ -202,13 +202,13 @@ def MXMblock(cpu):
 
                 for x in range(len(Asub)):
                     for y in range(len(Bsub)):
-                        register0 = cpu.loadDouble(Csub[x, y])
+                        register0 = 0
                         for z in range(len(Csub)):
-                            register1 = cpu.loadDouble(Asub[x, z])
-                            register2 = cpu.loadDouble(Bsub[z, y])
+                            register1 = cpu.loadDouble(Asub[x, z], count=True)
+                            register2 = cpu.loadDouble(Bsub[z, y], count=True)
                             register3 = cpu.multDouble(register1, register2)
                             register0 = cpu.addDouble(register3, register0)
-                        cpu.storeDouble(Csub[x,y], register0)
+                        cpu.storeDouble(Csub[x,y], register0, count=True)
 
 
     #if printing is True

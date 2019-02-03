@@ -18,7 +18,7 @@ class CPU():
         self.addcount = 0
         self.multcount = 0
 
-    def loadDouble(self, address):
+    def loadDouble(self, address, count=False):
         '''attempts to read values from cache, else loads from RAM'''
         self.loadcount += 1
         ram = self.ram
@@ -29,7 +29,7 @@ class CPU():
         RAM_index = add.convertByte(add.getRAMIndex(address))
         offset_index = add.convertByte(add.getOffset(address))
 
-        x = cache.getDouble(RAM_index, set_index, offset_index)
+        x = cache.getDouble(RAM_index, set_index, offset_index, count)
 
         if type(x) is int:
             return x
@@ -49,7 +49,7 @@ class CPU():
 
         return ram.get_double(RAM_index, byte_index)
 
-    def storeDouble(self, address, value):
+    def storeDouble(self, address, value, count=False):
         '''stores values into RAM'''
 
         self.storecount += 1
@@ -66,7 +66,7 @@ class CPU():
         ram.set_block(RAM_index, byte_index, value)                                                                     # write the info into RAM
         block = ram.get_block(RAM_index)
 
-        if cache.getBlock(set_index, RAM_index):                                                                        # if this block is in the cache
+        if cache.getBlock(set_index, RAM_index, count):                                                                        # if this block is in the cache
             cache.setBlock(block, set_index, RAM_index, True)                                                           # write allocate, copy to both RAM and update cache
         else:
             cache.setBlock(block, set_index, RAM_index, False)

@@ -18,31 +18,35 @@ class Cache():
         self.read_miss = 0                                                                                              # total number of read misses
 
 
-    def getDouble(self, ram_index, set_index, offset_index):
+    def getDouble(self, ram_index, set_index, offset_index, count):
         '''given an address, will attempt to get the double within the cache'''
 
         for i in range(len(self.cache_data[set_index])):                                                                # found the correct block, return the value
             if ram_index == self.cache_data[set_index][i][0][0]:
-                self.read_hit += 1
+                if count:
+                    self.read_hit += 1
                 if self.replacement == 'LRU':                                                                           # need to pull out the block and reinsert to back if this is LRU
                     self.cache_data[set_index].append(self.cache_data[set_index].pop(i))
                     return self.cache_data[set_index][-1][int((offset_index//8))+1]
                 return self.cache_data[set_index][i][int((offset_index//8))+1]
-        self.read_miss += 1                                                                                             # did not find correct block, must write into
+        if count:
+            self.read_miss += 1                                                                                         # did not find correct block, must write into
         return False
 
-    def getBlock(self, set_index, RAM_index):
+    def getBlock(self, set_index, RAM_index, count):
         ''' given a full address, will attempt to check if the block in question is in the cache when writing'''        # find the ram_index with the address
-
-        if not self.cache_data[set_index]:                                                                                         # if the set is empty, this is a compulsory miss
-            self.write_miss += 1
+        if not self.cache_data[set_index]:                                                                              # if the set is empty, this is a compulsory miss
+            if count:
+                self.write_miss += 1
             return False
         else:                                                                                                           # set has a block(s) in it!
             for i in range(len(self.cache_data[set_index])):                                                            # scan the set for the tags                                                                                                           #check the RAM_address at the beginning of each array
                 if RAM_index == self.cache_data[set_index][i][0][0]:                                                    # ram_index is the same as the ram_index in the block, we have a write hit
-                    self.write_hit += 1
+                    if count:
+                        self.write_hit += 1
                     return True
-            self.write_miss += 1                                                                                        # could not find the block we were looking for
+            if count:
+                self.write_miss += 1                                                                                    # could not find the block we were looking for
             return False
 
     def setBlock(self, block, set_index, RAM_index, status):
