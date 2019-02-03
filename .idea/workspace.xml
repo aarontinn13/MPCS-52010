@@ -1,28 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b3a9912b-9e10-4730-9dae-c23d3218e1e1" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/project1/Address.c" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/project1/Address.cpython-37m-x86_64-linux-gnu.so" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/project1/CPU.c" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/project1/CPU.cpython-37m-x86_64-linux-gnu.so" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/project1/Cache.c" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/project1/Cache.cpython-37m-x86_64-linux-gnu.so" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/project1/Emulator.c" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/project1/Emulator.cpython-37m-x86_64-linux-gnu.so" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/project1/RAM.c" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/project1/RAM.cpython-37m-x86_64-linux-gnu.so" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/project1/build/temp.linux-x86_64-3.7/CPU.o" afterPath="$PROJECT_DIR$/project1/build/temp.linux-x86_64-3.7/CPU.o" />
-      <change beforePath="$PROJECT_DIR$/project1/build/temp.linux-x86_64-3.7/Cache.o" afterPath="$PROJECT_DIR$/project1/build/temp.linux-x86_64-3.7/Cache.o" />
-      <change beforePath="$PROJECT_DIR$/project1/build/temp.linux-x86_64-3.7/Emulator.o" afterPath="$PROJECT_DIR$/project1/build/temp.linux-x86_64-3.7/Emulator.o" />
-      <change beforePath="$PROJECT_DIR$/project1/testing/Address.cpython-37m-x86_64-linux-gnu.so" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/project1/testing/CPU.cpython-37m-x86_64-linux-gnu.so" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/project1/testing/Cache.cpython-37m-x86_64-linux-gnu.so" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/project1/testing/Emulator.cpython-37m-x86_64-linux-gnu.so" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/project1/testing/RAM.cpython-37m-x86_64-linux-gnu.so" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/project1/testing/main.py" afterPath="" />
-    </list>
+    <list default="true" id="b3a9912b-9e10-4730-9dae-c23d3218e1e1" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
