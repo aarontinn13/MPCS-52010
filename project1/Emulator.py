@@ -101,6 +101,7 @@ def Daxpy(cpu):
 
     for i in range(dimension):
         #instruction count = vector length * 3
+        #write to both RAM and Cache!
         cpu.storeDouble(address=a[i], value=i)
         cpu.storeDouble(address=b[i], value=2 * i)
         cpu.storeDouble(address=c[i], value=0)
@@ -143,6 +144,7 @@ def MXM(cpu):
     for i in range(dimension):
         for j in range(dimension):
             #instruction count = matrix size * matrix size * 3
+            # write to both RAM and Cache!
             cpu.storeDouble(address=a.item((i,j)), value=val)
             cpu.storeDouble(address=b.item((i,j)), value=2*val)
             cpu.storeDouble(address=c.item((i,j)), value=0)
@@ -191,6 +193,7 @@ def MXMblock(cpu):
     for i in range(dimension):
         for j in range(dimension):
             # instruction count = matrix size * matrix size * 3
+            # write to both RAM and Cache!
             cpu.storeDouble(address=a.item((i,j)), value=val)
             cpu.storeDouble(address=b.item((i,j)), value=2*val)
             cpu.storeDouble(address=c.item((i,j)), value=0)
