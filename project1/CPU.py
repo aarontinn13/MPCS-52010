@@ -20,7 +20,8 @@ class CPU():
 
     def loadDouble(self, address, count=False):
         '''attempts to read values from cache, else loads from RAM'''
-        self.loadcount += 1
+        if count:
+            self.loadcount += 1
         ram = self.ram
         cache = self.cache
         add = self.address
@@ -38,21 +39,10 @@ class CPU():
             cache.setBlock(block, set_index, RAM_index, False)
             return block[offset_index//8+1]
 
-    def getAnswer(self, address):
-        '''attempts to retrieve double from RAM for printing correctness'''
-        ram = self.ram
-        add = self.address
-
-        RAM_index = add.convertByte(add.getRAMIndex(address))
-        byte_index = add.convertByte(add.getOffset(address))
-        byte_index = int(byte_index // 8) + 1
-
-        return ram.get_double(RAM_index, byte_index)
-
     def storeDouble(self, address, value, count=False):
         '''stores values into RAM'''
-
-        self.storecount += 1
+        if count:
+            self.storecount += 1
 
         ram = self.ram
         add = self.address

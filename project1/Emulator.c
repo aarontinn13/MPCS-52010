@@ -1512,7 +1512,7 @@ static PyObject *__pyx_int_8;
 static PyObject *__pyx_int_32;
 static PyObject *__pyx_int_64;
 static PyObject *__pyx_int_100;
-static PyObject *__pyx_int_480;
+static PyObject *__pyx_int_128;
 static PyObject *__pyx_int_65536;
 static PyObject *__pyx_tuple_;
 static PyObject *__pyx_tuple__2;
@@ -7519,7 +7519,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * parser.add_argument('-n', action='store', default=2, type=int, dest='n_way', help='n-way associativity (default: 2 blocks/set)')
  * parser.add_argument('-r', action='store', default='LRU', type=str, dest='replacement', help='replacement policy [FIFO, LRU] (default: LRU)')             # <<<<<<<<<<<<<<
  * parser.add_argument('-a', action='store', default='mxm_block', type=str, dest='algorithm', help='algorithm to test [daxpy, mxm, mxm-block] (default: mxm-block)')
- * parser.add_argument('-d', action='store', default=480, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
+ * parser.add_argument('-d', action='store', default=128, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
  */
   __pyx_tuple__4 = PyTuple_Pack(1, __pyx_kp_s_r); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 23, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__4);
@@ -7529,7 +7529,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * parser.add_argument('-n', action='store', default=2, type=int, dest='n_way', help='n-way associativity (default: 2 blocks/set)')
  * parser.add_argument('-r', action='store', default='LRU', type=str, dest='replacement', help='replacement policy [FIFO, LRU] (default: LRU)')
  * parser.add_argument('-a', action='store', default='mxm_block', type=str, dest='algorithm', help='algorithm to test [daxpy, mxm, mxm-block] (default: mxm-block)')             # <<<<<<<<<<<<<<
- * parser.add_argument('-d', action='store', default=480, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
+ * parser.add_argument('-d', action='store', default=128, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
  * parser.add_argument('-p', action='store_true', default=False, dest='print_',help='enables printing of the value')
  */
   __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_s_a); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 24, __pyx_L1_error)
@@ -7539,7 +7539,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   /* "Emulator.py":25
  * parser.add_argument('-r', action='store', default='LRU', type=str, dest='replacement', help='replacement policy [FIFO, LRU] (default: LRU)')
  * parser.add_argument('-a', action='store', default='mxm_block', type=str, dest='algorithm', help='algorithm to test [daxpy, mxm, mxm-block] (default: mxm-block)')
- * parser.add_argument('-d', action='store', default=480, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')             # <<<<<<<<<<<<<<
+ * parser.add_argument('-d', action='store', default=128, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')             # <<<<<<<<<<<<<<
  * parser.add_argument('-p', action='store_true', default=False, dest='print_',help='enables printing of the value')
  * parser.add_argument('-f', action='store', default=32, type=int, dest='blocking_factor',help='blocking factor of mxm-block (default: 32)')
  */
@@ -7549,7 +7549,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
 
   /* "Emulator.py":26
  * parser.add_argument('-a', action='store', default='mxm_block', type=str, dest='algorithm', help='algorithm to test [daxpy, mxm, mxm-block] (default: mxm-block)')
- * parser.add_argument('-d', action='store', default=480, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
+ * parser.add_argument('-d', action='store', default=128, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
  * parser.add_argument('-p', action='store_true', default=False, dest='print_',help='enables printing of the value')             # <<<<<<<<<<<<<<
  * parser.add_argument('-f', action='store', default=32, type=int, dest='blocking_factor',help='blocking factor of mxm-block (default: 32)')
  * parser.add_argument('-v', action='store', default=3, type=int, dest='d_value',help='random d-value for daxpy algorithm (default: 3)')
@@ -7559,7 +7559,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__7);
 
   /* "Emulator.py":27
- * parser.add_argument('-d', action='store', default=480, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
+ * parser.add_argument('-d', action='store', default=128, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
  * parser.add_argument('-p', action='store_true', default=False, dest='print_',help='enables printing of the value')
  * parser.add_argument('-f', action='store', default=32, type=int, dest='blocking_factor',help='blocking factor of mxm-block (default: 32)')             # <<<<<<<<<<<<<<
  * parser.add_argument('-v', action='store', default=3, type=int, dest='d_value',help='random d-value for daxpy algorithm (default: 3)')
@@ -7700,7 +7700,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitGlobals(void) {
   __pyx_int_32 = PyInt_FromLong(32); if (unlikely(!__pyx_int_32)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_64 = PyInt_FromLong(64); if (unlikely(!__pyx_int_64)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_100 = PyInt_FromLong(100); if (unlikely(!__pyx_int_100)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __pyx_int_480 = PyInt_FromLong(480); if (unlikely(!__pyx_int_480)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_int_128 = PyInt_FromLong(128); if (unlikely(!__pyx_int_128)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_65536 = PyInt_FromLong(65536L); if (unlikely(!__pyx_int_65536)) __PYX_ERR(0, 1, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
@@ -8154,7 +8154,7 @@ if (!__Pyx_RefNanny) {
  * parser.add_argument('-n', action='store', default=2, type=int, dest='n_way', help='n-way associativity (default: 2 blocks/set)')
  * parser.add_argument('-r', action='store', default='LRU', type=str, dest='replacement', help='replacement policy [FIFO, LRU] (default: LRU)')             # <<<<<<<<<<<<<<
  * parser.add_argument('-a', action='store', default='mxm_block', type=str, dest='algorithm', help='algorithm to test [daxpy, mxm, mxm-block] (default: mxm-block)')
- * parser.add_argument('-d', action='store', default=480, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
+ * parser.add_argument('-d', action='store', default=128, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
  */
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_parser); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 23, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -8178,7 +8178,7 @@ if (!__Pyx_RefNanny) {
  * parser.add_argument('-n', action='store', default=2, type=int, dest='n_way', help='n-way associativity (default: 2 blocks/set)')
  * parser.add_argument('-r', action='store', default='LRU', type=str, dest='replacement', help='replacement policy [FIFO, LRU] (default: LRU)')
  * parser.add_argument('-a', action='store', default='mxm_block', type=str, dest='algorithm', help='algorithm to test [daxpy, mxm, mxm-block] (default: mxm-block)')             # <<<<<<<<<<<<<<
- * parser.add_argument('-d', action='store', default=480, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
+ * parser.add_argument('-d', action='store', default=128, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
  * parser.add_argument('-p', action='store_true', default=False, dest='print_',help='enables printing of the value')
  */
   __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_parser); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 24, __pyx_L1_error)
@@ -8202,7 +8202,7 @@ if (!__Pyx_RefNanny) {
   /* "Emulator.py":25
  * parser.add_argument('-r', action='store', default='LRU', type=str, dest='replacement', help='replacement policy [FIFO, LRU] (default: LRU)')
  * parser.add_argument('-a', action='store', default='mxm_block', type=str, dest='algorithm', help='algorithm to test [daxpy, mxm, mxm-block] (default: mxm-block)')
- * parser.add_argument('-d', action='store', default=480, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')             # <<<<<<<<<<<<<<
+ * parser.add_argument('-d', action='store', default=128, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')             # <<<<<<<<<<<<<<
  * parser.add_argument('-p', action='store_true', default=False, dest='print_',help='enables printing of the value')
  * parser.add_argument('-f', action='store', default=32, type=int, dest='blocking_factor',help='blocking factor of mxm-block (default: 32)')
  */
@@ -8214,7 +8214,7 @@ if (!__Pyx_RefNanny) {
   __pyx_t_1 = __Pyx_PyDict_NewPresized(5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 25, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_action, __pyx_n_s_store) < 0) __PYX_ERR(0, 25, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_default, __pyx_int_480) < 0) __PYX_ERR(0, 25, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_default, __pyx_int_128) < 0) __PYX_ERR(0, 25, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_type, ((PyObject *)(&PyInt_Type))) < 0) __PYX_ERR(0, 25, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dest, __pyx_n_s_dimension) < 0) __PYX_ERR(0, 25, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_help, __pyx_kp_s_dimension_of_the_vector_or_matri) < 0) __PYX_ERR(0, 25, __pyx_L1_error)
@@ -8226,7 +8226,7 @@ if (!__Pyx_RefNanny) {
 
   /* "Emulator.py":26
  * parser.add_argument('-a', action='store', default='mxm_block', type=str, dest='algorithm', help='algorithm to test [daxpy, mxm, mxm-block] (default: mxm-block)')
- * parser.add_argument('-d', action='store', default=480, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
+ * parser.add_argument('-d', action='store', default=128, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
  * parser.add_argument('-p', action='store_true', default=False, dest='print_',help='enables printing of the value')             # <<<<<<<<<<<<<<
  * parser.add_argument('-f', action='store', default=32, type=int, dest='blocking_factor',help='blocking factor of mxm-block (default: 32)')
  * parser.add_argument('-v', action='store', default=3, type=int, dest='d_value',help='random d-value for daxpy algorithm (default: 3)')
@@ -8249,7 +8249,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
   /* "Emulator.py":27
- * parser.add_argument('-d', action='store', default=480, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
+ * parser.add_argument('-d', action='store', default=128, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
  * parser.add_argument('-p', action='store_true', default=False, dest='print_',help='enables printing of the value')
  * parser.add_argument('-f', action='store', default=32, type=int, dest='blocking_factor',help='blocking factor of mxm-block (default: 32)')             # <<<<<<<<<<<<<<
  * parser.add_argument('-v', action='store', default=3, type=int, dest='d_value',help='random d-value for daxpy algorithm (default: 3)')

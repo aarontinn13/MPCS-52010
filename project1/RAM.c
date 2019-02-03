@@ -1245,15 +1245,12 @@ static const char __pyx_k_set_block[] = "set_block";
 static const char __pyx_k_RAM___init[] = "RAM.__init__";
 static const char __pyx_k_block_size[] = "block_size";
 static const char __pyx_k_byte_index[] = "byte_index";
-static const char __pyx_k_get_double[] = "get_double";
 static const char __pyx_k_RAM_get_block[] = "RAM.get_block";
 static const char __pyx_k_RAM_set_block[] = "RAM.set_block";
-static const char __pyx_k_RAM_get_double[] = "RAM.get_double";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static PyObject *__pyx_n_s_RAM;
 static PyObject *__pyx_n_s_RAM___init;
 static PyObject *__pyx_n_s_RAM_get_block;
-static PyObject *__pyx_n_s_RAM_get_double;
 static PyObject *__pyx_n_s_RAM_index;
 static PyObject *__pyx_kp_s_RAM_py;
 static PyObject *__pyx_n_s_RAM_set_block;
@@ -1265,7 +1262,6 @@ static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_n_s_data;
 static PyObject *__pyx_n_s_doc;
 static PyObject *__pyx_n_s_get_block;
-static PyObject *__pyx_n_s_get_double;
 static PyObject *__pyx_n_s_i;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_init;
@@ -1284,16 +1280,13 @@ static PyObject *__pyx_n_s_value;
 static PyObject *__pyx_pf_3RAM_3RAM___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_RAM_size, PyObject *__pyx_v_block_size); /* proto */
 static PyObject *__pyx_pf_3RAM_3RAM_2get_block(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_RAM_index); /* proto */
 static PyObject *__pyx_pf_3RAM_3RAM_4set_block(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_RAM_index, PyObject *__pyx_v_byte_index, PyObject *__pyx_v_value); /* proto */
-static PyObject *__pyx_pf_3RAM_3RAM_6get_double(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_RAM_index, PyObject *__pyx_v_byte_index); /* proto */
 static PyObject *__pyx_int_8;
 static PyObject *__pyx_tuple_;
 static PyObject *__pyx_tuple__3;
 static PyObject *__pyx_tuple__5;
-static PyObject *__pyx_tuple__7;
 static PyObject *__pyx_codeobj__2;
 static PyObject *__pyx_codeobj__4;
 static PyObject *__pyx_codeobj__6;
-static PyObject *__pyx_codeobj__8;
 /* Late includes */
 
 /* "RAM.py":5
@@ -1747,7 +1740,6 @@ static PyObject *__pyx_pf_3RAM_3RAM_4set_block(CYTHON_UNUSED PyObject *__pyx_sel
  *         '''initialize RAM with data'''
  *         self.data[RAM_index][byte_index] = value             # <<<<<<<<<<<<<<
  * 
- *     def get_double(self, RAM_index, byte_index):
  */
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_data); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 14, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -1772,133 +1764,6 @@ static PyObject *__pyx_pf_3RAM_3RAM_4set_block(CYTHON_UNUSED PyObject *__pyx_sel
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_AddTraceback("RAM.RAM.set_block", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "RAM.py":16
- *         self.data[RAM_index][byte_index] = value
- * 
- *     def get_double(self, RAM_index, byte_index):             # <<<<<<<<<<<<<<
- *         '''retrieve the value from RAM for answer'''
- *         return self.data[RAM_index][byte_index]
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_3RAM_3RAM_7get_double(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_3RAM_3RAM_6get_double[] = "retrieve the value from RAM for answer";
-static PyMethodDef __pyx_mdef_3RAM_3RAM_7get_double = {"get_double", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_3RAM_3RAM_7get_double, METH_VARARGS|METH_KEYWORDS, __pyx_doc_3RAM_3RAM_6get_double};
-static PyObject *__pyx_pw_3RAM_3RAM_7get_double(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  PyObject *__pyx_v_self = 0;
-  PyObject *__pyx_v_RAM_index = 0;
-  PyObject *__pyx_v_byte_index = 0;
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("get_double (wrapper)", 0);
-  {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_RAM_index,&__pyx_n_s_byte_index,0};
-    PyObject* values[3] = {0,0,0};
-    if (unlikely(__pyx_kwds)) {
-      Py_ssize_t kw_args;
-      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
-      switch (pos_args) {
-        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
-        CYTHON_FALLTHROUGH;
-        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-        CYTHON_FALLTHROUGH;
-        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-        CYTHON_FALLTHROUGH;
-        case  0: break;
-        default: goto __pyx_L5_argtuple_error;
-      }
-      kw_args = PyDict_Size(__pyx_kwds);
-      switch (pos_args) {
-        case  0:
-        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_self)) != 0)) kw_args--;
-        else goto __pyx_L5_argtuple_error;
-        CYTHON_FALLTHROUGH;
-        case  1:
-        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_RAM_index)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("get_double", 1, 3, 3, 1); __PYX_ERR(0, 16, __pyx_L3_error)
-        }
-        CYTHON_FALLTHROUGH;
-        case  2:
-        if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_byte_index)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("get_double", 1, 3, 3, 2); __PYX_ERR(0, 16, __pyx_L3_error)
-        }
-      }
-      if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "get_double") < 0)) __PYX_ERR(0, 16, __pyx_L3_error)
-      }
-    } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
-      goto __pyx_L5_argtuple_error;
-    } else {
-      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-      values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
-    }
-    __pyx_v_self = values[0];
-    __pyx_v_RAM_index = values[1];
-    __pyx_v_byte_index = values[2];
-  }
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("get_double", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 16, __pyx_L3_error)
-  __pyx_L3_error:;
-  __Pyx_AddTraceback("RAM.RAM.get_double", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_RefNannyFinishContext();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_3RAM_3RAM_6get_double(__pyx_self, __pyx_v_self, __pyx_v_RAM_index, __pyx_v_byte_index);
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_3RAM_3RAM_6get_double(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_RAM_index, PyObject *__pyx_v_byte_index) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  __Pyx_RefNannySetupContext("get_double", 0);
-
-  /* "RAM.py":18
- *     def get_double(self, RAM_index, byte_index):
- *         '''retrieve the value from RAM for answer'''
- *         return self.data[RAM_index][byte_index]             # <<<<<<<<<<<<<<
- */
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_data); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 18, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_RAM_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 18, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_v_byte_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 18, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* "RAM.py":16
- *         self.data[RAM_index][byte_index] = value
- * 
- *     def get_double(self, RAM_index, byte_index):             # <<<<<<<<<<<<<<
- *         '''retrieve the value from RAM for answer'''
- *         return self.data[RAM_index][byte_index]
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("RAM.RAM.get_double", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1955,7 +1820,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_RAM, __pyx_k_RAM, sizeof(__pyx_k_RAM), 0, 0, 1, 1},
   {&__pyx_n_s_RAM___init, __pyx_k_RAM___init, sizeof(__pyx_k_RAM___init), 0, 0, 1, 1},
   {&__pyx_n_s_RAM_get_block, __pyx_k_RAM_get_block, sizeof(__pyx_k_RAM_get_block), 0, 0, 1, 1},
-  {&__pyx_n_s_RAM_get_double, __pyx_k_RAM_get_double, sizeof(__pyx_k_RAM_get_double), 0, 0, 1, 1},
   {&__pyx_n_s_RAM_index, __pyx_k_RAM_index, sizeof(__pyx_k_RAM_index), 0, 0, 1, 1},
   {&__pyx_kp_s_RAM_py, __pyx_k_RAM_py, sizeof(__pyx_k_RAM_py), 0, 0, 1, 0},
   {&__pyx_n_s_RAM_set_block, __pyx_k_RAM_set_block, sizeof(__pyx_k_RAM_set_block), 0, 0, 1, 1},
@@ -1967,7 +1831,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_data, __pyx_k_data, sizeof(__pyx_k_data), 0, 0, 1, 1},
   {&__pyx_n_s_doc, __pyx_k_doc, sizeof(__pyx_k_doc), 0, 0, 1, 1},
   {&__pyx_n_s_get_block, __pyx_k_get_block, sizeof(__pyx_k_get_block), 0, 0, 1, 1},
-  {&__pyx_n_s_get_double, __pyx_k_get_double, sizeof(__pyx_k_get_double), 0, 0, 1, 1},
   {&__pyx_n_s_i, __pyx_k_i, sizeof(__pyx_k_i), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_init, __pyx_k_init, sizeof(__pyx_k_init), 0, 0, 1, 1},
@@ -2031,18 +1894,6 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
   __pyx_codeobj__6 = (PyObject*)__Pyx_PyCode_New(4, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_RAM_py, __pyx_n_s_set_block, 12, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__6)) __PYX_ERR(0, 12, __pyx_L1_error)
-
-  /* "RAM.py":16
- *         self.data[RAM_index][byte_index] = value
- * 
- *     def get_double(self, RAM_index, byte_index):             # <<<<<<<<<<<<<<
- *         '''retrieve the value from RAM for answer'''
- *         return self.data[RAM_index][byte_index]
- */
-  __pyx_tuple__7 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_RAM_index, __pyx_n_s_byte_index); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 16, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__7);
-  __Pyx_GIVEREF(__pyx_tuple__7);
-  __pyx_codeobj__8 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__7, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_RAM_py, __pyx_n_s_get_double, 16, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__8)) __PYX_ERR(0, 16, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -2384,18 +2235,6 @@ if (!__Pyx_RefNanny) {
   __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3RAM_3RAM_5set_block, 0, __pyx_n_s_RAM_set_block, NULL, __pyx_n_s_RAM, __pyx_d, ((PyObject *)__pyx_codeobj__6)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_set_block, __pyx_t_1) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-
-  /* "RAM.py":16
- *         self.data[RAM_index][byte_index] = value
- * 
- *     def get_double(self, RAM_index, byte_index):             # <<<<<<<<<<<<<<
- *         '''retrieve the value from RAM for answer'''
- *         return self.data[RAM_index][byte_index]
- */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3RAM_3RAM_7get_double, 0, __pyx_n_s_RAM_get_double, NULL, __pyx_n_s_RAM, __pyx_d, ((PyObject *)__pyx_codeobj__8)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 16, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_get_double, __pyx_t_1) < 0) __PYX_ERR(0, 16, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "RAM.py":3

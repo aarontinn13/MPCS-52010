@@ -13,6 +13,3 @@ class RAM():
         '''initialize RAM with data'''
         self.data[RAM_index][byte_index] = value
 
-    def get_double(self, RAM_index, byte_index):
-        '''retrieve the value from RAM for answer'''
-        return self.data[RAM_index][byte_index]
