@@ -1,7 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b3a9912b-9e10-4730-9dae-c23d3218e1e1" name="Default" comment="" />
+    <list default="true" id="b3a9912b-9e10-4730-9dae-c23d3218e1e1" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/project1/Address.c" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/project1/Address.cpython-37m-x86_64-linux-gnu.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/project1/CPU.c" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/project1/CPU.cpython-37m-x86_64-linux-gnu.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/project1/Cache.c" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/project1/Cache.cpython-37m-x86_64-linux-gnu.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/project1/Emulator.c" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/project1/Emulator.cpython-37m-x86_64-linux-gnu.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/project1/RAM.c" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/project1/RAM.cpython-37m-x86_64-linux-gnu.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/project1/build/temp.linux-x86_64-3.7/Emulator.o" afterPath="$PROJECT_DIR$/project1/build/temp.linux-x86_64-3.7/Emulator.o" />
+      <change beforePath="$PROJECT_DIR$/project1/testing/Address.cpython-37m-x86_64-linux-gnu.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/project1/testing/CPU.cpython-37m-x86_64-linux-gnu.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/project1/testing/Cache.cpython-37m-x86_64-linux-gnu.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/project1/testing/Emulator.cpython-37m-x86_64-linux-gnu.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/project1/testing/RAM.cpython-37m-x86_64-linux-gnu.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/project1/testing/main.py" afterPath="" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,7 +33,7 @@
       <file leaf-file-name="CPU.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/project1/CPU.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1156">
+            <state relative-caret-position="1122">
               <caret line="68" column="46" lean-forward="false" selection-start-line="68" selection-start-column="46" selection-end-line="68" selection-end-column="46" />
               <folding>
                 <element signature="e#0#27#0" expanded="true" />
@@ -36,8 +55,8 @@
       <file leaf-file-name="Emulator.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/project1/Emulator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="117" column="0" lean-forward="false" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
+            <state relative-caret-position="799">
+              <caret line="47" column="32" lean-forward="false" selection-start-line="47" selection-start-column="32" selection-end-line="47" selection-end-column="32" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -72,11 +91,11 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="52" />
-    <option name="y" value="32" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="2377" />
+    <option name="y" value="-4" />
     <option name="width" value="934" />
-    <option name="height" value="1048" />
+    <option name="height" value="1079" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -93,6 +112,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -105,12 +126,16 @@
               <item name="MPCS-52010" type="462c0819:PsiDirectoryNode" />
               <item name="project1" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="MPCS-52010" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MPCS-52010" type="462c0819:PsiDirectoryNode" />
+              <item name="project1" type="462c0819:PsiDirectoryNode" />
+              <item name="testing" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -254,9 +279,9 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="52" y="32" width="934" height="1048" extended-state="0" />
+    <frame x="1969" y="-4" width="1871" height="1084" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27087796" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20897916" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32924336" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -657,7 +682,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/project1/CPU.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1156">
+        <state relative-caret-position="1122">
           <caret line="68" column="46" lean-forward="false" selection-start-line="68" selection-start-column="46" selection-end-line="68" selection-end-column="46" />
           <folding>
             <element signature="e#0#27#0" expanded="true" />
@@ -675,8 +700,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/project1/Emulator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="117" column="0" lean-forward="false" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
+        <state relative-caret-position="799">
+          <caret line="47" column="32" lean-forward="false" selection-start-line="47" selection-start-column="32" selection-end-line="47" selection-end-column="32" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>

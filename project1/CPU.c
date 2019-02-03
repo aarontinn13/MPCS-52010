@@ -2887,7 +2887,7 @@ static PyObject *__pyx_pf_3CPU_3CPU_6storeDouble(CYTHON_UNUSED PyObject *__pyx_s
  *         ram.set_block(RAM_index, byte_index, value)                                                                     # write the info into RAM
  *         block = ram.get_block(RAM_index)             # <<<<<<<<<<<<<<
  * 
- *         if cache.getBlock(set_index, RAM_index):                                                                        # if this block is in the cache
+ *         if cache.getBlock(set_index, RAM_index):                                                                  # if this block is in the cache
  */
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_ram, __pyx_n_s_get_block); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 67, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -2912,7 +2912,7 @@ static PyObject *__pyx_pf_3CPU_3CPU_6storeDouble(CYTHON_UNUSED PyObject *__pyx_s
   /* "CPU.py":69
  *         block = ram.get_block(RAM_index)
  * 
- *         if cache.getBlock(set_index, RAM_index):                                                                        # if this block is in the cache             # <<<<<<<<<<<<<<
+ *         if cache.getBlock(set_index, RAM_index):                                                                  # if this block is in the cache             # <<<<<<<<<<<<<<
  *             cache.setBlock(block, set_index, RAM_index, True)                                                           # write allocate, copy to both RAM and update cache
  *         else:
  */
@@ -2969,7 +2969,7 @@ static PyObject *__pyx_pf_3CPU_3CPU_6storeDouble(CYTHON_UNUSED PyObject *__pyx_s
 
     /* "CPU.py":70
  * 
- *         if cache.getBlock(set_index, RAM_index):                                                                        # if this block is in the cache
+ *         if cache.getBlock(set_index, RAM_index):                                                                  # if this block is in the cache
  *             cache.setBlock(block, set_index, RAM_index, True)                                                           # write allocate, copy to both RAM and update cache             # <<<<<<<<<<<<<<
  *         else:
  *             cache.setBlock(block, set_index, RAM_index, False)
@@ -3032,7 +3032,7 @@ static PyObject *__pyx_pf_3CPU_3CPU_6storeDouble(CYTHON_UNUSED PyObject *__pyx_s
     /* "CPU.py":69
  *         block = ram.get_block(RAM_index)
  * 
- *         if cache.getBlock(set_index, RAM_index):                                                                        # if this block is in the cache             # <<<<<<<<<<<<<<
+ *         if cache.getBlock(set_index, RAM_index):                                                                  # if this block is in the cache             # <<<<<<<<<<<<<<
  *             cache.setBlock(block, set_index, RAM_index, True)                                                           # write allocate, copy to both RAM and update cache
  *         else:
  */

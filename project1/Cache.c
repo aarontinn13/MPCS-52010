@@ -2348,7 +2348,7 @@ static PyObject *__pyx_pf_5Cache_5Cache_4getBlock(CYTHON_UNUSED PyObject *__pyx_
   /* "Cache.py":37
  *         ''' given a full address, will attempt to check if the block in question is in the cache when writing'''        # find the ram_index with the address
  * 
- *         if not self.cache_data[set_index]:                                                                              # if the set is empty, this is a compulsory miss             # <<<<<<<<<<<<<<
+ *         if not self.cache_data[set_index]:                                                                                         # if the set is empty, this is a compulsory miss             # <<<<<<<<<<<<<<
  *             self.write_miss += 1
  *             return False
  */
@@ -2364,7 +2364,7 @@ static PyObject *__pyx_pf_5Cache_5Cache_4getBlock(CYTHON_UNUSED PyObject *__pyx_
 
     /* "Cache.py":38
  * 
- *         if not self.cache_data[set_index]:                                                                              # if the set is empty, this is a compulsory miss
+ *         if not self.cache_data[set_index]:                                                                                         # if the set is empty, this is a compulsory miss
  *             self.write_miss += 1             # <<<<<<<<<<<<<<
  *             return False
  *         else:                                                                                                           # set has a block(s) in it!
@@ -2378,7 +2378,7 @@ static PyObject *__pyx_pf_5Cache_5Cache_4getBlock(CYTHON_UNUSED PyObject *__pyx_
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
     /* "Cache.py":39
- *         if not self.cache_data[set_index]:                                                                              # if the set is empty, this is a compulsory miss
+ *         if not self.cache_data[set_index]:                                                                                         # if the set is empty, this is a compulsory miss
  *             self.write_miss += 1
  *             return False             # <<<<<<<<<<<<<<
  *         else:                                                                                                           # set has a block(s) in it!
@@ -2392,7 +2392,7 @@ static PyObject *__pyx_pf_5Cache_5Cache_4getBlock(CYTHON_UNUSED PyObject *__pyx_
     /* "Cache.py":37
  *         ''' given a full address, will attempt to check if the block in question is in the cache when writing'''        # find the ram_index with the address
  * 
- *         if not self.cache_data[set_index]:                                                                              # if the set is empty, this is a compulsory miss             # <<<<<<<<<<<<<<
+ *         if not self.cache_data[set_index]:                                                                                         # if the set is empty, this is a compulsory miss             # <<<<<<<<<<<<<<
  *             self.write_miss += 1
  *             return False
  */
