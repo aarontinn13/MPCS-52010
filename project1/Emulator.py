@@ -183,7 +183,7 @@ def MXMblock(cpu):
             cpu.storeDouble(address=b.item((i,j)), value=2*val)
             cpu.storeDouble(address=c.item((i,j)), value=0)
             val += 1
-            
+
     iteration = 0
     for i in range(0,dimension,blocking_factor):
         for j in range(0,dimension,blocking_factor):
