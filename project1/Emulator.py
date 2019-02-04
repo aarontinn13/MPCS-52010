@@ -19,7 +19,7 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument('-c', action='store', default=65536, type=int, dest='cache_size',help='size of the cache (default: 65,536 Bytes)')
 parser.add_argument('-b', action='store', default=64, type=int, dest='block_size', help='size of a block (default: 64 Bytes)')
-parser.add_argument('-n', action='store', default=1024, type=int, dest='n_way', help='n-way associativity (default: 2 blocks/set)')
+parser.add_argument('-n', action='store', default=2, type=int, dest='n_way', help='n-way associativity (default: 2 blocks/set)')
 parser.add_argument('-r', action='store', default='LRU', type=str, dest='replacement', help='replacement policy [FIFO, LRU, Random] (default: LRU)')
 parser.add_argument('-a', action='store', default='mxm_block', type=str, dest='algorithm', help='algorithm to test [daxpy, mxm, mxm-block] (default: mxm-block)')
 parser.add_argument('-d', action='store', default=480, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
