@@ -59,7 +59,7 @@ class Cache():
                     if self.replacement == 'LRU':                                                                       # need to pull out the block and reinsert to back if this is LRU
                         self.cache_data[set_index].append(self.cache_data[set_index].pop(i))
 
-        else:                                                                                                           # write miss
+        else:                                                                                                           # write miss or read miss
             if len(self.cache_data[set_index]) < self.associativity:                                                    # the set is not full, append block to the end of the index
                 self.cache_data[set_index].append(block)
             else:                                                                                                       # cache is full, we need to evict someone

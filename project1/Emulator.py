@@ -19,8 +19,8 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument('-c', action='store', default=65536, type=int, dest='cache_size',help='size of the cache (default: 65,536 Bytes)')
 parser.add_argument('-b', action='store', default=64, type=int, dest='block_size', help='size of a block (default: 64 Bytes)')
-parser.add_argument('-n', action='store', default=2, type=int, dest='n_way', help='n-way associativity (default: 2 blocks/set)')
-parser.add_argument('-r', action='store', default='LRU', type=str, dest='replacement', help='replacement policy [FIFO, LRU] (default: LRU)')
+parser.add_argument('-n', action='store', default=1024, type=int, dest='n_way', help='n-way associativity (default: 2 blocks/set)')
+parser.add_argument('-r', action='store', default='LRU', type=str, dest='replacement', help='replacement policy [FIFO, LRU, Random] (default: LRU)')
 parser.add_argument('-a', action='store', default='mxm_block', type=str, dest='algorithm', help='algorithm to test [daxpy, mxm, mxm-block] (default: mxm-block)')
 parser.add_argument('-d', action='store', default=480, type=int, dest='dimension', help='dimension of the vector or matrix (default: 480 floats)')
 parser.add_argument('-p', action='store_true', default=False, dest='print_',help='enables printing of the value')
@@ -183,8 +183,8 @@ def MXMblock(cpu):
             cpu.storeDouble(address=b.item((i,j)), value=2*val)
             cpu.storeDouble(address=c.item((i,j)), value=0)
             val += 1
-
-
+            
+    iteration = 0
     for i in range(0,dimension,blocking_factor):
         for j in range(0,dimension,blocking_factor):
 
@@ -203,6 +203,8 @@ def MXMblock(cpu):
                             register2 = cpu.loadDouble(address=Bsub[z, y], count=True)
                             register3 = cpu.multDouble(register1, register2)
                             register0 = cpu.addDouble(register3, register0)
+                            print(iteration)
+                            iteration += 1
                         cpu.storeDouble(address=Csub[x,y], value=register0, count=True)
 
     #if printing is True
